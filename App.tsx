@@ -1,11 +1,15 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+
+import { ThemeProvider } from '@shopify/restyle';
+
+import { HomeScreen } from './src/screens/HomeScreen/HomeScreen';
+import theme from './src/theme/theme';
 
 function App(): JSX.Element {
   return (
-    <View>
-      <Text>Hello world</Text>
-    </View>
+    <ThemeProvider theme={theme}>
+      <HomeScreen />
+    </ThemeProvider>
   );
 }
 

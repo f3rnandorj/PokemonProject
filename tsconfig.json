@@ -3,9 +3,17 @@
   "compilerOptions": {
     "target": "ES6",
     "strictNullChecks": true,
-    // "baseUrl": "./",
-    // "paths": {
-    //   "@components": ["src/components"],
-    // }
+    "baseUrl": "./",
+    "paths": {
+      "@components": [
+        "src/components"
+      ],
+      "@theme": [
+        "src/theme"
+      ],
+      "@screens": [
+        "src/screens"
+      ],
+    }
   }
 }
