@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+
+import { Text } from '@components';
 
 export function HomeScreen() {
   return (
     <View>
-      <Text>Hello world</Text>
+      <Text preset="headerLarge">Hello world</Text>
     </View>
   );
 }
