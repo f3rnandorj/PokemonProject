@@ -68,9 +68,9 @@ const palette = {
 const theme = createTheme({
   colors: {
     ...palette,
-    primary: palette.white,
-    primaryContrast: palette.black,
-    primaryContrastLight: palette.blackLight,
+    background: palette.white,
+    backgroundContrast: palette.black,
+    backgroundContrastLight: palette.blackLight,
 
     redBar: palette.redDark,
     greenBar: palette.green,
@@ -83,6 +83,7 @@ const theme = createTheme({
     s10: 10,
     s12: 12,
     s16: 16,
+    s20: 20,
     s26: 26,
     s32: 32,
     s40: 40,

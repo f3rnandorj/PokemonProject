@@ -1,4 +1,5 @@
 import React from 'react';
+import { Pressable } from 'react-native';
 
 import Fem from '../../assets/icons/fem.svg';
 import LeftArrow from '../../assets/icons/leftArrow.svg';
@@ -10,10 +11,21 @@ interface IconProps {
   name: IconName;
   width?: number;
   height?: number;
+  onPress: () => void;
 }
 
 export function Icon({ name, height = 25, width = 25 }: IconProps) {
   const SvgIcon = iconName[name];
+
+  function goBack() {
+    //TODO:
+  }
+
+  if (name === 'leftArrowIcon') {
+    <Pressable onPress={goBack}>
+      <SvgIcon width={width} height={height} />
+    </Pressable>;
+  }
 
   return <SvgIcon width={width} height={height} />;
 }
