@@ -54,7 +54,7 @@ type TextVariants =
 const $fontSize: Record<TextVariants, TextStyle> = {
   headerLarge: { fontSize: 36, lineHeight: 43.57 },
   headerMedium: { fontSize: 24, lineHeight: 31.2 },
-  headerSmall: { fontSize: 20, lineHeight: 16 },
+  headerSmall: { fontSize: 20, lineHeight: 24.2 },
   headerCaptionMedium: { fontSize: 16, lineHeight: 28 },
   headerCaptionSmall: { fontSize: 14, lineHeight: 14 },
 
@@ -104,15 +104,15 @@ function getFontFamily(
       return $fontFamily.SFRegular;
 
     default:
-      return $fontFamily.interMedium;
+      return $fontFamily.interRegular;
   }
 }
 
 export const $fontFamily = {
   interBold: 'Inter-Bold',
-  interSemiBold: 'Inter-SemiBold',
-  interMedium: 'Inter-Medium',
-  interRegular: 'Inter-Regular',
+  interMedium: 'Inter-SemiBold',
+  interRegular: 'Inter-Medium',
+  interSemiBold: 'Inter-Regular',
   SFMedium: 'SF-Pro-Display-Medium',
   SFRegular: 'SF-Pro-Display-Regular',
 };

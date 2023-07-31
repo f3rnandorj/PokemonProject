@@ -1,5 +1,9 @@
 import React from 'react';
-import { Pressable } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
+
+import { TouchableOpacityBox, TouchableOpacityBoxProps } from '@components';
+import { useAppTheme } from '@hooks';
+import { ThemeColors } from '@theme';
 
 import Fem from '../../assets/icons/fem.svg';
 import LeftArrow from '../../assets/icons/leftArrow.svg';
@@ -7,27 +11,55 @@ import Masc from '../../assets/icons/masc.svg';
 import Rule from '../../assets/icons/rule.svg';
 import Weight from '../../assets/icons/weight.svg';
 
-interface IconProps {
+interface IconProps extends TouchableOpacityBoxProps {
   name: IconName;
   width?: number;
   height?: number;
-  onPress: () => void;
+  color?: ThemeColors;
 }
 
-export function Icon({ name, height = 25, width = 25 }: IconProps) {
+export function Icon({
+  name,
+  height = 25,
+  width = 25,
+  color = 'backgroundContrast',
+  style,
+  ...touchableOpacityBoxProps
+}: IconProps) {
   const SvgIcon = iconName[name];
 
-  function goBack() {
-    //TODO:
-  }
+  const { colors } = useAppTheme();
 
   if (name === 'leftArrowIcon') {
-    <Pressable onPress={goBack}>
-      <SvgIcon width={width} height={height} />
-    </Pressable>;
+    return (
+      <TouchableOpacityBox
+        style={[
+          {
+            alignSelf: 'flex-start',
+          },
+          style,
+        ]}
+        {...touchableOpacityBoxProps}>
+        <SvgIcon
+          width={width}
+          height={height}
+          style={
+            {
+              color: colors[color],
+            } as StyleProp<ViewStyle>
+          }
+        />
+      </TouchableOpacityBox>
+    );
   }
 
-  return <SvgIcon width={width} height={height} />;
+  return (
+    <SvgIcon
+      width={width}
+      height={height}
+      style={{ color: colors[color] } as StyleProp<ViewStyle>}
+    />
+  );
 }
 
 const iconName = {

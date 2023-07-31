@@ -62,6 +62,7 @@ const palette = {
 
   black: '#303943',
   blackLight: '#303943',
+  gray: '#494949',
   white: '#FFFFFF',
 };
 
@@ -72,12 +73,16 @@ const theme = createTheme({
     backgroundContrast: palette.black,
     backgroundContrastLight: palette.blackLight,
 
+    backgroundHeader: palette.gray,
+
     redBar: palette.redDark,
     greenBar: palette.green,
     mascIcon: palette.blue,
     femIcon: palette.redLight,
   },
   spacing: {
+    ns30: -30,
+    ns26: -26,
     s2: 2,
     s8: 8,
     s10: 10,
