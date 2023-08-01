@@ -11,6 +11,7 @@ module.exports = {
           '@screens': './src/screens',
           '@hooks': './src/hooks',
           '@routes': './src/routes',
+          '@domain': './src/domain',
         },
       },
     ],

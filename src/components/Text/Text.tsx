@@ -48,6 +48,7 @@ type TextVariants =
   | 'paragraphMedium'
   | 'paragraphSmall'
   | 'paragraphCaptionSmall'
+  | 'cardHeader'
   | 'cardMedium'
   | 'cardSmall';
 
@@ -56,14 +57,15 @@ const $fontSize: Record<TextVariants, TextStyle> = {
   headerMedium: { fontSize: 24, lineHeight: 31.2 },
   headerSmall: { fontSize: 20, lineHeight: 24.2 },
   headerCaptionMedium: { fontSize: 16, lineHeight: 28 },
-  headerCaptionSmall: { fontSize: 14, lineHeight: 14 },
+  headerCaptionSmall: { fontSize: 14 },
 
   paragraphLarge: { fontSize: 14, lineHeight: 28 },
   paragraphMedium: { fontSize: 14, lineHeight: 24 },
   paragraphSmall: { fontSize: 14, lineHeight: 16 },
   paragraphCaptionSmall: { fontSize: 10, lineHeight: 12 },
 
-  cardMedium: { fontSize: 12, lineHeight: 28 },
+  cardHeader: { fontSize: 16, lineHeight: 22 },
+  cardMedium: { fontSize: 14, paddingVertical: 2 },
   cardSmall: { fontSize: 8, lineHeight: 28 },
 };
 

@@ -2,11 +2,10 @@ import React from 'react';
 import { Image, ImageBackground, ImageStyle, StyleProp } from 'react-native';
 
 import { Box, BoxProps, Text } from '@components';
+import { useAppSafeArea } from '@hooks';
+import { useAppTheme } from '@hooks';
 
-import pokeball from '../../../../assets/brand/pokeball.png';
-
-import { useAppSafeArea } from './../../../../hooks/useAppSafeArea';
-import { useAppTheme } from './../../../../hooks/useAppTheme';
+import pokeball from '../../../assets/brand/pokeball.png';
 
 export function MainHeader() {
   const { top } = useAppSafeArea();
@@ -41,7 +40,7 @@ export function MainHeader() {
                 uri: 'https://www.vhv.rs/dpng/d/250-2500140_death-clipart-died-ash-ketchum-hd-png-download.png',
               }}
               style={[
-                $imageStyle,
+                $image,
                 {
                   borderColor: colors.background,
                   borderRadius: borderRadii.s14,
@@ -71,7 +70,7 @@ const $box: BoxProps = {
   height: '100%',
 };
 
-const $imageStyle: StyleProp<ImageStyle> = {
+const $image: StyleProp<ImageStyle> = {
   height: 50,
   width: 50,
   position: 'absolute',

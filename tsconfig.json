@@ -20,6 +20,9 @@
       "@routes": [
         "src/routes"
       ],
+      "@domain": [
+        "src/domain"
+      ],
     }
   }
 }
