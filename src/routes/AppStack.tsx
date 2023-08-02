@@ -2,11 +2,11 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { HomeScreen } from '@screens';
+import { HomeScreen, PokemonDetailsScreen } from '@screens';
 
-type AppStackParamList = {
+export type AppStackParamList = {
   HomeScreen: undefined;
-  DetailsScreen: undefined;
+  PokemonDetailsScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -17,8 +17,13 @@ export function AppStack() {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
+        animation: 'none',
       }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen
+        name="PokemonDetailsScreen"
+        component={PokemonDetailsScreen}
+      />
     </Stack.Navigator>
   );
 }

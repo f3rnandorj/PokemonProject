@@ -39,7 +39,7 @@ export const pokemonDataMock: Pokemon[] = [
   {
     id: '6',
     name: 'charizard',
-    types: ['fire', 'flight'],
+    types: ['fire', 'flying'],
     avatarURL:
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png',
   },

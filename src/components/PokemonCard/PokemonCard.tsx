@@ -3,19 +3,27 @@ import { Dimensions } from 'react-native';
 
 import { Pokemon } from '@domain';
 
-import { BoxProps, TouchableOpacityBox } from '@components';
+import {
+  BoxProps,
+  TouchableOpacityBox,
+  TouchableOpacityBoxProps,
+} from '@components';
 import { useAppTheme } from '@hooks';
 import { ThemeColors } from '@theme';
 
 import { PokemonAvatar } from './components/PokemonAvatar';
 import { PokemonInfos } from './components/PokemonInfos';
 
-interface Props {
+interface Props extends TouchableOpacityBoxProps {
   pokemon: Pokemon;
   index: number;
 }
 
-export function PokemonCard({ pokemon, index }: Props) {
+export function PokemonCard({
+  pokemon,
+  index,
+  ...touchableOpacityBoxProps
+}: Props) {
   const { colors, spacing } = useAppTheme();
 
   const screenWidth = Dimensions.get('screen').width;
@@ -37,7 +45,8 @@ export function PokemonCard({ pokemon, index }: Props) {
       style={{
         marginRight: separatorMarginRight,
         backgroundColor: backgroundCardColor,
-      }}>
+      }}
+      {...touchableOpacityBoxProps}>
       <PokemonInfos name={pokemon.name} types={pokemon.types} />
 
       <PokemonAvatar id={pokemon.id} avatarURL={pokemon.avatarURL} />
