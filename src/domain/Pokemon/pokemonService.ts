@@ -2,7 +2,7 @@ import { pokemonApi } from './pokemonApi';
 import { Pokemon } from './types';
 
 async function getListOfPokemon(): Promise<Pokemon[]> {
-  const pokemonList = await pokemonApi.getListOfPokemon();
+  const pokemonList = await pokemonApi.getList();
 
   return pokemonList;
 }

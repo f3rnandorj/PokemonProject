@@ -1,7 +1,7 @@
 import { pokemonDataMock } from './pokemonDataMock';
 import { Pokemon } from './types';
 
-async function getListOfPokemon(): Promise<Pokemon[]> {
+async function getList(): Promise<Pokemon[]> {
   await new Promise(resolve => {
     setTimeout(() => {
       resolve('');
@@ -12,5 +12,5 @@ async function getListOfPokemon(): Promise<Pokemon[]> {
 }
 
 export const pokemonApi = {
-  getListOfPokemon,
+  getList,
 };
