@@ -10,12 +10,15 @@ import {
 interface ScreenProps extends BoxProps {
   scrollable?: boolean;
   canGoBack?: boolean;
+  color?: BoxProps['backgroundColor'];
 }
 
 export function Screen({
   scrollable = false,
   children,
+  color = 'background',
   canGoBack = false,
+  style,
   ...boxProps
 }: ScreenProps) {
   const { colors, spacing } = useAppTheme();
@@ -24,19 +27,23 @@ export function Screen({
   const ScreenContainer = scrollable ? ScrollViewContainer : ViewContainer;
 
   return (
-    <ScreenContainer backgroundColor={colors.background}>
+    <ScreenContainer backgroundColor={colors[color]}>
       {canGoBack && (
         <Icon
           name="leftArrowIcon"
           width={35}
           height={35}
+          color="background"
           style={{ marginLeft: spacing.s16, marginTop: top }}
         />
       )}
       <Box
         flex={1}
         marginHorizontal="s26"
-        style={{ top, bottom }}
+        style={[
+          { marginTop: top, marginBottom: scrollable ? 0 : bottom },
+          style,
+        ]}
         {...boxProps}>
         {children}
       </Box>

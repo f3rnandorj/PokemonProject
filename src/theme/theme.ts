@@ -61,6 +61,7 @@ export const palette = {
   blue: '#6C79DB',
 
   black: '#303943',
+  blackMedium: '#767676',
   blackLight: '#F2F2F2',
   gray: '#494949',
   white: '#FFFFFF',
@@ -71,6 +72,7 @@ const theme = createTheme({
     ...palette,
     background: palette.white,
     backgroundContrast: palette.black,
+    backgroundContrastMedium: palette.blackMedium,
     backgroundContrastLight: palette.blackLight,
 
     backgroundHeader: palette.gray,
@@ -81,10 +83,12 @@ const theme = createTheme({
     femIcon: palette.redLight,
   },
   spacing: {
+    ns40: -40,
     ns30: -30,
     ns28: -28,
     ns26: -26,
     ns12: -12,
+    s0: 0,
     s2: 2,
     s6: 6,
     s8: 8,

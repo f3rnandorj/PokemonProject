@@ -12,6 +12,10 @@ export function ViewContainer({ children, backgroundColor }: Props) {
 
 export function ScrollViewContainer({ children, backgroundColor }: Props) {
   return (
-    <ScrollView style={{ flex: 1, backgroundColor }}>{children}</ScrollView>
+    <ScrollView
+      contentContainerStyle={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor }}>
+      {children}
+    </ScrollView>
   );
 }

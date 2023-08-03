@@ -18,6 +18,7 @@ export function PokemonAvatar({ id, avatarURL }: Props) {
         textAlign="right">
         #{id.padStart(3, '0')}
       </Text>
+
       <Box flex={1} mb="ns28" mr="ns12" flexWrap="wrap">
         <Image
           source={{

@@ -3,14 +3,12 @@ import React from 'react';
 import { Pokemon } from '@domain';
 
 import { Box, Text } from '@components';
-import { useAppTheme } from '@hooks';
-import { ThemeColors } from '@theme';
+
+import { PokemonTypes } from './PokemonTypes';
 
 type Props = Pick<Pokemon, 'name' | 'types'>;
 
 export function PokemonInfos({ name, types }: Props) {
-  const { colors, spacing } = useAppTheme();
-
   return (
     <Box flex={1}>
       <Box flexWrap="wrap" mb="s8">
@@ -19,30 +17,7 @@ export function PokemonInfos({ name, types }: Props) {
         </Text>
       </Box>
 
-      <Box>
-        {types.map((typeName, idx) => {
-          const backgroundTypeColor =
-            colors[`${typeName}Light` as ThemeColors] || colors.normal;
-
-          const marginBottom = idx === 0 ? spacing.s6 : 0;
-
-          return (
-            <Box
-              key={typeName}
-              justifyContent="center"
-              alignItems="center"
-              borderRadius="s24"
-              style={{
-                backgroundColor: backgroundTypeColor,
-                marginBottom,
-              }}>
-              <Text preset="cardMedium" color="backgroundContrastLight" medium>
-                {typeName}
-              </Text>
-            </Box>
-          );
-        })}
-      </Box>
+      <PokemonTypes types={types} />
     </Box>
   );
 }

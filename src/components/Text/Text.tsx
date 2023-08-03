@@ -62,7 +62,7 @@ const $fontSize: Record<TextVariants, TextStyle> = {
   paragraphLarge: { fontSize: 14, lineHeight: 28 },
   paragraphMedium: { fontSize: 14, lineHeight: 24 },
   paragraphSmall: { fontSize: 14, lineHeight: 16 },
-  paragraphCaptionSmall: { fontSize: 10, lineHeight: 12 },
+  paragraphCaptionSmall: { fontSize: 12, lineHeight: 12 },
 
   cardHeader: { fontSize: 16, lineHeight: 22 },
   cardMedium: { fontSize: 14, paddingVertical: 2 },
@@ -99,6 +99,9 @@ function getFontFamily(
   }
 
   switch (true) {
+    case bold:
+      return $fontFamily.interBold;
+
     case medium:
       return $fontFamily.SFMedium;
 
