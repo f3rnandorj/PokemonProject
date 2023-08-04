@@ -14,7 +14,7 @@ export function MainHeader() {
   return (
     <Box {...$wrapper} style={{ marginTop: -top }}>
       <Box {...$box}>
-        <Box justifyContent="center" mt="s16" style={{ paddingTop: top }}>
+        <Box justifyContent="center" mt="s40">
           <Text preset="headerSmall" regular color="background">
             Olá,{' '}
             <Text preset="headerSmall" semiBold color="background">

@@ -54,7 +54,7 @@ type TextVariants =
   | 'cardSmall';
 
 const $fontSize: Record<TextVariants, TextStyle> = {
-  headerLarge: { fontSize: 36, lineHeight: 43.57 },
+  headerLarge: { fontSize: 36 },
   headerMedium: { fontSize: 24, lineHeight: 31.2 },
   headerSmall: { fontSize: 20, lineHeight: 24.2 },
   headerCaptionMedium: { fontSize: 18, lineHeight: 20 },
