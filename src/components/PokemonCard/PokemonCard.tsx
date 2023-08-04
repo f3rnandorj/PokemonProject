@@ -60,6 +60,6 @@ const $wrapper: BoxProps = {
   mb: 's16',
   paddingHorizontal: 's16',
   pt: 's20',
-  pb: 's24',
+  pb: 's22',
   borderRadius: 's14',
 };

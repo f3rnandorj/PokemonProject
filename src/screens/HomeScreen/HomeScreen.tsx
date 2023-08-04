@@ -41,6 +41,7 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
         keyExtractor={item => item.id}
         renderItem={renderItem}
         numColumns={2}
+        showsVerticalScrollIndicator={false}
       />
     </Screen>
   );

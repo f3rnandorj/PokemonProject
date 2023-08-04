@@ -64,6 +64,7 @@ export const palette = {
   blackMedium: '#767676',
   blackLight: '#F2F2F2',
   gray: '#494949',
+  grayLight: '#F4F5F5',
   white: '#FFFFFF',
 };
 
@@ -77,6 +78,7 @@ const theme = createTheme({
 
     backgroundHeader: palette.gray,
 
+    grayBar: palette.grayLight,
     redBar: palette.redDark,
     greenBar: palette.green,
     mascIcon: palette.blue,
@@ -87,6 +89,7 @@ const theme = createTheme({
     ns30: -30,
     ns28: -28,
     ns26: -26,
+    ns16: -16,
     ns12: -12,
     s0: 0,
     s2: 2,
@@ -96,6 +99,7 @@ const theme = createTheme({
     s12: 12,
     s16: 16,
     s20: 20,
+    s22: 22,
     s24: 24,
     s26: 26,
     s32: 32,

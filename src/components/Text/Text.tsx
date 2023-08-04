@@ -17,12 +17,12 @@ export interface TextProps extends SRTextProps {
 }
 
 export function Text({
-  preset = 'paragraphMedium',
   children,
-  bold,
-  semiBold,
-  medium,
-  regular,
+  bold = false,
+  semiBold = false,
+  medium = false,
+  regular = false,
+  preset = 'paragraphMedium',
   style,
   ...sRTextProps
 }: TextProps) {
@@ -31,7 +31,7 @@ export function Text({
   return (
     <SRText
       color="backgroundContrast"
-      style={[$fontSize[preset], { fontFamily }, style]}
+      style={[style, $fontSize[preset], { fontFamily }]}
       {...sRTextProps}>
       {children}
     </SRText>
@@ -45,6 +45,7 @@ type TextVariants =
   | 'headerCaptionMedium'
   | 'headerCaptionSmall'
   | 'paragraphLarge'
+  | 'paragraphMediumDescription'
   | 'paragraphMedium'
   | 'paragraphSmall'
   | 'paragraphCaptionSmall'
@@ -56,10 +57,11 @@ const $fontSize: Record<TextVariants, TextStyle> = {
   headerLarge: { fontSize: 36, lineHeight: 43.57 },
   headerMedium: { fontSize: 24, lineHeight: 31.2 },
   headerSmall: { fontSize: 20, lineHeight: 24.2 },
-  headerCaptionMedium: { fontSize: 16, lineHeight: 28 },
-  headerCaptionSmall: { fontSize: 14 },
+  headerCaptionMedium: { fontSize: 18, lineHeight: 20 },
+  headerCaptionSmall: { fontSize: 16 },
 
-  paragraphLarge: { fontSize: 14, lineHeight: 28 },
+  paragraphLarge: { fontSize: 16 },
+  paragraphMediumDescription: { fontSize: 16, lineHeight: 28 },
   paragraphMedium: { fontSize: 14, lineHeight: 24 },
   paragraphSmall: { fontSize: 14, lineHeight: 16 },
   paragraphCaptionSmall: { fontSize: 12, lineHeight: 12 },
@@ -71,10 +73,10 @@ const $fontSize: Record<TextVariants, TextStyle> = {
 
 function getFontFamily(
   preset: TextVariants,
-  bold?: boolean,
-  medium?: boolean,
-  regular?: boolean,
-  semiBold?: boolean,
+  bold: boolean,
+  semiBold: boolean,
+  medium: boolean,
+  regular: boolean,
 ) {
   if (
     preset === 'headerLarge' ||
@@ -96,28 +98,31 @@ function getFontFamily(
       case regular:
         return $fontFamily.interRegular;
     }
-  }
+  } else {
+    switch (true) {
+      case bold:
+        return $fontFamily.interBold;
 
-  switch (true) {
-    case bold:
-      return $fontFamily.interBold;
+      case semiBold:
+        return $fontFamily.interSemiBold;
 
-    case medium:
-      return $fontFamily.SFMedium;
+      case medium:
+        return $fontFamily.SFMedium;
 
-    case regular:
-      return $fontFamily.SFRegular;
+      case regular:
+        return $fontFamily.SFRegular;
 
-    default:
-      return $fontFamily.interRegular;
+      default:
+        return $fontFamily.interRegular;
+    }
   }
 }
 
 export const $fontFamily = {
   interBold: 'Inter-Bold',
-  interMedium: 'Inter-SemiBold',
+  interMedium: 'Inter-Regular',
   interRegular: 'Inter-Medium',
-  interSemiBold: 'Inter-Regular',
+  interSemiBold: 'Inter-SemiBold',
   SFMedium: 'SF-Pro-Display-Medium',
   SFRegular: 'SF-Pro-Display-Regular',
 };

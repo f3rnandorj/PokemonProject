@@ -22,7 +22,7 @@ export function Screen({
   ...boxProps
 }: ScreenProps) {
   const { colors, spacing } = useAppTheme();
-  const { top, bottom } = useAppSafeArea();
+  const { top } = useAppSafeArea();
 
   const ScreenContainer = scrollable ? ScrollViewContainer : ViewContainer;
 
@@ -40,10 +40,7 @@ export function Screen({
       <Box
         flex={1}
         marginHorizontal="s26"
-        style={[
-          { marginTop: top, marginBottom: scrollable ? 0 : bottom },
-          style,
-        ]}
+        style={[{ marginTop: top }, style]}
         {...boxProps}>
         {children}
       </Box>

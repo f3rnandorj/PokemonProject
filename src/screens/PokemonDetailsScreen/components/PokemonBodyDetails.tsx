@@ -6,7 +6,7 @@ import { Box, BoxProps, Icon, IconName, Text, TextProps } from '@components';
 import { useAppTheme } from '@hooks';
 
 type PokemonBodyDetails = Pick<
-  PokemonDetails['details'],
+  PokemonDetails,
   'height' | 'weight' | 'principalMove'
 > &
   BoxProps;
