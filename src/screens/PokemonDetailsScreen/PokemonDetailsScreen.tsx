@@ -8,7 +8,7 @@ import { ThemeColors } from '@theme';
 import { HeaderPokemonDetails } from './components/HeaderPokemonDetails';
 import { LoadingDetails } from './components/LoadingDetails';
 import { PokemonBodyDetails } from './components/PokemonBodyDetails';
-import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails';
+import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails/PokemonCharacteristicsDetails';
 
 export function PokemonDetailsScreen() {
   const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>();
@@ -51,7 +51,7 @@ export function PokemonDetailsScreen() {
               Descrição
             </Text>
 
-            <Text regular mt="s26">
+            <Text regular mt="s26" textAlign="justify">
               {pokemonDetails?.description}
             </Text>
 
@@ -65,7 +65,7 @@ export function PokemonDetailsScreen() {
               Pontos fortes e fracos
             </Text>
 
-            <Text regular mb="s40">
+            <Text regular mb="s40" textAlign="justify">
               {pokemonDetails?.effectiveness}
             </Text>
           </Box>

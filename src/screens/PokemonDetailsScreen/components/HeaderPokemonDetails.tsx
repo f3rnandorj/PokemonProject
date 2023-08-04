@@ -29,7 +29,7 @@ export function HeaderPokemonDetails({
         </Text>
       </Box>
 
-      <PokemonTypes types={types} isDetailsScreen mt="s10" mb="s26" />
+      <PokemonTypes types={types} isDetailsScreen mt="s10" mb="s22" />
 
       <Image
         source={{
@@ -52,5 +52,5 @@ const $headerTitle: BoxProps = {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  mt: 'ns28',
+  mt: 'ns40',
 };
