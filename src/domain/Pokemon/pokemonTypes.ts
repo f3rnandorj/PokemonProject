@@ -1,4 +1,9 @@
-import { Pokemon } from '../Pokemon/types';
+export interface Pokemon {
+  id: string;
+  name: string;
+  types: string[];
+  avatarURL: string;
+}
 
 export interface PokemonDetails extends Pokemon {
   description: string;

@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
-
 import { TouchableOpacityBox, TouchableOpacityBoxProps } from '@components';
 import { useAppTheme } from '@hooks';
 import { ThemeColors } from '@theme';
@@ -25,33 +23,20 @@ export function Icon({
   height = 25,
   width = 25,
   color = 'backgroundContrast',
-  style,
+  onPress,
   ...touchableOpacityBoxProps
 }: IconProps) {
   const SvgIcon = iconName[name];
 
-  const navigation = useNavigation();
   const { colors } = useAppTheme();
 
-  if (name === 'leftArrowIcon') {
+  if (onPress) {
     return (
-      <TouchableOpacityBox
-        onPress={() => navigation.goBack()}
-        style={[
-          {
-            alignSelf: 'flex-start',
-          },
-          style,
-        ]}
-        {...touchableOpacityBoxProps}>
+      <TouchableOpacityBox onPress={onPress} {...touchableOpacityBoxProps}>
         <SvgIcon
           width={width}
           height={height}
-          style={
-            {
-              color: colors[color],
-            } as StyleProp<ViewStyle>
-          }
+          style={{ color: colors[color] } as StyleProp<ViewStyle>}
         />
       </TouchableOpacityBox>
     );

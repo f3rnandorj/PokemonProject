@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { pokemonDetailsService, PokemonDetails } from '@domain';
+import { PokemonDetails, pokemonService } from '@domain';
 
 import { Box, Screen, Text } from '@components';
 import { ThemeColors } from '@theme';
@@ -22,8 +22,8 @@ export function PokemonDetailsScreen() {
   useEffect(() => {
     setIsLoading(true);
 
-    pokemonDetailsService
-      .getList()
+    pokemonService
+      .getDetailsOfPokemon()
       .then(pokemon => {
         setPokemonDetails(pokemon);
       })

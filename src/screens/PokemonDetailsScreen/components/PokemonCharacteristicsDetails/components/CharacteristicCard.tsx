@@ -6,12 +6,14 @@ import { AnimatedBar } from './AnimatedBar';
 
 export interface CharacteristicCardProps {
   label: string;
+  index: number;
   count?: number;
   mascInfo?: number;
   femInfo?: number;
 }
 export function CharacteristicCard({
   label,
+  index,
   femInfo,
   count,
   mascInfo,
@@ -49,7 +51,7 @@ export function CharacteristicCard({
           </Box>
 
           <Box {...$barStyle} borderRadius="s24" bg="grayBar">
-            <AnimatedBar count={count} />
+            <AnimatedBar count={count} index={index} />
           </Box>
         </>
       )}

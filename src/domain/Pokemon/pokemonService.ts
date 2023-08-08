@@ -1,12 +1,21 @@
+import { PokemonDetails } from '@domain';
+
 import { pokemonApi } from './pokemonApi';
-import { Pokemon } from './types';
+import { Pokemon } from './pokemonTypes';
 
-async function getListOfPokemon(): Promise<Pokemon[]> {
-  const pokemonList = await pokemonApi.getList();
+async function getListOfPokemons(): Promise<Pokemon[]> {
+  const { pokemonDataMock } = await pokemonApi.getList();
 
-  return pokemonList;
+  return pokemonDataMock;
+}
+
+async function getDetailsOfPokemon(): Promise<PokemonDetails> {
+  const { pokemonDetailsDataMock } = await pokemonApi.getList();
+
+  return pokemonDetailsDataMock;
 }
 
 export const pokemonService = {
-  getListOfPokemon,
+  getListOfPokemons,
+  getDetailsOfPokemon,
 };

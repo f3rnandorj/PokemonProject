@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, ImageStyle, StyleProp } from 'react-native';
 
 import { PokemonDetails } from '@domain';
 
@@ -9,6 +9,7 @@ import { useAppTheme } from '@hooks';
 type Props = {
   pokemonName: string;
 } & Pick<PokemonDetails, 'id' | 'types' | 'avatarURL'>;
+
 export function HeaderPokemonDetails({
   pokemonName,
   avatarURL,
@@ -35,13 +36,7 @@ export function HeaderPokemonDetails({
         source={{
           uri: `${avatarURL}`,
         }}
-        style={{
-          zIndex: 1,
-          width: 190,
-          height: 190,
-          marginBottom: spacing.ns40,
-          alignSelf: 'center',
-        }}
+        style={[{ marginBottom: spacing.ns40 }, $imageStyle]}
         resizeMode="contain"
       />
     </>
@@ -53,4 +48,11 @@ const $headerTitle: BoxProps = {
   justifyContent: 'space-between',
   alignItems: 'center',
   mt: 'ns40',
+};
+
+const $imageStyle: StyleProp<ImageStyle> = {
+  zIndex: 1,
+  width: 190,
+  height: 190,
+  alignSelf: 'center',
 };

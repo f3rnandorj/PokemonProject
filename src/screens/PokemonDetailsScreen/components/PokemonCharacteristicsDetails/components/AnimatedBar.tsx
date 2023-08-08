@@ -11,13 +11,14 @@ import { useAppTheme } from '@hooks';
 
 import { CharacteristicCardProps } from './CharacteristicCard';
 
-type Props = Pick<CharacteristicCardProps, 'count'>;
+type Props = Pick<CharacteristicCardProps, 'count' | 'index'>;
 
-export function AnimatedBar({ count }: Props) {
+export function AnimatedBar({ count, index }: Props) {
   const { colors, borderRadii } = useAppTheme();
   let fillWidth = useSharedValue(0);
+
   const percent = 100;
-  const totalBarWidth = 600;
+  const totalBarWidth = (index - 1) * percent;
 
   const animatedStyle = useAnimatedStyle(() => {
     const totalCardWidth =

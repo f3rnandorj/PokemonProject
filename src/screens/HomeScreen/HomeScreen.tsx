@@ -23,7 +23,7 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
 
   useEffect(() => {
     pokemonService
-      .getListOfPokemon()
+      .getListOfPokemons()
       .then(listOfPokemons => setAllPokemons(listOfPokemons))
       .catch(e => console.log(e.message));
   }, []);

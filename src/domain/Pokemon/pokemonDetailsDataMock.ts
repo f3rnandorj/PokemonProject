@@ -1,4 +1,4 @@
-import { PokemonDetails } from './types';
+import { PokemonDetails } from '@domain';
 
 export const pokemonDetailsDataMock: PokemonDetails = {
   id: '1',
