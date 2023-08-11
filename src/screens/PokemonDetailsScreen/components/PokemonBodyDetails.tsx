@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { PokemonDetails } from '@domain';
+import { Pokemon } from '@domain';
 
 import { Box, BoxProps, Icon, IconName, Text, TextProps } from '@components';
 import { useAppTheme } from '@hooks';
 
-type PokemonBodyDetails = Pick<
-  PokemonDetails,
-  'height' | 'weight' | 'principalMove'
-> &
+type PokemonBodyDetails = Pick<Pokemon, 'height' | 'weight' | 'principalMove'> &
   BoxProps;
 
 interface PokemonBodyDetailsCardProps {

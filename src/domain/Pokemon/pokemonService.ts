@@ -1,21 +1,42 @@
-import { PokemonDetails } from '@domain';
-
+import { pokemonAdapter, PokemonDataApi } from './pokemonAdapter';
 import { pokemonApi } from './pokemonApi';
-import { Pokemon } from './pokemonTypes';
+import {
+  Pokemon,
+  PokemonDetailsApi,
+  PokemonSpeciesDetailsApi,
+} from './pokemonTypes';
 
 async function getListOfPokemons(): Promise<Pokemon[]> {
-  const { pokemonDataMock } = await pokemonApi.getList();
+  const pokemonNames = await pokemonApi.getPokemonNamesList();
 
-  return pokemonDataMock;
-}
+  const pokemonDetailsPromises = pokemonApi.getPokemonDetailsList(pokemonNames);
+  const pokemonSpeciesPromises =
+    pokemonApi.getPokemonSpeciesDetailsList(pokemonNames);
 
-async function getDetailsOfPokemon(): Promise<PokemonDetails> {
-  const { pokemonDetailsDataMock } = await pokemonApi.getList();
+  const [pokemonDetails, pokemonSpecies] = await Promise.all([
+    pokemonDetailsPromises,
+    pokemonSpeciesPromises,
+  ]);
 
-  return pokemonDetailsDataMock;
+  const pokemonData: PokemonDataApi[] = [];
+  if (pokemonDetails.length === pokemonSpecies.length) {
+    for (
+      let pokemonIndex = 0;
+      pokemonIndex < pokemonDetails.length;
+      pokemonIndex++
+    ) {
+      const mergedObject: PokemonDetailsApi & PokemonSpeciesDetailsApi = {
+        ...pokemonDetails[pokemonIndex],
+        ...pokemonSpecies[pokemonIndex],
+      };
+
+      pokemonData.push(mergedObject);
+    }
+  }
+
+  return pokemonData.map(pokemon => pokemonAdapter.toPokemon(pokemon));
 }
 
 export const pokemonService = {
   getListOfPokemons,
-  getDetailsOfPokemon,
 };

@@ -5,6 +5,7 @@ import Animated, {
   useAnimatedStyle,
   interpolateColor,
   withTiming,
+  Easing,
 } from 'react-native-reanimated';
 
 import { useAppTheme } from '@hooks';
@@ -47,7 +48,8 @@ export function AnimatedBar({ count, index }: Props) {
 
   useEffect(() => {
     fillWidth.value = withTiming(count!, {
-      duration: 1000,
+      duration: 1500,
+      easing: Easing.in(Easing.poly(3)),
     });
   }, [count, fillWidth]);
 

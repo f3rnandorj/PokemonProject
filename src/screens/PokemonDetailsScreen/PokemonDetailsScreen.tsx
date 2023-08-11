@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-
-import { PokemonDetails, pokemonService } from '@domain';
+import React from 'react';
 
 import { Box, Screen, Text } from '@components';
+import { useSharedData } from '@hooks';
+import { AppScreenProps } from '@routes';
 import { ThemeColors } from '@theme';
 
 import { HeaderPokemonDetails } from './components/HeaderPokemonDetails';
@@ -10,33 +10,27 @@ import { LoadingDetails } from './components/LoadingDetails';
 import { PokemonBodyDetails } from './components/PokemonBodyDetails';
 import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails/PokemonCharacteristicsDetails';
 
-export function PokemonDetailsScreen() {
-  const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>();
-  const [isLoading, setIsLoading] = useState(true);
+export function PokemonDetailsScreen({
+  route,
+}: AppScreenProps<'PokemonDetailsScreen'>) {
+  const { pokemonData, loadingPokemonData } = useSharedData();
+  const { id } = route.params;
 
-  const colorOfPokemon = pokemonDetails?.types[0] as ThemeColors;
+  // console.log(pokemonData[1]);
+
+  const colorOfPokemon = pokemonData[id]?.types[0] as ThemeColors;
   const pokemonName =
-    (pokemonDetails?.name ?? '').charAt(0).toUpperCase() +
-    (pokemonDetails?.name ?? '').slice(1);
+    (pokemonData[id]?.name ?? '').charAt(0).toUpperCase() +
+    (pokemonData[id]?.name ?? '').slice(1);
 
-  useEffect(() => {
-    setIsLoading(true);
-
-    pokemonService
-      .getDetailsOfPokemon()
-      .then(pokemon => {
-        setPokemonDetails(pokemon);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
   return (
     <>
-      {isLoading ? (
+      {loadingPokemonData ? (
         <LoadingDetails />
       ) : (
         <Screen scrollable color={colorOfPokemon} canGoBack>
           <HeaderPokemonDetails
-            {...pokemonDetails!}
+            {...pokemonData[id]}
             pokemonName={pokemonName}
           />
 
@@ -52,13 +46,13 @@ export function PokemonDetailsScreen() {
             </Text>
 
             <Text regular mt="s26" textAlign="justify">
-              {pokemonDetails?.description}
+              {pokemonData[id]?.description}
             </Text>
 
-            <PokemonBodyDetails {...pokemonDetails!} mt="s32" />
+            <PokemonBodyDetails {...pokemonData[id]} mt="s32" />
 
             <PokemonCharacteristicsDetails
-              {...pokemonDetails?.characteristics!}
+              {...pokemonData[id]?.characteristics}
             />
 
             <Text preset="headerCaptionMedium" semiBold mb="s16">
@@ -66,7 +60,7 @@ export function PokemonDetailsScreen() {
             </Text>
 
             <Text regular mb="s40" textAlign="justify">
-              {pokemonDetails?.effectiveness}
+              {pokemonData[id]?.effectiveness}
             </Text>
           </Box>
         </Screen>

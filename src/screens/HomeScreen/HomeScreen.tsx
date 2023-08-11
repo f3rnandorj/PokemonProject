@@ -1,32 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlatList, ListRenderItemInfo, StatusBar } from 'react-native';
 
-import { pokemonService, Pokemon } from '@domain';
+import { Pokemon } from '@domain';
 
 import { Screen, Text, PokemonCard } from '@components';
+import { useSharedData } from '@hooks';
 import { AppScreenProps } from '@routes';
 
 import { MainHeader } from './components/MainHeader';
 
 export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
-  const [allPokemons, setAllPokemons] = useState<Pokemon[]>();
+  const { pokemonData } = useSharedData();
 
   function renderItem({ item, index }: ListRenderItemInfo<Pokemon>) {
     return (
       <PokemonCard
         pokemon={item}
         index={index}
-        onPress={() => navigation.navigate('PokemonDetailsScreen')}
+        onPress={() =>
+          navigation.navigate('PokemonDetailsScreen', {
+            id: Number(item.id) - 1,
+          })
+        }
       />
     );
   }
-
-  useEffect(() => {
-    pokemonService
-      .getListOfPokemons()
-      .then(listOfPokemons => setAllPokemons(listOfPokemons))
-      .catch(e => console.log(e.message));
-  }, []);
 
   return (
     <Screen>
@@ -37,7 +35,7 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
       </Text>
 
       <FlatList
-        data={allPokemons}
+        data={pokemonData}
         keyExtractor={item => item.id}
         renderItem={renderItem}
         numColumns={2}

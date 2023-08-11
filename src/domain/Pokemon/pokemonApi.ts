@@ -1,23 +1,51 @@
-import { PokemonDetails } from '@domain';
+import { api } from '@api';
 
-import { pokemonDataMock } from './pokemonDataMock';
-import { pokemonDetailsDataMock } from './pokemonDetailsDataMock';
-import { Pokemon } from './pokemonTypes';
+import {
+  ListPokemonApi,
+  PokemonDetailsApi,
+  PokemonSpeciesDetailsApi,
+} from './pokemonTypes';
 
-interface ResponseApi {
-  pokemonDataMock: Pokemon[];
-  pokemonDetailsDataMock: PokemonDetails;
+async function getPokemonNamesList(): Promise<ListPokemonApi> {
+  const { data: pokemonNames } = await api.get<ListPokemonApi>('/pokemon');
+
+  return pokemonNames;
 }
-async function getList(): Promise<ResponseApi> {
-  await new Promise(resolve => {
-    setTimeout(() => {
-      resolve('');
-    }, 1000);
-  });
 
-  return { pokemonDataMock, pokemonDetailsDataMock };
+async function getPokemonDetailsList(
+  pokemonNames: ListPokemonApi,
+): Promise<PokemonDetailsApi[]> {
+  const pokemonDetails = await Promise.all(
+    pokemonNames.results.map(async pokemon => {
+      const response = await api.get<PokemonDetailsApi>(
+        `/pokemon/${pokemon.name}`,
+      );
+
+      return response.data;
+    }),
+  );
+
+  return pokemonDetails;
+}
+
+async function getPokemonSpeciesDetailsList(
+  pokemonNames: ListPokemonApi,
+): Promise<PokemonSpeciesDetailsApi[]> {
+  const pokemonSpecies = await Promise.all(
+    pokemonNames.results.map(async pokemon => {
+      const response = await api.get<PokemonSpeciesDetailsApi>(
+        `/pokemon-species/${pokemon.name}`,
+      );
+
+      return response.data;
+    }),
+  );
+
+  return pokemonSpecies;
 }
 
 export const pokemonApi = {
-  getList,
+  getPokemonNamesList,
+  getPokemonDetailsList,
+  getPokemonSpeciesDetailsList,
 };

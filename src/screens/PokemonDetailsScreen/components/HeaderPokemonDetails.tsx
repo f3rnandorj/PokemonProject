@@ -1,14 +1,14 @@
 import React from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
-import { PokemonDetails } from '@domain';
+import { Pokemon } from '@domain';
 
 import { Box, BoxProps, PokemonTypes, Text } from '@components';
 import { useAppTheme } from '@hooks';
 
 type Props = {
   pokemonName: string;
-} & Pick<PokemonDetails, 'id' | 'types' | 'avatarURL'>;
+} & Pick<Pokemon, 'id' | 'types' | 'avatarURL'>;
 
 export function HeaderPokemonDetails({
   pokemonName,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PokemonDetails } from '@domain';
+import { Pokemon } from '@domain';
 
 import { Box, Text } from '@components';
 
@@ -10,11 +10,11 @@ import {
 } from './components/CharacteristicCard';
 
 type Props = Pick<
-  PokemonDetails['characteristics'],
+  Pokemon['characteristics'],
   | 'gender'
-  | 'atkSpeed'
+  | 'specialAtk'
   | 'attack'
-  | 'defSpeed'
+  | 'specialDef'
   | 'defense'
   | 'health'
   | 'speed'
@@ -33,8 +33,8 @@ export function PokemonCharacteristicsDetails(details: Props) {
     { label: 'Saúde', count: details.health },
     { label: 'Ataque', count: details.attack },
     { label: 'Defesa', count: details.defense },
-    { label: 'Vl. Ataque', count: details.atkSpeed },
-    { label: 'Vl. Defesa', count: details.defSpeed },
+    { label: 'Spc. Ataque', count: details.specialAtk },
+    { label: 'Spc. Defesa', count: details.specialDef },
     { label: 'Velocidade', count: details.speed },
     { label: 'Total', count: details.total },
   ];

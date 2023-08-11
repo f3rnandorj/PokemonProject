@@ -6,7 +6,7 @@ import { HomeScreen, PokemonDetailsScreen } from '@screens';
 
 export type AppStackParamList = {
   HomeScreen: undefined;
-  PokemonDetailsScreen: undefined;
+  PokemonDetailsScreen: { id: number };
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
