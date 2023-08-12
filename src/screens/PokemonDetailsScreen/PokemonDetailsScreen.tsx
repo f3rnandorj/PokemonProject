@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import Orientation from 'react-native-orientation-locker';
 
 import { Box, Screen, Text } from '@components';
 import { useSharedData } from '@hooks';
@@ -16,12 +18,18 @@ export function PokemonDetailsScreen({
   const { pokemonData, loadingPokemonData } = useSharedData();
   const { id } = route.params;
 
-  // console.log(pokemonData[1]);
-
   const colorOfPokemon = pokemonData[id]?.types[0] as ThemeColors;
   const pokemonName =
     (pokemonData[id]?.name ?? '').charAt(0).toUpperCase() +
     (pokemonData[id]?.name ?? '').slice(1);
+
+  useEffect(() => {
+    Orientation.lockToPortrait();
+
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
 
   return (
     <>
@@ -32,10 +40,12 @@ export function PokemonDetailsScreen({
           <HeaderPokemonDetails
             {...pokemonData[id]}
             pokemonName={pokemonName}
+            // zIndex={1}
           />
 
           <Box
             flex={1}
+            // zIndex={2}
             bg="background"
             marginHorizontal="ns26"
             paddingHorizontal="s26"

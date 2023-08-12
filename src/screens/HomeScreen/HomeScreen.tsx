@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, ListRenderItemInfo, StatusBar } from 'react-native';
 
 import { Pokemon } from '@domain';
+import Orientation from 'react-native-orientation-locker';
 
 import { Screen, Text, PokemonCard } from '@components';
 import { useSharedData } from '@hooks';
@@ -25,6 +26,14 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
       />
     );
   }
+
+  useEffect(() => {
+    Orientation.lockToPortrait();
+
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
 
   return (
     <Screen>

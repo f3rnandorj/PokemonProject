@@ -24,7 +24,7 @@ export function PokemonTypes({
         const backgroundTypeColor =
           colors[`${typeName}Light` as ThemeColors] || colors.normal;
 
-        const margin = idx === 0 ? spacing.s6 : 0;
+        const margin = idx === 0 ? spacing.s8 : 0;
 
         return (
           <Box
@@ -33,6 +33,7 @@ export function PokemonTypes({
             alignItems="center"
             borderRadius="s24"
             style={[
+              { backgroundColor: backgroundTypeColor },
               isDetailsScreen
                 ? {
                     marginRight: margin,
@@ -42,7 +43,6 @@ export function PokemonTypes({
                 : {
                     marginBottom: margin,
                   },
-              { backgroundColor: backgroundTypeColor },
             ]}>
             <Text preset="cardMedium" color="backgroundContrastLight" medium>
               {typeName}

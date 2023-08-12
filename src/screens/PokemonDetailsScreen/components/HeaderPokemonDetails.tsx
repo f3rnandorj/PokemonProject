@@ -8,14 +8,16 @@ import { useAppTheme } from '@hooks';
 
 type Props = {
   pokemonName: string;
-} & Pick<Pokemon, 'id' | 'types' | 'avatarURL'>;
+} & Pick<Pokemon, 'id' | 'types' | 'avatarURL'> &
+  BoxProps;
 
 export function HeaderPokemonDetails({
   pokemonName,
   avatarURL,
   id,
   types,
-}: Props) {
+}: // ...boxProps
+Props) {
   const { spacing } = useAppTheme();
 
   return (
@@ -52,7 +54,7 @@ const $headerTitle: BoxProps = {
 
 const $imageStyle: StyleProp<ImageStyle> = {
   zIndex: 1,
-  width: 190,
-  height: 190,
+  width: 200,
+  height: 200,
   alignSelf: 'center',
 };

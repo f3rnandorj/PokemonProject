@@ -20,7 +20,7 @@ export function CharacteristicCard({
 }: CharacteristicCardProps) {
   return (
     <Box flexDirection="row" alignItems="center" mb="s8">
-      <Box width={'25%'}>
+      <Box width={'30%'}>
         <Text preset="paragraphLarge" medium>
           {label}
         </Text>
@@ -66,7 +66,7 @@ const $barStyle: BoxProps = {
 };
 
 const $mascAndFemWrapper: BoxProps = {
-  width: '75%',
+  width: '70%',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',

@@ -34,6 +34,7 @@ export function PokemonCard({
 
   const widthCard =
     (screenWidth - marginHorizontal - spaceBetweenCards) / numberOfCardsInRow;
+  const heightCard = widthCard - widthCard / 4;
 
   const backgroundCardColor =
     colors[pokemon.types[0] as ThemeColors] || colors.normal;
@@ -42,6 +43,7 @@ export function PokemonCard({
     <TouchableOpacityBox
       {...$wrapper}
       width={widthCard}
+      minHeight={heightCard}
       style={{
         marginRight: separatorMarginRight,
         backgroundColor: backgroundCardColor,
@@ -57,8 +59,8 @@ export function PokemonCard({
 const $wrapper: BoxProps = {
   flexDirection: 'row',
   justifyContent: 'space-between',
-  mb: 's16',
   paddingHorizontal: 's16',
+  mb: 's16',
   pt: 's20',
   pb: 's22',
   borderRadius: 's14',
