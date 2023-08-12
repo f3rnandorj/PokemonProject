@@ -23,19 +23,14 @@ import {
 } from './complementTypes';
 
 export interface Pokemon {
-  id: string;
+  id: number;
   name: string;
   types: string[];
   avatarURL: string;
-  description: string;
   weight: number;
   height: number;
   principalMove: string;
   characteristics: {
-    gender: {
-      masc: number;
-      fem: number;
-    };
     health: number;
     attack: number;
     defense: number;
@@ -47,6 +42,16 @@ export interface Pokemon {
   effectiveness: string;
 }
 
+export interface PokemonDetails {
+  description: string;
+  characteristicsGender: {
+    gender: {
+      masc: number;
+      fem: number;
+    };
+  };
+}
+
 export interface ListPokemonApi {
   count: number;
   next: string;
@@ -56,7 +61,7 @@ export interface ListPokemonApi {
     url: string;
   }[];
 }
-export interface PokemonDetailsApi {
+export interface PokemonApi {
   abilities: Ability[];
   base_experience: number;
   forms: Form[];
@@ -77,7 +82,7 @@ export interface PokemonDetailsApi {
   weight: number;
 }
 
-export interface PokemonSpeciesDetailsApi {
+export interface PokemonDetailsApi {
   base_happiness: number;
   capture_rate: number;
   color: Color;

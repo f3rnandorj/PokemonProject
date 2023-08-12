@@ -5,8 +5,7 @@ import { Pokemon } from '@domain';
 import { Box, BoxProps, Icon, IconName, Text, TextProps } from '@components';
 import { useAppTheme } from '@hooks';
 
-type PokemonBodyDetails = Pick<Pokemon, 'height' | 'weight' | 'principalMove'> &
-  BoxProps;
+type PokemonBodyDetails = Pick<Pokemon, 'height' | 'weight' | 'principalMove'>;
 
 interface PokemonBodyDetailsCardProps {
   isLast?: boolean;
@@ -19,10 +18,9 @@ export function PokemonBodyDetails({
   height,
   weight,
   principalMove,
-  ...boxProps
 }: PokemonBodyDetails) {
   return (
-    <Box {...$wrapperComponent} {...boxProps}>
+    <Box {...$wrapperComponent}>
       <PokemonBodyDetailsCard
         iconName="weightIcon"
         info={`${String(weight)} kg`}
@@ -70,6 +68,7 @@ const $wrapperComponent: BoxProps = {
   justifyContent: 'space-between',
   flexDirection: 'row',
   marginHorizontal: 's8',
+  mt: 's32',
 };
 
 const $wrapperCard: BoxProps = {

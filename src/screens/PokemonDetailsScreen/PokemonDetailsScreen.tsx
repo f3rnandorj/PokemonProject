@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { usePokemonDetailsData } from '@domain';
 import Orientation from 'react-native-orientation-locker';
 
 import { Box, Screen, Text } from '@components';
@@ -17,6 +18,8 @@ export function PokemonDetailsScreen({
 }: AppScreenProps<'PokemonDetailsScreen'>) {
   const { pokemonData, loadingPokemonData } = useSharedData();
   const { id } = route.params;
+  const { pokemonDetailsData, loadingPokemonDetailsData } =
+    usePokemonDetailsData(id);
 
   const colorOfPokemon = pokemonData[id]?.types[0] as ThemeColors;
   const pokemonName =
@@ -33,19 +36,17 @@ export function PokemonDetailsScreen({
 
   return (
     <>
-      {loadingPokemonData ? (
+      {loadingPokemonData || loadingPokemonDetailsData ? (
         <LoadingDetails />
       ) : (
         <Screen scrollable color={colorOfPokemon} canGoBack>
           <HeaderPokemonDetails
             {...pokemonData[id]}
             pokemonName={pokemonName}
-            // zIndex={1}
           />
 
           <Box
             flex={1}
-            // zIndex={2}
             bg="background"
             marginHorizontal="ns26"
             paddingHorizontal="s26"
@@ -56,12 +57,13 @@ export function PokemonDetailsScreen({
             </Text>
 
             <Text regular mt="s26" textAlign="justify">
-              {pokemonData[id]?.description}
+              {pokemonDetailsData?.description}
             </Text>
 
-            <PokemonBodyDetails {...pokemonData[id]} mt="s32" />
+            <PokemonBodyDetails {...pokemonData[id]} />
 
             <PokemonCharacteristicsDetails
+              {...pokemonDetailsData?.characteristicsGender}
               {...pokemonData[id]?.characteristics}
             />
 

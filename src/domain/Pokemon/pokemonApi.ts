@@ -2,8 +2,9 @@ import { api } from '@api';
 
 import {
   ListPokemonApi,
+  Pokemon,
+  PokemonApi,
   PokemonDetailsApi,
-  PokemonSpeciesDetailsApi,
 } from './pokemonTypes';
 
 async function getPokemonNamesList(): Promise<ListPokemonApi> {
@@ -12,14 +13,12 @@ async function getPokemonNamesList(): Promise<ListPokemonApi> {
   return pokemonNames;
 }
 
-async function getPokemonDetailsList(
+async function getPokemonList(
   pokemonNames: ListPokemonApi,
-): Promise<PokemonDetailsApi[]> {
+): Promise<PokemonApi[]> {
   const pokemonDetails = await Promise.all(
     pokemonNames.results.map(async pokemon => {
-      const response = await api.get<PokemonDetailsApi>(
-        `/pokemon/${pokemon.name}`,
-      );
+      const response = await api.get<PokemonApi>(`/pokemon/${pokemon.name}`);
 
       return response.data;
     }),
@@ -28,24 +27,18 @@ async function getPokemonDetailsList(
   return pokemonDetails;
 }
 
-async function getPokemonSpeciesDetailsList(
-  pokemonNames: ListPokemonApi,
-): Promise<PokemonSpeciesDetailsApi[]> {
-  const pokemonSpecies = await Promise.all(
-    pokemonNames.results.map(async pokemon => {
-      const response = await api.get<PokemonSpeciesDetailsApi>(
-        `/pokemon-species/${pokemon.name}`,
-      );
-
-      return response.data;
-    }),
+async function getPokemonDetails(
+  id: Pokemon['id'],
+): Promise<PokemonDetailsApi> {
+  const { data: pokemonDetails } = await api.get<PokemonDetailsApi>(
+    `/pokemon-species/${id}`,
   );
 
-  return pokemonSpecies;
+  return pokemonDetails;
 }
 
 export const pokemonApi = {
   getPokemonNamesList,
-  getPokemonDetailsList,
-  getPokemonSpeciesDetailsList,
+  getPokemonList,
+  getPokemonDetails,
 };

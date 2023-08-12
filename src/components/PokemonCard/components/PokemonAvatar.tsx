@@ -16,7 +16,7 @@ export function PokemonAvatar({ id, avatarURL }: Props) {
         medium
         mt="ns16"
         textAlign="right">
-        #{id.padStart(3, '0')}
+        #{String(id).padStart(3, '0')}
       </Text>
 
       <Box flex={1} mb="ns30" mr="ns16" flexWrap="wrap">

@@ -7,13 +7,14 @@ import {
 
 import {
   Pokemon,
+  PokemonApi,
+  PokemonDetails,
   PokemonDetailsApi,
-  PokemonSpeciesDetailsApi,
 } from './pokemonTypes';
 
-export type PokemonDataApi = PokemonDetailsApi & PokemonSpeciesDetailsApi;
+function toPokemon(pokemon: PokemonApi): Pokemon {
+  const types = pokemon.types.map(type => type.type.name) as PokemonTypeEnum[];
 
-function toPokemon(pokemon: PokemonDataApi): Pokemon {
   const health = pokemon.stats[0].base_stat;
   const attack = pokemon.stats[1].base_stat;
   const defense = pokemon.stats[2].base_stat;
@@ -23,10 +24,6 @@ function toPokemon(pokemon: PokemonDataApi): Pokemon {
   const total = health + attack + defense + specialAtk + specialDef + speed;
 
   const characteristics: Pokemon['characteristics'] = {
-    gender: {
-      fem: calculateGender(pokemon.gender_rate).fem,
-      masc: calculateGender(pokemon.gender_rate).masc,
-    },
     health,
     attack,
     defense,
@@ -36,21 +33,14 @@ function toPokemon(pokemon: PokemonDataApi): Pokemon {
     total,
   };
 
-  const types = pokemon.types.map(type => type.type.name) as PokemonTypeEnum[];
-
   const pokemonEffectiveness = getPokemonEffectiveness(types);
 
-  const description = adapterDescriptionApiReturn(
-    pokemon.flavor_text_entries[7].flavor_text,
-  );
-
   return {
-    id: String(pokemon.id),
+    id: pokemon.id,
     name: pokemon.name,
     types,
     avatarURL: pokemon.sprites.other['official-artwork'].front_default,
     characteristics,
-    description,
     effectiveness: pokemonEffectiveness[0],
     height: pokemon.height,
     principalMove: pokemon.abilities[0].ability.name,
@@ -58,6 +48,25 @@ function toPokemon(pokemon: PokemonDataApi): Pokemon {
   };
 }
 
+function toPokemonDetails(pokemon: PokemonDetailsApi): PokemonDetails {
+  const characteristicsGender: PokemonDetails['characteristicsGender'] = {
+    gender: {
+      fem: calculateGender(pokemon.gender_rate).fem,
+      masc: calculateGender(pokemon.gender_rate).masc,
+    },
+  };
+
+  const description = adapterDescriptionApiReturn(
+    pokemon.flavor_text_entries[7].flavor_text,
+  );
+
+  return {
+    characteristicsGender,
+    description,
+  };
+}
+
 export const pokemonAdapter = {
   toPokemon,
+  toPokemonDetails,
 };

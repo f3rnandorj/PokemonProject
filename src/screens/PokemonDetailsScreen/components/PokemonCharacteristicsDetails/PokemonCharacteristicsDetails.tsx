@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pokemon } from '@domain';
+import { Pokemon, PokemonDetails } from '@domain';
 
 import { Box, Text } from '@components';
 
@@ -11,7 +11,6 @@ import {
 
 type Props = Pick<
   Pokemon['characteristics'],
-  | 'gender'
   | 'specialAtk'
   | 'attack'
   | 'specialDef'
@@ -19,7 +18,8 @@ type Props = Pick<
   | 'health'
   | 'speed'
   | 'total'
->;
+> &
+  Pick<PokemonDetails['characteristicsGender'], 'gender'>;
 
 type CharacteristicCardInfoProps = Omit<CharacteristicCardProps, 'index'>;
 
@@ -27,8 +27,8 @@ export function PokemonCharacteristicsDetails(details: Props) {
   const characteristicCardInfo: CharacteristicCardInfoProps[] = [
     {
       label: 'Gênero',
-      mascInfo: details.gender.masc,
-      femInfo: details.gender.fem,
+      mascInfo: details?.gender?.masc,
+      femInfo: details?.gender?.fem,
     },
     { label: 'Saúde', count: details.health },
     { label: 'Ataque', count: details.attack },

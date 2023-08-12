@@ -18,6 +18,22 @@ function DataProvider({ children }: AppProviderProps) {
   const { pokemonData, errorToFetchPokemonData, loadingPokemonData } =
     usePokemonData();
 
+  // const pokemonData: PokemonDataApi[] = [];
+  // if (pokemonDetails.length === pokemonSpecies.length) {
+  //   for (
+  //     let pokemonIndex = 0;
+  //     pokemonIndex < pokemonDetails.length;
+  //     pokemonIndex++
+  //   ) {
+  //     const mergedObject: PokemonDetailsApi & PokemonSpeciesDetailsApi = {
+  //       ...pokemonDetails[pokemonIndex],
+  //       ...pokemonSpecies[pokemonIndex],
+  //     };
+
+  //     pokemonData.push(mergedObject);
+  //   }
+  // }
+
   return (
     <DataContext.Provider
       value={{ pokemonData, errorToFetchPokemonData, loadingPokemonData }}>

@@ -8,16 +8,14 @@ import { useAppTheme } from '@hooks';
 
 type Props = {
   pokemonName: string;
-} & Pick<Pokemon, 'id' | 'types' | 'avatarURL'> &
-  BoxProps;
+} & Pick<Pokemon, 'id' | 'types' | 'avatarURL'>;
 
 export function HeaderPokemonDetails({
   pokemonName,
   avatarURL,
   id,
   types,
-}: // ...boxProps
-Props) {
+}: Props) {
   const { spacing } = useAppTheme();
 
   return (
@@ -28,7 +26,7 @@ Props) {
         </Text>
 
         <Text preset="headerSmall" bold color="background" pt="s8">
-          #{id.padStart(3, '0')}
+          #{String(id).padStart(3, '0')}
         </Text>
       </Box>
 
