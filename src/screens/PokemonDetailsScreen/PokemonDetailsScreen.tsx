@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Image, ImageStyle, StyleProp } from 'react-native';
 
 import { usePokemonDetailsData } from '@domain';
 import Orientation from 'react-native-orientation-locker';
@@ -16,15 +17,17 @@ import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristi
 export function PokemonDetailsScreen({
   route,
 }: AppScreenProps<'PokemonDetailsScreen'>) {
-  const { pokemonData, loadingPokemonData } = useSharedData();
+  const { pokemonData } = useSharedData();
   const { id } = route.params;
   const { pokemonDetailsData, loadingPokemonDetailsData } =
     usePokemonDetailsData(id);
 
-  const colorOfPokemon = pokemonData[id]?.types[0] as ThemeColors;
+  const idIndex = id - 1;
+
+  const colorOfPokemon = pokemonData[idIndex]?.types[0] as ThemeColors;
   const pokemonName =
-    (pokemonData[id]?.name ?? '').charAt(0).toUpperCase() +
-    (pokemonData[id]?.name ?? '').slice(1);
+    (pokemonData[idIndex]?.name ?? '').charAt(0).toUpperCase() +
+    (pokemonData[idIndex]?.name ?? '').slice(1);
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -36,12 +39,12 @@ export function PokemonDetailsScreen({
 
   return (
     <>
-      {loadingPokemonData || loadingPokemonDetailsData ? (
+      {loadingPokemonDetailsData ? (
         <LoadingDetails />
       ) : (
         <Screen scrollable color={colorOfPokemon} canGoBack>
           <HeaderPokemonDetails
-            {...pokemonData[id]}
+            {...pokemonData[idIndex]}
             pokemonName={pokemonName}
           />
 
@@ -51,8 +54,17 @@ export function PokemonDetailsScreen({
             marginHorizontal="ns26"
             paddingHorizontal="s26"
             borderTopLeftRadius="s24"
-            borderTopRightRadius="s24">
-            <Text preset="headerMedium" bold mt="s40" color={colorOfPokemon}>
+            borderTopRightRadius="s24"
+            style={{ marginTop: 150 }}>
+            <Image
+              source={{
+                uri: `${pokemonData[idIndex]?.avatarURL}`,
+              }}
+              style={[$imageStyle]}
+              resizeMode="contain"
+            />
+
+            <Text preset="headerMedium" bold color={colorOfPokemon}>
               Descrição
             </Text>
 
@@ -60,11 +72,11 @@ export function PokemonDetailsScreen({
               {pokemonDetailsData?.description}
             </Text>
 
-            <PokemonBodyDetails {...pokemonData[id]} />
+            <PokemonBodyDetails {...pokemonData[idIndex]} />
 
             <PokemonCharacteristicsDetails
               {...pokemonDetailsData?.characteristicsGender}
-              {...pokemonData[id]?.characteristics}
+              {...pokemonData[idIndex]?.characteristics}
             />
 
             <Text preset="headerCaptionMedium" semiBold mb="s16">
@@ -72,7 +84,7 @@ export function PokemonDetailsScreen({
             </Text>
 
             <Text regular mb="s40" textAlign="justify">
-              {pokemonData[id]?.effectiveness}
+              {pokemonData[idIndex]?.effectiveness}
             </Text>
           </Box>
         </Screen>
@@ -80,3 +92,11 @@ export function PokemonDetailsScreen({
     </>
   );
 }
+
+const $imageStyle: StyleProp<ImageStyle> = {
+  zIndex: 1,
+  width: 200,
+  height: 200,
+  alignSelf: 'center',
+  marginTop: -150,
+};

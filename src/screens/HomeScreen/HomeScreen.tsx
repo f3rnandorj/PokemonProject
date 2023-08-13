@@ -4,9 +4,11 @@ import { FlatList, ListRenderItemInfo, StatusBar } from 'react-native';
 import { Pokemon } from '@domain';
 import Orientation from 'react-native-orientation-locker';
 
-import { Screen, Text, PokemonCard } from '@components';
+import { Screen, Text, PokemonCard, Box } from '@components';
 import { useSharedData } from '@hooks';
 import { AppScreenProps } from '@routes';
+
+import PokemonLogo from '../../assets/brand/pokemonLogo.svg';
 
 import { MainHeader } from './components/MainHeader';
 
@@ -20,7 +22,7 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
         index={index}
         onPress={() =>
           navigation.navigate('PokemonDetailsScreen', {
-            id: Number(item.id) - 1,
+            id: item.id,
           })
         }
       />
@@ -39,17 +41,32 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
     <Screen>
       <StatusBar backgroundColor="transparent" translucent />
       <MainHeader />
-      <Text preset="headerMedium" semiBold mt="s40" mb="s40">
-        Qual pokémon você{'\n'}escolheria?
-      </Text>
 
       <FlatList
         data={pokemonData}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.name}
         renderItem={renderItem}
         numColumns={2}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<HeaderList />}
+        ListFooterComponent={<FooterComponent />}
       />
     </Screen>
+  );
+}
+
+function HeaderList() {
+  return (
+    <Text preset="headerMedium" semiBold mt="s40" mb="s40">
+      Qual pokémon você{'\n'}escolheria?
+    </Text>
+  );
+}
+
+function FooterComponent() {
+  return (
+    <Box alignItems="center" marginVertical="s16">
+      <PokemonLogo />
+    </Box>
   );
 }

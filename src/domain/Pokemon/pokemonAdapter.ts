@@ -1,4 +1,5 @@
 import {
+  adapterBodyDetails,
   adapterDescriptionApiReturn,
   calculateGender,
   getPokemonEffectiveness,
@@ -42,9 +43,9 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
     avatarURL: pokemon.sprites.other['official-artwork'].front_default,
     characteristics,
     effectiveness: pokemonEffectiveness[0],
-    height: pokemon.height,
+    height: adapterBodyDetails.transferHeightToMeter(pokemon.height),
+    weight: adapterBodyDetails.transferWeightToKg(pokemon.weight),
     principalMove: pokemon.abilities[0].ability.name,
-    weight: pokemon.weight,
   };
 }
 

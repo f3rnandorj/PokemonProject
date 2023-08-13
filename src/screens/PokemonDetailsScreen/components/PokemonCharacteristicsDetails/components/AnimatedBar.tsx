@@ -23,12 +23,12 @@ export function AnimatedBar({ count, index }: Props) {
 
   const animatedStyle = useAnimatedStyle(() => {
     const totalCardWidth =
-      count! > 100
+      count! > 101
         ? (fillWidth.value / totalBarWidth) * percent
         : fillWidth.value;
 
     const barColor =
-      totalCardWidth >= 50 && totalCardWidth <= 100
+      totalCardWidth >= 50 && totalCardWidth <= 101
         ? colors.greenBar
         : colors.redBar;
 
