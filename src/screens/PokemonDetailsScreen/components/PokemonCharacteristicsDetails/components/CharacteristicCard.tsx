@@ -8,11 +8,13 @@ export interface CharacteristicCardProps {
   label: string;
   index: number;
   count?: number;
+  isTotalCardDetails?: boolean;
 }
 export function CharacteristicCard({
   label,
   index,
   count,
+  isTotalCardDetails,
 }: CharacteristicCardProps) {
   return (
     <Box flexDirection="row" alignItems="center" mb="s8">
@@ -27,14 +29,18 @@ export function CharacteristicCard({
       </Box>
 
       <Box {...$barStyle} borderRadius="s24" bg="grayBar">
-        <AnimatedBar count={count} index={index} />
+        <AnimatedBar
+          count={count}
+          index={index}
+          isTotalCardDetails={isTotalCardDetails}
+        />
       </Box>
     </Box>
   );
 }
 
 const $barStyle: BoxProps = {
-  height: 4,
+  height: 5,
   width: '60%',
   alignSelf: 'center',
 };

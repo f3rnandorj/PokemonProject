@@ -13,9 +13,6 @@ export function CharacteristicGenderCard({
   femInfo,
   mascInfo,
 }: CharacteristicGenderCardProps) {
-  console.log({ femInfo });
-  console.log({ mascInfo });
-
   return (
     <Box flexDirection="row" alignItems="center" mb="s8">
       <Box width={'30%'}>

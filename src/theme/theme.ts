@@ -59,6 +59,8 @@ export const palette = {
   redLight: '#F0729F',
   green: '#48D0B0',
   blue: '#6C79DB',
+  purple: '#A552CC',
+  yellow: '#FFFF00',
 
   black: '#303943',
   blackMedium: '#767676',
@@ -81,6 +83,9 @@ const theme = createTheme({
     grayBar: palette.grayLight,
     redBar: palette.redDark,
     greenBar: palette.green,
+    purpleBar: palette.purple,
+    blueBar: palette.blue,
+    yellowBar: palette.yellow,
     mascIcon: palette.blue,
     femIcon: palette.redLight,
   },

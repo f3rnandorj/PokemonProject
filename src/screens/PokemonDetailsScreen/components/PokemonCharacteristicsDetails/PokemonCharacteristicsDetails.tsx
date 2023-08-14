@@ -52,8 +52,14 @@ export function PokemonCharacteristicsDetails(details: Props) {
         </Text>
 
         <CharacteristicGenderCard {...characteristicGenderCardInfo} />
+
         {characteristicCardInfo.map((card, indexCard) => (
-          <CharacteristicCard key={card.label} index={indexCard} {...card} />
+          <CharacteristicCard
+            key={card.label}
+            index={indexCard}
+            isTotalCardDetails={characteristicCardInfo.length - 1 === indexCard}
+            {...card}
+          />
         ))}
       </Box>
     </>
