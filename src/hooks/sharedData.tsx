@@ -6,6 +6,7 @@ interface AuthContextData {
   pokemonData: Pokemon[];
   errorToFetchPokemonData: boolean | null;
   loadingPokemonData: boolean;
+  fetchNextPage: () => Promise<void>;
 }
 
 interface AppProviderProps {
@@ -15,28 +16,21 @@ interface AppProviderProps {
 const DataContext = createContext<AuthContextData>({} as AuthContextData);
 
 function DataProvider({ children }: AppProviderProps) {
-  const { pokemonData, errorToFetchPokemonData, loadingPokemonData } =
-    usePokemonData();
-
-  // const pokemonData: PokemonDataApi[] = [];
-  // if (pokemonDetails.length === pokemonSpecies.length) {
-  //   for (
-  //     let pokemonIndex = 0;
-  //     pokemonIndex < pokemonDetails.length;
-  //     pokemonIndex++
-  //   ) {
-  //     const mergedObject: PokemonDetailsApi & PokemonSpeciesDetailsApi = {
-  //       ...pokemonDetails[pokemonIndex],
-  //       ...pokemonSpecies[pokemonIndex],
-  //     };
-
-  //     pokemonData.push(mergedObject);
-  //   }
-  // }
+  const {
+    pokemonData,
+    errorToFetchPokemonData,
+    loadingPokemonData,
+    fetchNextPage,
+  } = usePokemonData();
 
   return (
     <DataContext.Provider
-      value={{ pokemonData, errorToFetchPokemonData, loadingPokemonData }}>
+      value={{
+        pokemonData,
+        errorToFetchPokemonData,
+        loadingPokemonData,
+        fetchNextPage,
+      }}>
       {children}
     </DataContext.Provider>
   );

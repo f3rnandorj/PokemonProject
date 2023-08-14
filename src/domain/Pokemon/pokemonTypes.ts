@@ -52,15 +52,18 @@ export interface PokemonDetails {
   };
 }
 
-export interface ListPokemonApi {
+export interface ListPokemonDataApi {
+  name: string;
+  url: string;
+}
+
+export interface ReturnListPokemonDataApi<Data> {
   count: number;
   next: string;
   previous: string;
-  results: {
-    name: string;
-    url: string;
-  }[];
+  results: Data[];
 }
+
 export interface PokemonApi {
   abilities: Ability[];
   base_experience: number;

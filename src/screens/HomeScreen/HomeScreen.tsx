@@ -1,23 +1,37 @@
 import React, { useEffect } from 'react';
-import { FlatList, ListRenderItemInfo, StatusBar } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItemInfo,
+  StatusBar,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 import { Pokemon } from '@domain';
 import Orientation from 'react-native-orientation-locker';
 
-import { Screen, Text, PokemonCard, Box } from '@components';
+import { Screen, Text, Box, MemoPokemonCard } from '@components';
 import { useSharedData } from '@hooks';
 import { AppScreenProps } from '@routes';
 
 import PokemonLogo from '../../assets/brand/pokemonLogo.svg';
 
+import { useAppTheme } from './../../hooks/useAppTheme';
+import { HomeEmpty } from './components/HomeEmpty';
 import { MainHeader } from './components/MainHeader';
 
 export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
-  const { pokemonData } = useSharedData();
+  const {
+    pokemonData,
+    fetchNextPage,
+    errorToFetchPokemonData,
+    loadingPokemonData,
+  } = useSharedData();
 
   function renderItem({ item, index }: ListRenderItemInfo<Pokemon>) {
     return (
-      <PokemonCard
+      <MemoPokemonCard
         pokemon={item}
         index={index}
         onPress={() =>
@@ -44,12 +58,24 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
 
       <FlatList
         data={pokemonData}
-        keyExtractor={item => item.name}
+        keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
+        contentContainerStyle={pokemonData.length === 0 ? $flatListStyle : {}}
         numColumns={2}
         showsVerticalScrollIndicator={false}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0.3}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
         ListHeaderComponent={<HeaderList />}
         ListFooterComponent={<FooterComponent />}
+        ListEmptyComponent={
+          <HomeEmpty
+            error={errorToFetchPokemonData!}
+            loading={loadingPokemonData}
+          />
+        }
+        removeClippedSubviews={true}
       />
     </Screen>
   );
@@ -64,9 +90,26 @@ function HeaderList() {
 }
 
 function FooterComponent() {
+  const { loadingPokemonData, pokemonData } = useSharedData();
+  const { colors } = useAppTheme();
+
   return (
     <Box alignItems="center" marginVertical="s16">
-      <PokemonLogo />
+      {loadingPokemonData && pokemonData.length > 0 ? (
+        <Box>
+          <ActivityIndicator size="small" color={colors.backgroundContrast} />
+          <Text preset="headerSmall" bold textAlign="center">
+            Carregando...
+          </Text>
+        </Box>
+      ) : (
+        <PokemonLogo />
+      )}
     </Box>
   );
 }
+
+const $flatListStyle: StyleProp<ViewStyle> = {
+  flex: 1,
+  justifyContent: 'space-between',
+};

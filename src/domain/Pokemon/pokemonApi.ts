@@ -1,23 +1,28 @@
-import { api } from '@api';
+import { api, PageParams } from '@api';
 
 import {
-  ListPokemonApi,
+  ListPokemonDataApi,
   Pokemon,
   PokemonApi,
   PokemonDetailsApi,
+  ReturnListPokemonDataApi,
 } from './pokemonTypes';
 
-async function getPokemonNamesList(): Promise<ListPokemonApi> {
-  const { data: pokemonNames } = await api.get<ListPokemonApi>('/pokemon');
+async function getPokemonNamesList(
+  params?: PageParams,
+): Promise<ReturnListPokemonDataApi<ListPokemonDataApi>> {
+  const { data } = await api.get<ReturnListPokemonDataApi<ListPokemonDataApi>>(
+    `/pokemon?limit=${params?.per_page}&offset=${params?.page}`,
+  );
 
-  return pokemonNames;
+  return data;
 }
 
 async function getPokemonList(
-  pokemonNames: ListPokemonApi,
+  pokemonNames: ListPokemonDataApi[],
 ): Promise<PokemonApi[]> {
   const pokemonDetails = await Promise.all(
-    pokemonNames.results.map(async pokemon => {
+    pokemonNames.map(async pokemon => {
       const response = await api.get<PokemonApi>(`/pokemon/${pokemon.name}`);
 
       return response.data;

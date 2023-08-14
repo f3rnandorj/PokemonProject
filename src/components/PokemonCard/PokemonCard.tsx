@@ -19,11 +19,7 @@ interface Props extends TouchableOpacityBoxProps {
   index: number;
 }
 
-export function PokemonCard({
-  pokemon,
-  index,
-  ...touchableOpacityBoxProps
-}: Props) {
+function PokemonCard({ pokemon, index, ...touchableOpacityBoxProps }: Props) {
   const { colors, spacing } = useAppTheme();
 
   const screenWidth = Dimensions.get('screen').width;
@@ -65,3 +61,5 @@ const $wrapper: BoxProps = {
   pb: 's22',
   borderRadius: 's14',
 };
+
+export const MemoPokemonCard = React.memo(PokemonCard);
