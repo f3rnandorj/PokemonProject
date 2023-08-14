@@ -52,10 +52,11 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
 function toPokemonDetails(pokemon: PokemonDetailsApi): PokemonDetails {
   const characteristicsGender: PokemonDetails['characteristicsGender'] = {
     gender: {
-      fem: calculateGender(pokemon.gender_rate).fem,
-      masc: calculateGender(pokemon.gender_rate).masc,
+      fem: calculateGender(pokemon?.gender_rate).fem,
+      masc: calculateGender(pokemon?.gender_rate).masc,
     },
   };
+  console.log(pokemon.gender_rate);
 
   const description = adapterDescriptionApiReturn(
     pokemon.flavor_text_entries[7].flavor_text,

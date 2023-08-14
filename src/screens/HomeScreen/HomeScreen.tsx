@@ -64,7 +64,6 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
         numColumns={2}
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}
-        onEndReachedThreshold={0.3}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         ListHeaderComponent={<HeaderList />}

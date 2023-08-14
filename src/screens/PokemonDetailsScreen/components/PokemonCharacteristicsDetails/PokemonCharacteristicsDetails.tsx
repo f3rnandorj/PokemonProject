@@ -8,6 +8,10 @@ import {
   CharacteristicCard,
   CharacteristicCardProps,
 } from './components/CharacteristicCard';
+import {
+  CharacteristicGenderCard,
+  CharacteristicGenderCardProps,
+} from './components/CharacteristicGenderCard';
 
 type Props = Pick<
   Pokemon['characteristics'],
@@ -25,11 +29,6 @@ type CharacteristicCardInfoProps = Omit<CharacteristicCardProps, 'index'>;
 
 export function PokemonCharacteristicsDetails(details: Props) {
   const characteristicCardInfo: CharacteristicCardInfoProps[] = [
-    {
-      label: 'Gênero',
-      mascInfo: details?.gender?.masc,
-      femInfo: details?.gender?.fem,
-    },
     { label: 'Saúde', count: details.health },
     { label: 'Ataque', count: details.attack },
     { label: 'Defesa', count: details.defense },
@@ -39,6 +38,12 @@ export function PokemonCharacteristicsDetails(details: Props) {
     { label: 'Total', count: details.total },
   ];
 
+  const characteristicGenderCardInfo: CharacteristicGenderCardProps = {
+    label: 'Gênero',
+    mascInfo: details?.gender?.masc,
+    femInfo: details?.gender?.fem,
+  };
+
   return (
     <>
       <Box paddingVertical="s32">
@@ -46,6 +51,7 @@ export function PokemonCharacteristicsDetails(details: Props) {
           Suas características
         </Text>
 
+        <CharacteristicGenderCard {...characteristicGenderCardInfo} />
         {characteristicCardInfo.map((card, indexCard) => (
           <CharacteristicCard key={card.label} index={indexCard} {...card} />
         ))}

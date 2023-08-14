@@ -36,7 +36,7 @@ export function usePokemonData() {
     if (loadingPokemonData || !hasNextPage) {
       return;
     }
-    console.log('entrou na função de nextPage');
+
     try {
       setLoadingPokemonData(true);
       const { data, meta } = await pokemonService.getListOfPokemons(page);

@@ -10,8 +10,8 @@ export const palette = {
   dragon: '#0F6AC0',
   dragonLight: '#7383B9',
 
-  electric: '#FFCE4B',
-  electricLight: '#FFE97E',
+  electric: '#F2CB55',
+  electricLight: '#EED535',
 
   fairy: '#ED6EC7',
   fairyLight: '#EBA8C3',
