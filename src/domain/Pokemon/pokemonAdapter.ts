@@ -1,9 +1,10 @@
 import {
   adapterBodyDetails,
-  adapterDescriptionApiReturn,
+  masks,
   calculateGender,
   getPokemonEffectiveness,
   PokemonTypeEnum,
+  pokemonsEvolutions,
 } from '@utils';
 
 import {
@@ -11,7 +12,11 @@ import {
   PokemonApi,
   PokemonDetails,
   PokemonDetailsApi,
+  PokemonEvolutions,
+  PokemonEvolutionsApi,
 } from './pokemonTypes';
+
+const LAST_ID_WITH_TEXT_ENTRIES_7 = 898;
 
 function toPokemon(pokemon: PokemonApi): Pokemon {
   const types = pokemon.types.map(type => type.type.name) as PokemonTypeEnum[];
@@ -38,7 +43,7 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
 
   return {
     id: pokemon.id,
-    name: pokemon.name,
+    name: masks.adapterMaximumPokemonCharactersName(pokemon.name),
     types,
     avatarURL: pokemon.sprites.other['official-artwork'].front_default,
     characteristics,
@@ -57,8 +62,10 @@ function toPokemonDetails(pokemon: PokemonDetailsApi): PokemonDetails {
     },
   };
 
-  const description = adapterDescriptionApiReturn(
-    pokemon.flavor_text_entries[7].flavor_text,
+  const numberOfDescription = pokemon.id > LAST_ID_WITH_TEXT_ENTRIES_7 ? 0 : 7;
+
+  const description = masks.adapterDescriptionApiReturn(
+    pokemon.flavor_text_entries[numberOfDescription].flavor_text,
   );
 
   return {
@@ -67,7 +74,30 @@ function toPokemonDetails(pokemon: PokemonDetailsApi): PokemonDetails {
   };
 }
 
+function toPokemonEvolutions(
+  pokemon: PokemonEvolutionsApi,
+  pokemonName: Pokemon['name'],
+): PokemonEvolutions | boolean {
+  const evolutions = pokemonsEvolutions.getEvolutionsChain(
+    pokemon,
+    pokemonName,
+  );
+
+  if (!evolutions.hasEvolution) {
+    return false;
+  }
+
+  return {
+    hasEvolution: evolutions.hasEvolution,
+    hasLastEvolution: evolutions.hasLastEvolution,
+    lastEvolutionName: evolutions.lastEvolutionName,
+    hasNextEvolution: evolutions.hasNextEvolution,
+    nextEvolutionName: evolutions.nextEvolutionName,
+  };
+}
+
 export const pokemonAdapter = {
   toPokemon,
   toPokemonDetails,
+  toPokemonEvolutions,
 };

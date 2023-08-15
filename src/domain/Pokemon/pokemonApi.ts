@@ -1,10 +1,12 @@
 import { api, PageParams } from '@api';
+import axios from 'axios';
 
 import {
   ListPokemonDataApi,
   Pokemon,
   PokemonApi,
   PokemonDetailsApi,
+  PokemonEvolutionsApi,
   ReturnListPokemonDataApi,
 } from './pokemonTypes';
 
@@ -42,8 +44,19 @@ async function getPokemonDetails(
   return pokemonDetails;
 }
 
+async function getEvolutionsOfPokemon(
+  url: string,
+): Promise<PokemonEvolutionsApi> {
+  const { data: pokemonEvolutions } = await axios.get<PokemonEvolutionsApi>(
+    `${url}`,
+  );
+
+  return pokemonEvolutions;
+}
+
 export const pokemonApi = {
   getPokemonNamesList,
   getPokemonList,
   getPokemonDetails,
+  getEvolutionsOfPokemon,
 };

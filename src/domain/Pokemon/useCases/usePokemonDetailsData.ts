@@ -12,13 +12,15 @@ export function usePokemonDetailsData(id: Pokemon['id']) {
   const [loadingPokemonDetailsData, setLoadingPokemonDetailsData] =
     useState(false);
 
-  async function fetchDetailsPokemonData() {
+  async function fetchPokemonDetailsData() {
     try {
       setLoadingPokemonDetailsData(true);
       setErrorToFetchPokemonDetailsData(null);
-      const pokemonsData = await pokemonService.getDetailsOfPokemons(id);
+      const { pokemonInfoDetails } = await pokemonService.getDetailsOfPokemons(
+        id,
+      );
 
-      setPokemonDetailsData(pokemonsData);
+      setPokemonDetailsData(pokemonInfoDetails);
     } catch (e) {
       setErrorToFetchPokemonDetailsData(true);
     } finally {
@@ -27,7 +29,7 @@ export function usePokemonDetailsData(id: Pokemon['id']) {
   }
 
   useEffect(() => {
-    fetchDetailsPokemonData();
+    fetchPokemonDetailsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

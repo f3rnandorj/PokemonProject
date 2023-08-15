@@ -65,8 +65,8 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.5}
-        initialNumToRender={10}
-        maxToRenderPerBatch={10}
+        initialNumToRender={100}
+        maxToRenderPerBatch={50}
         ListHeaderComponent={<HeaderList />}
         ListFooterComponent={<FooterComponent />}
         ListEmptyComponent={
@@ -75,7 +75,6 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
             loading={loadingPokemonData}
           />
         }
-        removeClippedSubviews={true}
       />
     </Screen>
   );

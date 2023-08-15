@@ -17,7 +17,7 @@ export function HeaderPokemonDetails({ pokemonName, id, types }: Props) {
         </Text>
 
         <Text preset="headerSmall" bold color="background" pt="s8">
-          #{String(id).padStart(3, '0')}
+          # {String(id).padStart(4, '0')}
         </Text>
       </Box>
 

@@ -14,6 +14,8 @@ import { LoadingDetails } from './components/LoadingDetails';
 import { PokemonBodyDetails } from './components/PokemonBodyDetails';
 import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails/PokemonCharacteristicsDetails';
 
+const LAST_CORRECT_ID_INDEX = 1010;
+
 export function PokemonDetailsScreen({
   route,
 }: AppScreenProps<'PokemonDetailsScreen'>) {
@@ -22,7 +24,7 @@ export function PokemonDetailsScreen({
   const { pokemonDetailsData, loadingPokemonDetailsData } =
     usePokemonDetailsData(id);
 
-  const idIndex = id - 1;
+  const idIndex = id > LAST_CORRECT_ID_INDEX ? getCorrectIndex(id) : id - 1;
 
   const colorOfPokemon = pokemonData[idIndex]?.types[0] as ThemeColors;
   const pokemonName =
@@ -100,3 +102,10 @@ const $imageStyle: StyleProp<ImageStyle> = {
   alignSelf: 'center',
   marginTop: -150,
 };
+
+function getCorrectIndex(id: number) {
+  var correctIndex = (9 + id).toString();
+
+  // eslint-disable-next-line radix
+  return parseInt(correctIndex[0] + correctIndex.substring(2));
+}

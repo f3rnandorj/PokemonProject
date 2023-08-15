@@ -1,4 +1,4 @@
-export function adapterDescriptionApiReturn(text: string) {
+function adapterDescriptionApiReturn(text: string): string {
   const adapter = text
     .replace(/\n/g, ' ')
     .replace(/(^\w|\.\s*\w)/gm, function (letter) {
@@ -8,6 +8,18 @@ export function adapterDescriptionApiReturn(text: string) {
   return adapter;
 }
 
+function adapterMaximumPokemonCharactersName(text: string): string {
+  if (text.length <= 16) {
+    return text;
+  }
+
+  const visibleCharacters = text.slice(0, 16);
+  const maskedCharacters = '...';
+
+  return visibleCharacters + maskedCharacters;
+}
+
 export const masks = {
   adapterDescriptionApiReturn,
+  adapterMaximumPokemonCharactersName,
 };

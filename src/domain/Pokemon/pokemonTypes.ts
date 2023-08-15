@@ -1,5 +1,6 @@
 import {
   Ability,
+  Chain,
   Color,
   EggGroup,
   EvolutionChain,
@@ -113,4 +114,23 @@ export interface PokemonDetailsApi {
   pokedex_numbers: PokedexNumber[];
   shape: Shape;
   varieties: Variety[];
+}
+
+export interface PokemonEvolutionsApi {
+  baby_trigger_item: any;
+  chain: Chain;
+  id: number;
+}
+
+export interface PokemonEvolutions {
+  hasEvolution: boolean;
+  hasLastEvolution: boolean;
+  lastEvolutionName: string | null;
+  hasNextEvolution: boolean;
+  nextEvolutionName: string | null;
+}
+
+export interface AllPokemonDetails {
+  pokemonInfoDetails: PokemonDetails;
+  pokemonEvolutionDetails: PokemonEvolutions | boolean;
 }
