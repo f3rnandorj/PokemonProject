@@ -128,6 +128,7 @@ export interface PokemonEvolutions {
   lastEvolutionName: string | null;
   hasNextEvolution: boolean | null;
   nextEvolutionName: string | null;
+  moreThanOneMidEvolutions?: string[] | null;
 }
 
 export interface AllPokemonDetails {

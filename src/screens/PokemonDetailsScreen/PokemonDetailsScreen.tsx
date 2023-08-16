@@ -8,13 +8,14 @@ import { Box, Screen } from '@components';
 import { AppScreenProps } from '@routes';
 import { ThemeColors } from '@theme';
 
+import { PokemonEvolutionsCard } from '../../components/PokemonEvolutionsCard/PokemonEvolutionsCard';
+
 import { HeaderPokemonDetails } from './components/HeaderPokemonDetails';
 import { LoadingDetails } from './components/LoadingDetails';
 import { PokemonBodyDetails } from './components/PokemonBodyDetails';
 import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails/PokemonCharacteristicsDetails';
 import { PokemonDescription } from './components/PokemonDescription';
 import { PokemonEffectiveness } from './components/PokemonEffectiveness';
-import { PokemonEvolutionsCard } from './components/PokemonEvolutionsCard';
 
 export function PokemonDetailsScreen({
   route,

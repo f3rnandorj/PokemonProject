@@ -16,7 +16,8 @@ function ScrollViewContainer({ children, backgroundColor }: Props) {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={{ flex: 1, backgroundColor }}>
+      style={{ flex: 1, backgroundColor }}
+      nestedScrollEnabled={true}>
       {children}
     </ScrollView>
   );

@@ -32,7 +32,14 @@ function getEvolutionsChain(
   const basicPokemon = pokemon?.chain?.species?.name ?? null;
   const mediumPokemon = pokemon?.chain?.evolves_to[0].species?.name ?? null;
   const highPokemon =
-    pokemon?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name ?? null;
+    pokemonName === 'slowbro' || pokemonName === 'slowking'
+      ? pokemon?.chain?.evolves_to[1].species?.name ?? null
+      : pokemon?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name ?? null;
+
+  const mediumEvolutionsOfPokemon =
+    pokemonName === 'eevee'
+      ? pokemon?.chain?.evolves_to.map(evolvesTo => evolvesTo.species.name)
+      : null;
 
   const isBasicPokemon = areEqualNames(basicPokemon, pokemonName);
   const isMediumPokemon =
@@ -52,7 +59,7 @@ function getEvolutionsChain(
     hasNextEvolution = true;
   }
 
-  const lastEvolutionName = isMediumPokemon
+  let lastEvolutionName = isMediumPokemon
     ? basicPokemon
     : isHighPokemon
     ? mediumPokemon
@@ -64,12 +71,18 @@ function getEvolutionsChain(
     ? highPokemon
     : null;
 
+  if (basicPokemon === 'eevee' && pokemonName !== 'eevee') {
+    hasLastEvolution = true;
+    lastEvolutionName = 'eevee';
+  }
+
   return {
     hasEvolution,
     hasLastEvolution,
     lastEvolutionName,
     hasNextEvolution,
     nextEvolutionName,
+    moreThanOneMidEvolutions: mediumEvolutionsOfPokemon,
   };
 }
 

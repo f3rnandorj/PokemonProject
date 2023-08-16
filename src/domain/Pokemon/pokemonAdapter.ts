@@ -89,6 +89,7 @@ function toPokemonEvolutions(
     lastEvolutionName: evolutions.lastEvolutionName,
     hasNextEvolution: evolutions.hasNextEvolution,
     nextEvolutionName: evolutions.nextEvolutionName,
+    moreThanOneMidEvolutions: evolutions.moreThanOneMidEvolutions,
   };
 }
 
