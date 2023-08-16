@@ -131,6 +131,7 @@ export interface PokemonEvolutions {
 }
 
 export interface AllPokemonDetails {
+  pokemonBasicDetails?: Pokemon;
   pokemonInfoDetails: PokemonDetails;
   pokemonEvolutionDetails: PokemonEvolutions;
 }

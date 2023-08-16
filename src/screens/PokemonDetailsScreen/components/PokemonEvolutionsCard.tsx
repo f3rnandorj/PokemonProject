@@ -10,6 +10,7 @@ import { $shadowProps, ThemeColors } from '@theme';
 type Props = Omit<PokemonEvolutions, 'hasEvolution'> &
   Pick<Pokemon, 'avatarURL'> & {
     colorOfPokemon: ThemeColors;
+    fetchEvolutionPokemonDetails: (evolutionName: string) => void;
   };
 
 export function PokemonEvolutionsCard(pokemon: Props) {
@@ -25,6 +26,9 @@ export function PokemonEvolutionsCard(pokemon: Props) {
       {pokemon.hasLastEvolution && (
         <TouchableOpacityBox
           {...$wrapperButton}
+          onPress={() =>
+            pokemon.fetchEvolutionPokemonDetails(pokemon?.lastEvolutionName!)
+          }
           borderColor={pokemon.colorOfPokemon}
           style={[$wrapperButtonMoreStyles, $shadowProps, { left: 24 }]}>
           <Image
@@ -43,6 +47,9 @@ export function PokemonEvolutionsCard(pokemon: Props) {
       {pokemon.hasNextEvolution && (
         <TouchableOpacityBox
           {...$wrapperButton}
+          onPress={() =>
+            pokemon.fetchEvolutionPokemonDetails(pokemon?.nextEvolutionName!)
+          }
           borderColor={pokemon.colorOfPokemon}
           style={[$wrapperButtonMoreStyles, $shadowProps, { right: 24 }]}>
           <Image
@@ -77,5 +84,5 @@ const $wrapperButtonMoreStyles: StyleProp<ViewStyle> = {
   borderRadius: 50,
   position: 'absolute',
 
-  top: -30,
+  top: -35,
 };

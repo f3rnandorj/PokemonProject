@@ -5,7 +5,6 @@ import { usePokemonDetailsData } from '@domain';
 import Orientation from 'react-native-orientation-locker';
 
 import { Box, Screen } from '@components';
-import { useSharedData } from '@hooks';
 import { AppScreenProps } from '@routes';
 import { ThemeColors } from '@theme';
 
@@ -17,22 +16,28 @@ import { PokemonDescription } from './components/PokemonDescription';
 import { PokemonEffectiveness } from './components/PokemonEffectiveness';
 import { PokemonEvolutionsCard } from './components/PokemonEvolutionsCard';
 
-const LAST_CORRECT_ID_INDEX = 1010;
-
 export function PokemonDetailsScreen({
   route,
 }: AppScreenProps<'PokemonDetailsScreen'>) {
-  const { pokemonData } = useSharedData();
-  const { id } = route.params;
-  const { pokemonDetailsData, pokemonEvolutions, loadingPokemonDetailsData } =
-    usePokemonDetailsData(id);
+  const { pokemonName: pokemonNameParm } = route.params;
 
-  const idIndex = id > LAST_CORRECT_ID_INDEX ? getCorrectIndex(id) : id - 1;
+  const {
+    pokemonBasicDetailsData,
+    pokemonDetailsData,
+    pokemonEvolutionsData,
+    loadingPokemonDetailsData,
+    fetchEvolutionPokemonDetailsData,
+  } = usePokemonDetailsData(pokemonNameParm);
 
-  const colorOfPokemon = pokemonData[idIndex]?.types[0] as ThemeColors;
+  const pokemonColor = pokemonBasicDetailsData?.types?.[0] as ThemeColors;
+
   const pokemonName =
-    (pokemonData[idIndex]?.name ?? '').charAt(0).toUpperCase() +
-    (pokemonData[idIndex]?.name ?? '').slice(1);
+    (pokemonBasicDetailsData?.name ?? '').charAt(0).toUpperCase() +
+    (pokemonBasicDetailsData?.name ?? '').slice(1);
+
+  function fetchEvolutionPokemonDetails(evolutionName: string) {
+    fetchEvolutionPokemonDetailsData(evolutionName);
+  }
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -47,9 +52,9 @@ export function PokemonDetailsScreen({
       {loadingPokemonDetailsData ? (
         <LoadingDetails />
       ) : (
-        <Screen scrollable color={colorOfPokemon} canGoBack>
+        <Screen scrollable color={pokemonColor} canGoBack>
           <HeaderPokemonDetails
-            {...pokemonData[idIndex]}
+            {...pokemonBasicDetailsData}
             pokemonName={pokemonName}
           />
 
@@ -63,32 +68,35 @@ export function PokemonDetailsScreen({
             style={{ marginTop: 150 }}>
             <Image
               source={{
-                uri: `${pokemonData[idIndex]?.avatarURL}`,
+                uri: pokemonBasicDetailsData?.avatarURL
+                  ? `${pokemonBasicDetailsData.avatarURL}`
+                  : 'https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png?fit=512%2C512',
               }}
               style={[$imageStyle]}
               resizeMode="contain"
             />
 
             <PokemonEvolutionsCard
-              {...pokemonEvolutions}
-              avatarURL={pokemonData[idIndex]?.avatarURL}
-              colorOfPokemon={colorOfPokemon}
+              {...pokemonEvolutionsData}
+              avatarURL={pokemonBasicDetailsData?.avatarURL}
+              colorOfPokemon={pokemonColor}
+              fetchEvolutionPokemonDetails={fetchEvolutionPokemonDetails}
             />
 
             <PokemonDescription
               description={pokemonDetailsData?.description}
-              colorOfPokemon={colorOfPokemon}
+              colorOfPokemon={pokemonColor}
             />
 
-            <PokemonBodyDetails {...pokemonData[idIndex]} />
+            <PokemonBodyDetails {...pokemonBasicDetailsData} />
 
             <PokemonCharacteristicsDetails
               {...pokemonDetailsData?.characteristicsGender}
-              {...pokemonData[idIndex]?.characteristics}
+              {...pokemonBasicDetailsData?.characteristics}
             />
 
             <PokemonEffectiveness
-              effectiveness={pokemonData[idIndex]?.effectiveness}
+              effectiveness={pokemonBasicDetailsData?.effectiveness}
             />
           </Box>
         </Screen>
@@ -104,10 +112,3 @@ const $imageStyle: StyleProp<ImageStyle> = {
   alignSelf: 'center',
   marginTop: -150,
 };
-
-function getCorrectIndex(id: number) {
-  var correctIndex = (9 + id).toString();
-
-  // eslint-disable-next-line radix
-  return parseInt(correctIndex[0] + correctIndex.substring(2));
-}

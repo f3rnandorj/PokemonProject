@@ -29,27 +29,12 @@ function getEvolutionsChain(
     };
   }
 
-  // console.log({ hasEvolution });
-
   const basicPokemon = pokemon?.chain?.species?.name ?? null;
-  // console.log({ basicPokemon });
   const mediumPokemon = pokemon?.chain?.evolves_to[0].species?.name ?? null;
-  // console.log('chegou aqui');
-  console.log({ mediumPokemon });
   const highPokemon =
     pokemon?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name ?? null;
-  // console.log('chegou aqui 1');
-  console.log({ highPokemon });
-  // console.log('chegou aqui 2');
+
   const isBasicPokemon = areEqualNames(basicPokemon, pokemonName);
-  // console.log('chegou aqui 3');
-  // console.log({ isBasicPokemon });
-  // console.log({ isMediumPokemon });
-  // console.log({ isHighPokemon });
-  // console.log({ hasLastEvolution });
-  // console.log({ hasNextEvolution });
-  // console.log({ lastEvolutionName });
-  // console.log({ nextEvolutionName });
   const isMediumPokemon =
     mediumPokemon !== null && areEqualNames(mediumPokemon, pokemonName)
       ? (hasLastEvolution = true)

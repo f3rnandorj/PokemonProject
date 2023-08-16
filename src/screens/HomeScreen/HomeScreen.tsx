@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   ListRenderItemInfo,
   StatusBar,
@@ -8,26 +7,23 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { Pokemon } from '@domain';
+import { Pokemon, usePokemonData } from '@domain';
 import Orientation from 'react-native-orientation-locker';
 
-import { Screen, Text, Box, MemoPokemonCard } from '@components';
-import { useSharedData } from '@hooks';
+import { Screen, Text, MemoPokemonCard } from '@components';
 import { AppScreenProps } from '@routes';
 
-import PokemonLogo from '../../assets/brand/pokemonLogo.svg';
-
-import { useAppTheme } from './../../hooks/useAppTheme';
+import { FooterHomeList } from './components/FooterHomeList';
 import { HomeEmpty } from './components/HomeEmpty';
 import { MainHeader } from './components/MainHeader';
 
 export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
   const {
     pokemonData,
-    fetchNextPage,
     errorToFetchPokemonData,
     loadingPokemonData,
-  } = useSharedData();
+    fetchNextPage,
+  } = usePokemonData();
 
   function renderItem({ item, index }: ListRenderItemInfo<Pokemon>) {
     return (
@@ -36,7 +32,7 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
         index={index}
         onPress={() =>
           navigation.navigate('PokemonDetailsScreen', {
-            id: item.id,
+            pokemonName: item.name,
           })
         }
       />
@@ -65,10 +61,15 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.5}
-        initialNumToRender={100}
+        initialNumToRender={50}
         maxToRenderPerBatch={50}
         ListHeaderComponent={<HeaderList />}
-        ListFooterComponent={<FooterComponent />}
+        ListFooterComponent={
+          <FooterHomeList
+            loadingPokemonData={loadingPokemonData}
+            hasData={pokemonData.length > 0}
+          />
+        }
         ListEmptyComponent={
           <HomeEmpty
             error={errorToFetchPokemonData!}
@@ -85,26 +86,6 @@ function HeaderList() {
     <Text preset="headerMedium" semiBold mt="s40" mb="s40">
       Qual pokémon você{'\n'}escolheria?
     </Text>
-  );
-}
-
-function FooterComponent() {
-  const { loadingPokemonData, pokemonData } = useSharedData();
-  const { colors } = useAppTheme();
-
-  return (
-    <Box alignItems="center" marginVertical="s16">
-      {loadingPokemonData && pokemonData.length > 0 ? (
-        <Box>
-          <ActivityIndicator size="small" color={colors.backgroundContrast} />
-          <Text preset="headerSmall" bold textAlign="center">
-            Carregando...
-          </Text>
-        </Box>
-      ) : (
-        <PokemonLogo />
-      )}
-    </Box>
   );
 }
 

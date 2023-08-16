@@ -3,30 +3,33 @@ import { useEffect, useState } from 'react';
 import { pokemonService } from '../pokemonService';
 import { Pokemon, PokemonDetails, PokemonEvolutions } from '../pokemonTypes';
 
-export function usePokemonDetailsData(id: Pokemon['id']) {
+export function usePokemonDetailsData(pokemonName: Pokemon['name']) {
+  const [pokemonBasicDetailsData, setPokemonBasicDetailsData] =
+    useState<Pokemon>({} as Pokemon);
   const [pokemonDetailsData, setPokemonDetailsData] = useState<PokemonDetails>(
     {} as PokemonDetails,
   );
-  const [pokemonEvolutions, setPokemonEvolutions] = useState<PokemonEvolutions>(
-    {} as PokemonEvolutions,
-  );
+  const [pokemonEvolutionsData, setPokemonEvolutionsData] =
+    useState<PokemonEvolutions>({} as PokemonEvolutions);
   const [errorToFetchPokemonDetailsData, setErrorToFetchPokemonDetailsData] =
     useState<boolean | null>(null);
   const [loadingPokemonDetailsData, setLoadingPokemonDetailsData] =
     useState(false);
 
-  async function fetchPokemonDetailsData() {
+  async function fetchEvolutionPokemonDetailsData(name: Pokemon['name']) {
     try {
       setLoadingPokemonDetailsData(true);
       setErrorToFetchPokemonDetailsData(null);
-      const { pokemonInfoDetails, pokemonEvolutionDetails } =
-        await pokemonService.getDetailsOfPokemons(id);
 
+      const {
+        pokemonBasicDetails,
+        pokemonInfoDetails,
+        pokemonEvolutionDetails,
+      } = await pokemonService.getDetailsOfPokemons(name);
+
+      setPokemonBasicDetailsData(pokemonBasicDetails!);
       setPokemonDetailsData(pokemonInfoDetails);
-
-      if (pokemonEvolutionDetails) {
-        setPokemonEvolutions(pokemonEvolutionDetails);
-      }
+      setPokemonEvolutionsData(pokemonEvolutionDetails);
     } catch (e) {
       setErrorToFetchPokemonDetailsData(true);
     } finally {
@@ -35,14 +38,15 @@ export function usePokemonDetailsData(id: Pokemon['id']) {
   }
 
   useEffect(() => {
-    fetchPokemonDetailsData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    fetchEvolutionPokemonDetailsData(pokemonName);
+  }, [pokemonName]);
 
   return {
-    pokemonDetailsData,
     errorToFetchPokemonDetailsData,
     loadingPokemonDetailsData,
-    pokemonEvolutions,
+    pokemonBasicDetailsData,
+    pokemonDetailsData,
+    pokemonEvolutionsData,
+    fetchEvolutionPokemonDetailsData,
   };
 }

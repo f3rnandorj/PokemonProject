@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { Pokemon } from '@domain';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { HomeScreen, PokemonDetailsScreen } from '@screens';
 
 export type AppStackParamList = {
   HomeScreen: undefined;
-  PokemonDetailsScreen: { id: number };
+  PokemonDetailsScreen: { pokemonName: Pokemon['name'] };
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();

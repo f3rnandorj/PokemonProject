@@ -19,22 +19,24 @@ async function getListOfPokemons(page: number): Promise<Page<Pokemon>> {
 }
 
 async function getDetailsOfPokemons(
-  id: Pokemon['id'],
+  pokemonName: Pokemon['name'],
 ): Promise<AllPokemonDetails> {
-  const pokemonDetails = await pokemonApi.getPokemonDetails(id);
-
+  const pokemonBasicDetails = await pokemonApi.getBasicPokemonDetails(
+    pokemonName,
+  );
+  const pokemonMoreDetails = await pokemonApi.getPokemonDetails(pokemonName);
   const pokemonEvolutions = await pokemonApi.getEvolutionsOfPokemon(
-    pokemonDetails.evolution_chain.url,
+    pokemonMoreDetails.evolution_chain.url,
   );
 
-  const pokemonInfoDetails = pokemonAdapter.toPokemonDetails(pokemonDetails);
-
-  const pokemonEvolutionDetails = pokemonAdapter.toPokemonEvolutions(
-    pokemonEvolutions,
-    pokemonDetails?.name,
-  );
-
-  return { pokemonInfoDetails, pokemonEvolutionDetails };
+  return {
+    pokemonBasicDetails: pokemonAdapter.toPokemon(pokemonBasicDetails),
+    pokemonInfoDetails: pokemonAdapter.toPokemonDetails(pokemonMoreDetails),
+    pokemonEvolutionDetails: pokemonAdapter.toPokemonEvolutions(
+      pokemonEvolutions,
+      pokemonName,
+    ),
+  };
 }
 
 export const pokemonService = {

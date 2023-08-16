@@ -20,7 +20,7 @@ export function PokemonTypes({
 
   return (
     <Box flexDirection={isDetailsScreen ? 'row' : 'column'} {...boxProps}>
-      {types.map((typeName, idx) => {
+      {types?.map((typeName, idx) => {
         const backgroundTypeColor =
           colors[`${typeName}Light` as ThemeColors] || colors.normal;
 

@@ -34,8 +34,18 @@ async function getPokemonList(
   return pokemonDetails;
 }
 
+async function getBasicPokemonDetails(
+  pokemonName: Pokemon['name'],
+): Promise<PokemonApi> {
+  const { data: pokemonDetails } = await api.get<PokemonApi>(
+    `/pokemon/${pokemonName}`,
+  );
+
+  return pokemonDetails;
+}
+
 async function getPokemonDetails(
-  id: Pokemon['id'],
+  id: Pokemon['id'] | Pokemon['name'],
 ): Promise<PokemonDetailsApi> {
   const { data: pokemonDetails } = await api.get<PokemonDetailsApi>(
     `/pokemon-species/${id}`,
@@ -57,6 +67,7 @@ async function getEvolutionsOfPokemon(
 export const pokemonApi = {
   getPokemonNamesList,
   getPokemonList,
+  getBasicPokemonDetails,
   getPokemonDetails,
   getEvolutionsOfPokemon,
 };
