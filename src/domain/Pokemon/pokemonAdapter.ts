@@ -77,15 +77,11 @@ function toPokemonDetails(pokemon: PokemonDetailsApi): PokemonDetails {
 function toPokemonEvolutions(
   pokemon: PokemonEvolutionsApi,
   pokemonName: Pokemon['name'],
-): PokemonEvolutions | boolean {
+): PokemonEvolutions {
   const evolutions = pokemonsEvolutions.getEvolutionsChain(
     pokemon,
     pokemonName,
   );
-
-  if (!evolutions.hasEvolution) {
-    return false;
-  }
 
   return {
     hasEvolution: evolutions.hasEvolution,

@@ -40,7 +40,7 @@ export function usePokemonData() {
     try {
       setLoadingPokemonData(true);
       const { data, meta } = await pokemonService.getListOfPokemons(page);
-      console.log(meta.next);
+
       setPokemonData(prev => [...prev, ...data]);
 
       if (meta.next) {

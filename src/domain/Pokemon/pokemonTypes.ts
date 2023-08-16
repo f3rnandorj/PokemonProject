@@ -124,13 +124,13 @@ export interface PokemonEvolutionsApi {
 
 export interface PokemonEvolutions {
   hasEvolution: boolean;
-  hasLastEvolution: boolean;
+  hasLastEvolution: boolean | null;
   lastEvolutionName: string | null;
-  hasNextEvolution: boolean;
+  hasNextEvolution: boolean | null;
   nextEvolutionName: string | null;
 }
 
 export interface AllPokemonDetails {
   pokemonInfoDetails: PokemonDetails;
-  pokemonEvolutionDetails: PokemonEvolutions | boolean;
+  pokemonEvolutionDetails: PokemonEvolutions;
 }

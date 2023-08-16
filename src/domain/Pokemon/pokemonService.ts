@@ -27,17 +27,14 @@ async function getDetailsOfPokemons(
     pokemonDetails.evolution_chain.url,
   );
 
-  const allPokemonDetails: AllPokemonDetails = {
-    pokemonInfoDetails: pokemonAdapter.toPokemonDetails(pokemonDetails),
-    pokemonEvolutionDetails: pokemonAdapter.toPokemonEvolutions(
-      pokemonEvolutions,
-      pokemonDetails.name,
-    ),
-  };
+  const pokemonInfoDetails = pokemonAdapter.toPokemonDetails(pokemonDetails);
 
-  console.log(allPokemonDetails.pokemonEvolutionDetails);
+  const pokemonEvolutionDetails = pokemonAdapter.toPokemonEvolutions(
+    pokemonEvolutions,
+    pokemonDetails?.name,
+  );
 
-  return allPokemonDetails;
+  return { pokemonInfoDetails, pokemonEvolutionDetails };
 }
 
 export const pokemonService = {

@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import { pokemonService } from '../pokemonService';
-import { Pokemon, PokemonDetails } from '../pokemonTypes';
+import { Pokemon, PokemonDetails, PokemonEvolutions } from '../pokemonTypes';
 
 export function usePokemonDetailsData(id: Pokemon['id']) {
   const [pokemonDetailsData, setPokemonDetailsData] = useState<PokemonDetails>(
     {} as PokemonDetails,
+  );
+  const [pokemonEvolutions, setPokemonEvolutions] = useState<PokemonEvolutions>(
+    {} as PokemonEvolutions,
   );
   const [errorToFetchPokemonDetailsData, setErrorToFetchPokemonDetailsData] =
     useState<boolean | null>(null);
@@ -16,11 +19,14 @@ export function usePokemonDetailsData(id: Pokemon['id']) {
     try {
       setLoadingPokemonDetailsData(true);
       setErrorToFetchPokemonDetailsData(null);
-      const { pokemonInfoDetails } = await pokemonService.getDetailsOfPokemons(
-        id,
-      );
+      const { pokemonInfoDetails, pokemonEvolutionDetails } =
+        await pokemonService.getDetailsOfPokemons(id);
 
       setPokemonDetailsData(pokemonInfoDetails);
+
+      if (pokemonEvolutionDetails) {
+        setPokemonEvolutions(pokemonEvolutionDetails);
+      }
     } catch (e) {
       setErrorToFetchPokemonDetailsData(true);
     } finally {
@@ -37,5 +43,6 @@ export function usePokemonDetailsData(id: Pokemon['id']) {
     pokemonDetailsData,
     errorToFetchPokemonDetailsData,
     loadingPokemonDetailsData,
+    pokemonEvolutions,
   };
 }

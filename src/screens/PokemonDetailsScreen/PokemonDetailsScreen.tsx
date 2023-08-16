@@ -4,7 +4,7 @@ import { Image, ImageStyle, StyleProp } from 'react-native';
 import { usePokemonDetailsData } from '@domain';
 import Orientation from 'react-native-orientation-locker';
 
-import { Box, Screen, Text } from '@components';
+import { Box, Screen } from '@components';
 import { useSharedData } from '@hooks';
 import { AppScreenProps } from '@routes';
 import { ThemeColors } from '@theme';
@@ -13,6 +13,9 @@ import { HeaderPokemonDetails } from './components/HeaderPokemonDetails';
 import { LoadingDetails } from './components/LoadingDetails';
 import { PokemonBodyDetails } from './components/PokemonBodyDetails';
 import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails/PokemonCharacteristicsDetails';
+import { PokemonDescription } from './components/PokemonDescription';
+import { PokemonEffectiveness } from './components/PokemonEffectiveness';
+import { PokemonEvolutionsCard } from './components/PokemonEvolutionsCard';
 
 const LAST_CORRECT_ID_INDEX = 1010;
 
@@ -21,7 +24,7 @@ export function PokemonDetailsScreen({
 }: AppScreenProps<'PokemonDetailsScreen'>) {
   const { pokemonData } = useSharedData();
   const { id } = route.params;
-  const { pokemonDetailsData, loadingPokemonDetailsData } =
+  const { pokemonDetailsData, pokemonEvolutions, loadingPokemonDetailsData } =
     usePokemonDetailsData(id);
 
   const idIndex = id > LAST_CORRECT_ID_INDEX ? getCorrectIndex(id) : id - 1;
@@ -66,13 +69,16 @@ export function PokemonDetailsScreen({
               resizeMode="contain"
             />
 
-            <Text preset="headerMedium" bold color={colorOfPokemon}>
-              Descrição
-            </Text>
+            <PokemonEvolutionsCard
+              {...pokemonEvolutions}
+              avatarURL={pokemonData[idIndex]?.avatarURL}
+              colorOfPokemon={colorOfPokemon}
+            />
 
-            <Text regular mt="s26" textAlign="justify">
-              {pokemonDetailsData?.description}
-            </Text>
+            <PokemonDescription
+              description={pokemonDetailsData?.description}
+              colorOfPokemon={colorOfPokemon}
+            />
 
             <PokemonBodyDetails {...pokemonData[idIndex]} />
 
@@ -81,13 +87,9 @@ export function PokemonDetailsScreen({
               {...pokemonData[idIndex]?.characteristics}
             />
 
-            <Text preset="headerCaptionMedium" semiBold mb="s16">
-              Pontos fortes e fracos
-            </Text>
-
-            <Text regular mb="s40" textAlign="justify">
-              {pokemonData[idIndex]?.effectiveness}
-            </Text>
+            <PokemonEffectiveness
+              effectiveness={pokemonData[idIndex]?.effectiveness}
+            />
           </Box>
         </Screen>
       )}
