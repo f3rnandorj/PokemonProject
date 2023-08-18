@@ -51,7 +51,8 @@ type TextVariants =
   | 'paragraphCaptionSmall'
   | 'cardHeader'
   | 'cardMedium'
-  | 'cardSmall';
+  | 'cardSmall'
+  | 'tab';
 
 const $fontSize: Record<TextVariants, TextStyle> = {
   headerLarge: { fontSize: 36 },
@@ -69,6 +70,8 @@ const $fontSize: Record<TextVariants, TextStyle> = {
   cardHeader: { fontSize: 16, lineHeight: 22 },
   cardMedium: { fontSize: 14, paddingVertical: 2 },
   cardSmall: { fontSize: 8, lineHeight: 28 },
+
+  tab: { fontSize: 10 },
 };
 
 function getFontFamily(

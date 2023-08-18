@@ -11,11 +11,7 @@ type Props = {
 } & Pick<Pokemon, 'types'> &
   BoxProps;
 
-export function PokemonTypes({
-  types,
-  isDetailsScreen = false,
-  ...boxProps
-}: Props) {
+function PokemonTypes({ types, isDetailsScreen = false, ...boxProps }: Props) {
   const { colors, spacing } = useAppTheme();
 
   return (
@@ -53,3 +49,5 @@ export function PokemonTypes({
     </Box>
   );
 }
+
+export const MemoPokemonTypes = React.memo(PokemonTypes);

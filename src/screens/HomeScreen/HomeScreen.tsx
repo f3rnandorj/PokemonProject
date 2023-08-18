@@ -1,23 +1,18 @@
 import React, { useEffect } from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  StatusBar,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import { FlatList, ListRenderItemInfo, StatusBar } from 'react-native';
 
 import { Pokemon, usePokemonData } from '@domain';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
 
-import { Screen, Text, MemoPokemonCard } from '@components';
-import { AppScreenProps } from '@routes';
+import { Screen, Text, MemoPokemonCard, LoadingDataScreen } from '@components';
+import { AppTabScreenProps } from '@routes';
 
-import { FooterHomeList } from './components/FooterHomeList';
+import { Box } from './../../components/Box/Box';
 import { HomeEmpty } from './components/HomeEmpty';
 import { MainHeader } from './components/MainHeader';
 
-export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
+export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
   const {
     pokemonData,
     errorToFetchPokemonData,
@@ -25,16 +20,20 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
     fetchNextPage,
   } = usePokemonData();
 
+  const tabBarHeight = useBottomTabBarHeight();
+
+  function handleOpenPokemonDetails(item: Pokemon) {
+    navigation.navigate('PokemonDetailsScreen', {
+      pokemonName: item.name,
+    });
+  }
+
   function renderItem({ item, index }: ListRenderItemInfo<Pokemon>) {
     return (
       <MemoPokemonCard
         pokemon={item}
         index={index}
-        onPress={() =>
-          navigation.navigate('PokemonDetailsScreen', {
-            pokemonName: item.name,
-          })
-        }
+        onPress={() => handleOpenPokemonDetails(item)}
       />
     );
   }
@@ -52,31 +51,33 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
       <StatusBar backgroundColor="transparent" translucent />
       <MainHeader />
 
-      <FlatList
-        data={pokemonData}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={pokemonData.length === 0 ? $flatListStyle : {}}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        onEndReached={fetchNextPage}
-        onEndReachedThreshold={0.5}
-        initialNumToRender={50}
-        maxToRenderPerBatch={50}
-        ListHeaderComponent={<HeaderList />}
-        ListFooterComponent={
-          <FooterHomeList
-            loadingPokemonData={loadingPokemonData}
-            hasData={pokemonData.length > 0}
-          />
-        }
-        ListEmptyComponent={
-          <HomeEmpty
-            error={errorToFetchPokemonData!}
-            loading={loadingPokemonData}
-          />
-        }
-      />
+      <Box flex={1}>
+        {pokemonData.length > 0 && loadingPokemonData && <LoadingDataScreen />}
+        <FlatList
+          data={pokemonData}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={[
+            pokemonData.length === 0 && loadingPokemonData
+              ? { flex: 1 }
+              : { paddingBottom: tabBarHeight },
+            pokemonData.length > 0 && loadingPokemonData && { opacity: 0.5 },
+          ]}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          onEndReached={fetchNextPage}
+          onEndReachedThreshold={0.1}
+          initialNumToRender={50}
+          maxToRenderPerBatch={50}
+          ListHeaderComponent={<HeaderList />}
+          ListEmptyComponent={
+            <HomeEmpty
+              error={errorToFetchPokemonData!}
+              loading={loadingPokemonData}
+            />
+          }
+        />
+      </Box>
     </Screen>
   );
 }
@@ -88,8 +89,3 @@ function HeaderList() {
     </Text>
   );
 }
-
-const $flatListStyle: StyleProp<ViewStyle> = {
-  flex: 1,
-  justifyContent: 'space-between',
-};

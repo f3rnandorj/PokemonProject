@@ -7,7 +7,7 @@ import { Box, Text } from '@components';
 
 type Props = Pick<Pokemon, 'id' | 'avatarURL'>;
 
-export function PokemonAvatar({ id, avatarURL }: Props) {
+function PokemonAvatar({ id, avatarURL }: Props) {
   return (
     <Box flex={1} marginVertical="s2">
       <Text
@@ -35,3 +35,5 @@ export function PokemonAvatar({ id, avatarURL }: Props) {
     </Box>
   );
 }
+
+export const MemoPokemonAvatar = React.memo(PokemonAvatar);

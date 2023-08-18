@@ -4,14 +4,16 @@ import { Image, ImageStyle, StyleProp } from 'react-native';
 import { usePokemonDetailsData } from '@domain';
 import Orientation from 'react-native-orientation-locker';
 
-import { Box, Screen } from '@components';
+import {
+  Box,
+  Screen,
+  LoadingDetails,
+  PokemonEvolutionsCard,
+} from '@components';
 import { AppScreenProps } from '@routes';
 import { ThemeColors } from '@theme';
 
-import { PokemonEvolutionsCard } from '../../components/PokemonEvolutionsCard/PokemonEvolutionsCard';
-
 import { HeaderPokemonDetails } from './components/HeaderPokemonDetails';
-import { LoadingDetails } from './components/LoadingDetails';
 import { PokemonBodyDetails } from './components/PokemonBodyDetails';
 import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails/PokemonCharacteristicsDetails';
 import { PokemonDescription } from './components/PokemonDescription';

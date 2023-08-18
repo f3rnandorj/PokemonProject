@@ -4,11 +4,11 @@ import { Pokemon } from '@domain';
 
 import { Box, Text } from '@components';
 
-import { PokemonTypes } from './PokemonTypes';
+import { MemoPokemonTypes } from './PokemonTypes';
 
 type Props = Pick<Pokemon, 'name' | 'types'>;
 
-export function PokemonInfos({ name, types }: Props) {
+function PokemonInfos({ name, types }: Props) {
   return (
     <Box flex={1} marginVertical="s6">
       <Box flexWrap="wrap" mb="s8">
@@ -17,7 +17,9 @@ export function PokemonInfos({ name, types }: Props) {
         </Text>
       </Box>
 
-      <PokemonTypes types={types} />
+      <MemoPokemonTypes types={types} />
     </Box>
   );
 }
+
+export const MemoPokemonInfos = React.memo(PokemonInfos);

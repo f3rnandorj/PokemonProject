@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image } from 'react-native';
 
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
 import { Box, Text } from '@components';
 
 interface Props {
@@ -9,9 +11,15 @@ interface Props {
 }
 
 export function HomeEmpty({ error }: Props) {
+  const tabBarHeight = useBottomTabBarHeight();
+
   if (error) {
     return (
-      <Box alignSelf="center" height={180} width={'100%'} mt="ns40">
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        style={{ marginTop: -tabBarHeight * 2 }}>
         <Image
           source={require('../../../assets/brand/pokeError.jpg')}
           style={{ height: 180, width: '100%' }}
@@ -24,7 +32,11 @@ export function HomeEmpty({ error }: Props) {
     );
   } else {
     return (
-      <Box alignSelf="center" height={250} width={250} mt="ns40">
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        style={{ marginTop: -tabBarHeight * 2 }}>
         <Image
           source={require('../../../assets/brand/pikachuGif.gif')}
           style={{ height: 250, width: 250, marginBottom: -28 }}

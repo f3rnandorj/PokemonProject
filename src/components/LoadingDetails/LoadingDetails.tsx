@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native';
 import { Box, Screen } from '@components';
 import { useAppSafeArea, useAppTheme } from '@hooks';
 
-import PokemonLogo from '../../../assets/brand/pokemonLogo.svg';
+import PokemonLogo from '../../assets/brand/pokemonLogo.svg';
 
 export function LoadingDetails() {
   const { top } = useAppSafeArea();

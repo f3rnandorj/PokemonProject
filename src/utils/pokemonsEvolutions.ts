@@ -37,7 +37,7 @@ function getEvolutionsChain(
       : pokemon?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name ?? null;
 
   const mediumEvolutionsOfPokemon =
-    pokemonName === 'eevee'
+    pokemonName === 'eevee' || pokemonName === 'tyrogue'
       ? pokemon?.chain?.evolves_to.map(evolvesTo => evolvesTo.species.name)
       : null;
 
@@ -74,6 +74,11 @@ function getEvolutionsChain(
   if (basicPokemon === 'eevee' && pokemonName !== 'eevee') {
     hasLastEvolution = true;
     lastEvolutionName = 'eevee';
+  }
+
+  if (basicPokemon === 'tyrogue' && pokemonName !== 'tyrogue') {
+    hasLastEvolution = true;
+    lastEvolutionName = 'tyrogue';
   }
 
   return {

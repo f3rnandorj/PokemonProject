@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Pokemon } from '@domain';
 
-import { Box, BoxProps, PokemonTypes, Text } from '@components';
+import { Box, BoxProps, MemoPokemonTypes, Text } from '@components';
 
 type Props = {
   pokemonName: string;
@@ -21,7 +21,7 @@ export function HeaderPokemonDetails({ pokemonName, id, types }: Props) {
         </Text>
       </Box>
 
-      <PokemonTypes types={types} isDetailsScreen mt="s10" mb="s22" />
+      <MemoPokemonTypes types={types} isDetailsScreen mt="s10" mb="s22" />
     </>
   );
 }

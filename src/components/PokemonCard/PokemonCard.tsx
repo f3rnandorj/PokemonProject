@@ -11,8 +11,8 @@ import {
 import { useAppTheme } from '@hooks';
 import { ThemeColors } from '@theme';
 
-import { PokemonAvatar } from './components/PokemonAvatar';
-import { PokemonInfos } from './components/PokemonInfos';
+import { MemoPokemonAvatar } from './components/PokemonAvatar';
+import { MemoPokemonInfos } from './components/PokemonInfos';
 
 interface Props extends TouchableOpacityBoxProps {
   pokemon: Pokemon;
@@ -45,9 +45,9 @@ function PokemonCard({ pokemon, index, ...touchableOpacityBoxProps }: Props) {
         backgroundColor: backgroundCardColor,
       }}
       {...touchableOpacityBoxProps}>
-      <PokemonInfos name={pokemon.name} types={pokemon.types} />
+      <MemoPokemonInfos name={pokemon.name} types={pokemon.types} />
 
-      <PokemonAvatar id={pokemon.id} avatarURL={pokemon.avatarURL} />
+      <MemoPokemonAvatar id={pokemon.id} avatarURL={pokemon.avatarURL} />
     </TouchableOpacityBox>
   );
 }
