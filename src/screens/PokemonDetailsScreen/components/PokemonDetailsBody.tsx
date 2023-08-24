@@ -14,7 +14,7 @@ interface PokemonBodyDetailsCardProps {
   info: string;
 }
 
-export function PokemonBodyDetails({
+export function PokemonDetailsBody({
   height,
   weight,
   principalMove,

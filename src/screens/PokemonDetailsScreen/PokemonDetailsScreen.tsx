@@ -13,11 +13,11 @@ import {
 import { AppScreenProps } from '@routes';
 import { ThemeColors } from '@theme';
 
-import { HeaderPokemonDetails } from './components/HeaderPokemonDetails';
-import { PokemonBodyDetails } from './components/PokemonBodyDetails';
-import { PokemonCharacteristicsDetails } from './components/PokemonCharacteristicsDetails/PokemonCharacteristicsDetails';
-import { PokemonDescription } from './components/PokemonDescription';
-import { PokemonEffectiveness } from './components/PokemonEffectiveness';
+import { PokemonDetailsCharacteristics } from './components/PokemonCharacteristicsDetails/PokemonDetailsCharacteristics';
+import { PokemonDetailsBody } from './components/PokemonDetailsBody';
+import { PokemonDetailsDescription } from './components/PokemonDetailsDescription';
+import { PokemonDetailsEffectiveness } from './components/PokemonDetailsEffectiveness';
+import { PokemonDetailsHeader } from './components/PokemonDetailsHeader';
 
 export function PokemonDetailsScreen({
   route,
@@ -56,7 +56,7 @@ export function PokemonDetailsScreen({
         <LoadingDetails />
       ) : (
         <Screen scrollable color={pokemonColor} canGoBack>
-          <HeaderPokemonDetails
+          <PokemonDetailsHeader
             {...pokemonBasicDetailsData}
             pokemonName={pokemonName}
           />
@@ -86,19 +86,19 @@ export function PokemonDetailsScreen({
               fetchEvolutionPokemonDetails={fetchEvolutionPokemonDetails}
             />
 
-            <PokemonDescription
+            <PokemonDetailsDescription
               description={pokemonDetailsData?.description}
               colorOfPokemon={pokemonColor}
             />
 
-            <PokemonBodyDetails {...pokemonBasicDetailsData} />
+            <PokemonDetailsBody {...pokemonBasicDetailsData} />
 
-            <PokemonCharacteristicsDetails
+            <PokemonDetailsCharacteristics
               {...pokemonDetailsData?.characteristicsGender}
               {...pokemonBasicDetailsData?.characteristics}
             />
 
-            <PokemonEffectiveness
+            <PokemonDetailsEffectiveness
               effectiveness={pokemonBasicDetailsData?.effectiveness}
             />
           </Box>

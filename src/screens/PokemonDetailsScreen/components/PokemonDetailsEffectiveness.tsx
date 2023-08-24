@@ -6,7 +6,7 @@ import { Text } from '@components';
 
 type Props = Pick<Pokemon, 'effectiveness'>;
 
-export function PokemonEffectiveness({ effectiveness }: Props) {
+export function PokemonDetailsEffectiveness({ effectiveness }: Props) {
   return (
     <>
       <Text preset="headerCaptionMedium" semiBold mb="s16">

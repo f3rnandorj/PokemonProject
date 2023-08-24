@@ -11,7 +11,7 @@ interface Props {
   hasData: boolean;
 }
 
-export function FooterHomeList({ loadingPokemonData, hasData }: Props) {
+export function HomeFooterList({ loadingPokemonData, hasData }: Props) {
   const { colors } = useAppTheme();
 
   return (

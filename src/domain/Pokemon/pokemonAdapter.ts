@@ -1,13 +1,4 @@
 import {
-  adapterBodyDetails,
-  masks,
-  calculateGender,
-  getPokemonEffectiveness,
-  PokemonTypeEnum,
-  pokemonsEvolutions,
-} from '@utils';
-
-import {
   Pokemon,
   PokemonApi,
   PokemonDetails,
@@ -15,6 +6,14 @@ import {
   PokemonEvolutions,
   PokemonEvolutionsApi,
 } from './pokemonTypes';
+import {
+  adapterBodyDetails,
+  masks,
+  calculateGender,
+  getPokemonEffectiveness,
+  PokemonTypeEnum,
+  pokemonsEvolutions,
+} from './utils';
 
 const LAST_ID_WITH_TEXT_ENTRIES_7 = 898;
 

@@ -27,7 +27,7 @@
         "src/api"
       ],
       "@utils": [
-        "src/utils"
+        "src/domain/Pokemon/utils"
       ],
     }
   }

@@ -7,7 +7,7 @@ import { useAppTheme } from '@hooks';
 
 import pokeball from '../../../assets/brand/pokeball.png';
 
-export function MainHeader() {
+export function HomeHeaderScreen() {
   const { top } = useAppSafeArea();
   const { colors, borderRadii, spacing } = useAppTheme();
 

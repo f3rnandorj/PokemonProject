@@ -9,7 +9,10 @@ type Props = Pick<PokemonDetails, 'description'> & {
   colorOfPokemon: ThemeColors;
 };
 
-export function PokemonDescription({ description, colorOfPokemon }: Props) {
+export function PokemonDetailsDescription({
+  description,
+  colorOfPokemon,
+}: Props) {
   return (
     <>
       <Text preset="headerMedium" bold color={colorOfPokemon}>

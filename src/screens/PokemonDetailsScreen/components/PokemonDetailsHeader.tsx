@@ -8,7 +8,7 @@ type Props = {
   pokemonName: string;
 } & Pick<Pokemon, 'id' | 'types'>;
 
-export function HeaderPokemonDetails({ pokemonName, id, types }: Props) {
+export function PokemonDetailsHeader({ pokemonName, id, types }: Props) {
   return (
     <>
       <Box {...$headerTitle}>

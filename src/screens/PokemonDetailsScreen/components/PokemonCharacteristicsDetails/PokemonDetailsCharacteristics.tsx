@@ -27,7 +27,7 @@ type Props = Pick<
 
 type CharacteristicCardInfoProps = Omit<CharacteristicCardProps, 'index'>;
 
-export function PokemonCharacteristicsDetails(details: Props) {
+export function PokemonDetailsCharacteristics(details: Props) {
   const characteristicCardInfo: CharacteristicCardInfoProps[] = [
     { label: 'Saúde', count: details.health },
     { label: 'Ataque', count: details.attack },

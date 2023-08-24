@@ -5,12 +5,13 @@ import { Pokemon, usePokemonData } from '@domain';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
 
-import { Screen, Text, MemoPokemonCard, LoadingDataScreen } from '@components';
+import { Screen, MemoPokemonCard, LoadingDataScreen } from '@components';
 import { AppTabScreenProps } from '@routes';
 
 import { Box } from './../../components/Box/Box';
 import { HomeEmpty } from './components/HomeEmpty';
-import { MainHeader } from './components/MainHeader';
+import { HomeHeaderList } from './components/HomeHeaderList';
+import { HomeHeaderScreen } from './components/HomeHeaderScreen';
 
 export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
   const {
@@ -49,7 +50,7 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
   return (
     <Screen>
       <StatusBar backgroundColor="transparent" translucent />
-      <MainHeader />
+      <HomeHeaderScreen />
 
       <Box flex={1}>
         {pokemonData.length > 0 && loadingPokemonData && <LoadingDataScreen />}
@@ -69,7 +70,7 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
           onEndReachedThreshold={0.1}
           initialNumToRender={50}
           maxToRenderPerBatch={50}
-          ListHeaderComponent={<HeaderList />}
+          ListHeaderComponent={<HomeHeaderList />}
           ListEmptyComponent={
             <HomeEmpty
               error={errorToFetchPokemonData!}
@@ -79,13 +80,5 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
         />
       </Box>
     </Screen>
-  );
-}
-
-function HeaderList() {
-  return (
-    <Text preset="headerMedium" semiBold mt="s40" mb="s40">
-      Qual pokémon você{'\n'}escolheria?
-    </Text>
   );
 }
