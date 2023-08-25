@@ -5,13 +5,17 @@ import { Pokemon, usePokemonData } from '@domain';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
 
-import { Screen, MemoPokemonCard, LoadingDataScreen } from '@components';
+import {
+  Screen,
+  MemoPokemonCard,
+  LoadingDataScreen,
+  Header,
+} from '@components';
 import { AppTabScreenProps } from '@routes';
 
 import { Box } from './../../components/Box/Box';
 import { HomeEmpty } from './components/HomeEmpty';
 import { HomeHeaderList } from './components/HomeHeaderList';
-import { HomeHeaderScreen } from './components/HomeHeaderScreen';
 
 export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
   const {
@@ -50,7 +54,7 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
   return (
     <Screen>
       <StatusBar backgroundColor="transparent" translucent />
-      <HomeHeaderScreen />
+      <Header title="Olá, Ash Ketchum" subTitle="Bem Vindo! 😄" />
 
       <Box flex={1}>
         {pokemonData.length > 0 && loadingPokemonData && <LoadingDataScreen />}

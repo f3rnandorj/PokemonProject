@@ -7,3 +7,5 @@ export * from './PokemonCard/components/PokemonTypes';
 export * from './PokemonEvolutionsCard/PokemonEvolutionsCard';
 export * from './LoadingDataScreen/LoadingDataScreen';
 export * from './LoadingDetails/LoadingDetails';
+export * from './Header/Header';
+export * from './TextInput/TextInput';

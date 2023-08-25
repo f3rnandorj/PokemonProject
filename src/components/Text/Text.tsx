@@ -54,7 +54,7 @@ type TextVariants =
   | 'cardSmall'
   | 'tab';
 
-const $fontSize: Record<TextVariants, TextStyle> = {
+export const $fontSize: Record<TextVariants, TextStyle> = {
   headerLarge: { fontSize: 36 },
   headerMedium: { fontSize: 24, lineHeight: 31.2 },
   headerSmall: { fontSize: 20, lineHeight: 24.2 },

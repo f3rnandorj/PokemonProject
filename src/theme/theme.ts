@@ -115,6 +115,7 @@ const theme = createTheme({
   borderRadii: {
     s14: 14,
     s24: 24,
+    s50: 50,
   },
   textVariants: {
     defaults: {},

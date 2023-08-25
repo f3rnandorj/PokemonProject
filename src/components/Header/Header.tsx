@@ -5,9 +5,14 @@ import { Box, BoxProps, Text } from '@components';
 import { useAppSafeArea } from '@hooks';
 import { useAppTheme } from '@hooks';
 
-import pokeball from '../../../assets/brand/pokeball.png';
+import pokeball from '../../assets/brand/pokeball.png';
 
-export function HomeHeaderScreen() {
+interface Props {
+  title: string;
+  subTitle: string;
+}
+
+export function Header({ title, subTitle }: Props) {
   const { top } = useAppSafeArea();
   const { colors, borderRadii, spacing } = useAppTheme();
 
@@ -15,15 +20,12 @@ export function HomeHeaderScreen() {
     <Box {...$wrapper} style={{ marginTop: -top }}>
       <Box {...$box}>
         <Box justifyContent="center" mt="s40">
-          <Text preset="headerSmall" regular color="background">
-            Olá,{' '}
-            <Text preset="headerSmall" semiBold color="background">
-              Ash Ketchum
-            </Text>
+          <Text preset="headerSmall" semiBold color="background">
+            {title}
           </Text>
 
           <Text preset="headerCaptionMedium" color="background">
-            Bem Vindo! 😄
+            {subTitle}
           </Text>
         </Box>
 
