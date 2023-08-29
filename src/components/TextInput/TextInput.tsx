@@ -1,38 +1,61 @@
-import React, { forwardRef, Ref, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
-  Image,
   Keyboard,
+  LayoutChangeEvent,
   TextInput as SRTextInput,
   TextInputProps as SRTextInputProps,
 } from 'react-native';
 
-import Animated, { RollInLeft } from 'react-native-reanimated';
+import { Pokemon } from '@domain';
 
 import { useAppTheme } from '@hooks';
 import { $shadowProps } from '@theme';
 
-import masterBall from '../../assets/brandPokeballs/masterball.png';
 import { Box } from '../Box/Box';
+import { Icon } from '../Icon/Icon';
 import { $fontFamily, $fontSize } from '../Text/Text';
 
-export interface InputProps extends SRTextInputProps {}
+import { AnimatedTextInputImages } from './components/AnimatedTextInputImages';
+import { TextInputDropBox } from './components/TextInputDropBox';
 
-export function Input(
-  { value, ...sRTextInputProps }: InputProps,
-  ref: Ref<SRTextInput>,
-) {
-  const { spacing, colors } = useAppTheme();
+export interface InputProps extends SRTextInputProps {
+  getPokemonName: (name: Pokemon['name']) => void;
+}
+
+const MARGIN_TOP = 16;
+
+export function TextInput({
+  value,
+  getPokemonName,
+  ...sRTextInputProps
+}: InputProps) {
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
+  const [width, setWidth] = useState(0);
+  const [positionY, setPositionY] = useState(0);
+
+  const { spacing, colors } = useAppTheme();
+
+  const inputRef = useRef<SRTextInput>(null);
+
+  function onLayout(event: LayoutChangeEvent) {
+    const height = event.nativeEvent.layout.height;
+
+    setWidth(event.nativeEvent.layout.width);
+    setPositionY(event.nativeEvent.layout.y + height * 2 + MARGIN_TOP);
+  }
 
   function handleInputFocus() {
     setIsFocused(true);
+    setIsDropDownOpen(true);
   }
 
   function handleInputBlur() {
     Keyboard.dismiss();
     setIsFocused(false);
     setIsFilled(!!value);
+    setIsDropDownOpen(false);
   }
 
   return (
@@ -42,16 +65,16 @@ export function Input(
         flexDirection="row"
         alignSelf="center"
         width={'70%'}
-        mt="s16"
         bg="backgroundContrastLight"
         borderWidth={2}
         paddingVertical="s6"
         borderColor={
           isFocused || isFilled ? 'backgroundHeader' : 'backgroundContrastLight'
         }
-        style={{ ...$shadowProps }}>
+        style={{ ...$shadowProps, marginTop: MARGIN_TOP }}>
         <SRTextInput
-          ref={ref}
+          ref={inputRef}
+          onLayout={onLayout}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           value={value}
@@ -68,33 +91,28 @@ export function Input(
           }}
           {...sRTextInputProps}
         />
+
+        <Icon
+          width={12}
+          height={12}
+          justifyContent="center"
+          name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
+          onPress={() => setIsDropDownOpen(prev => !prev)}
+          style={{ marginLeft: spacing.ns30 }}
+        />
       </Box>
 
-      <Animated.View
-        entering={RollInLeft.duration(1000)}
-        style={{ position: 'absolute', top: 7 }}>
-        <Image
-          source={masterBall}
-          style={{ height: 60 }}
-          resizeMode="contain"
+      {isDropDownOpen && (
+        <TextInputDropBox
+          positionY={positionY}
+          width={width}
+          getPokemonName={getPokemonName}
+          value={value}
+          closeDropBoxOnChoose={handleInputBlur}
         />
-      </Animated.View>
+      )}
 
-      <Image
-        source={{
-          uri: 'https://projectpokemon.org/images/normal-sprite/mewtwo.gif',
-        }}
-        style={{
-          height: 100,
-          width: 100,
-          position: 'absolute',
-          top: -15,
-          right: 3,
-        }}
-        resizeMode="contain"
-      />
+      <AnimatedTextInputImages />
     </Box>
   );
 }
-
-export const TextInput = forwardRef(Input);

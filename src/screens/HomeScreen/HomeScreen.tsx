@@ -58,6 +58,7 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
 
       <Box flex={1}>
         {pokemonData.length > 0 && loadingPokemonData && <LoadingDataScreen />}
+
         <FlatList
           data={pokemonData}
           keyExtractor={item => item.id.toString()}

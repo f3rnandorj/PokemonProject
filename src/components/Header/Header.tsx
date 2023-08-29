@@ -58,6 +58,7 @@ export function Header({ title, subTitle }: Props) {
 }
 
 const $wrapper: BoxProps = {
+  zIndex: 1,
   height: 165,
   bg: 'backgroundHeader',
   marginHorizontal: 'ns26',

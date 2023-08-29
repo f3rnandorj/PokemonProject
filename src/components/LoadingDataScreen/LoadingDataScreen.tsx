@@ -10,7 +10,7 @@ export function LoadingDataScreen() {
   return (
     <Box
       flex={1}
-      zIndex={1}
+      mt="ns40"
       justifyContent="center"
       alignItems="center"
       style={$wrapperLoading}>
