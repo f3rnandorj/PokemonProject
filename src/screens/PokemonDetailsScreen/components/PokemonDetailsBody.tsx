@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 
 import { Pokemon } from '@domain';
 
@@ -26,11 +27,13 @@ export function PokemonDetailsBody({
         info={`${String(weight)} kg`}
         description="Peso"
       />
+
       <PokemonBodyDetailsCard
         iconName="ruleIcon"
         info={`${String(height)} m`}
         description="Altura"
       />
+
       <PokemonBodyDetailsCard
         info={principalMove}
         description="Poder Principal"
@@ -80,7 +83,7 @@ const $wrapperCard: BoxProps = {
 
 const $textCard: TextProps = {
   preset: 'paragraphCaptionSmall',
-  mt: 's6',
+  mt: Platform.OS === 'android' ? 's6' : 's0',
   textAlign: 'center',
   color: 'backgroundContrastMedium',
 };

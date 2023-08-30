@@ -26,9 +26,13 @@ export function PokemonDetailsScreen({
 
   const {
     pokemonBasicDetailsData,
+
     pokemonDetailsData,
+
     pokemonEvolutionsData,
+
     loadingPokemonDetailsData,
+
     fetchEvolutionPokemonDetailsData,
   } = usePokemonDetailsData(pokemonNameParm);
 
@@ -110,8 +114,12 @@ export function PokemonDetailsScreen({
 
 const $imageStyle: StyleProp<ImageStyle> = {
   zIndex: 1,
+
   width: 200,
+
   height: 200,
+
   alignSelf: 'center',
+
   marginTop: -150,
 };
