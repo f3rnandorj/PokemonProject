@@ -4,6 +4,7 @@ import { FlatList, ListRenderItemInfo } from 'react-native';
 import { Pokemon } from '@domain';
 
 import { Box, TouchableOpacityBox, Text, BoxProps } from '@components';
+import { useSharedData } from '@hooks';
 
 interface Props {
   positionY: number;
@@ -13,14 +14,6 @@ interface Props {
   closeDropBoxOnChoose: () => void;
 }
 
-interface MockProps {
-  name: string;
-}
-
-const mockData = Array.from({ length: 50 }, (_, index) => ({
-  name: `Item ${index + 1}`,
-}));
-
 export function TextInputDropBox({
   positionY,
   width,
@@ -28,21 +21,23 @@ export function TextInputDropBox({
   value,
   closeDropBoxOnChoose,
 }: Props) {
+  const { pokemonNamesData } = useSharedData();
+
   const suggestionList =
-    mockData &&
-    mockData.filter(pokemon =>
-      pokemon.name.toLowerCase().includes(value!.toLowerCase()),
+    pokemonNamesData &&
+    pokemonNamesData.filter(pokemon =>
+      pokemon.toLowerCase().includes(value!.toLowerCase()),
     );
 
-  function renderItem({ item }: ListRenderItemInfo<MockProps>) {
+  function renderItem({ item }: ListRenderItemInfo<string>) {
     return (
       <TouchableOpacityBox
         onPress={() => {
-          getPokemonName(item.name);
+          getPokemonName(item);
           closeDropBoxOnChoose();
         }}
         {...$listItem}>
-        <Text>{item.name}</Text>
+        <Text textAlign="center">{item}</Text>
       </TouchableOpacityBox>
     );
   }
@@ -51,7 +46,7 @@ export function TextInputDropBox({
     <Box {...$listWrapper} top={positionY} width={width}>
       <FlatList
         data={suggestionList}
-        keyExtractor={item => item.name}
+        keyExtractor={item => item}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
@@ -63,7 +58,7 @@ export function TextInputDropBox({
 const $listItem: BoxProps = {
   pt: 's10',
   pb: 's10',
-  pl: 's40',
+  // pl: 's32',
   mb: 's4',
   borderRadius: 's6',
   backgroundColor: 'backgroundContrastLight',

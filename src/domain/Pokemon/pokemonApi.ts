@@ -2,18 +2,18 @@ import { api, PageParams } from '@api';
 import axios from 'axios';
 
 import {
-  ListPokemonDataApi,
+  PokemonNameDataApi,
   Pokemon,
   PokemonApi,
   PokemonDetailsApi,
   PokemonEvolutionsApi,
-  ReturnListPokemonDataApi,
+  ListPokemonNameDataApi,
 } from './pokemonTypes';
 
 async function getPokemonNamesList(
   params?: PageParams,
-): Promise<ReturnListPokemonDataApi<ListPokemonDataApi>> {
-  const { data } = await api.get<ReturnListPokemonDataApi<ListPokemonDataApi>>(
+): Promise<ListPokemonNameDataApi<PokemonNameDataApi>> {
+  const { data } = await api.get<ListPokemonNameDataApi<PokemonNameDataApi>>(
     `/pokemon?limit=${params?.per_page}&offset=${params?.page}`,
   );
 
@@ -21,7 +21,7 @@ async function getPokemonNamesList(
 }
 
 async function getPokemonList(
-  pokemonNames: ListPokemonDataApi[],
+  pokemonNames: PokemonNameDataApi[],
 ): Promise<PokemonApi[]> {
   const pokemonDetails = await Promise.all(
     pokemonNames.map(async pokemon => {

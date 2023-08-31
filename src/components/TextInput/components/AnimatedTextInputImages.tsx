@@ -10,7 +10,7 @@ export function AnimatedTextInputImages() {
     <>
       <Animated.View
         entering={RollInLeft.duration(1000)}
-        style={{ position: 'absolute', top: 7 }}>
+        style={{ position: 'absolute', top: 7, left: -10 }}>
         <Image
           source={masterBall}
           style={{ height: 60 }}

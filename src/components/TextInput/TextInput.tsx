@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import {
   Keyboard,
   LayoutChangeEvent,
+  Platform,
   TextInput as SRTextInput,
   TextInputProps as SRTextInputProps,
 } from 'react-native';
@@ -23,6 +24,7 @@ export interface InputProps extends SRTextInputProps {
 }
 
 const MARGIN_TOP = 16;
+const INPUT_MARGIN_ADDITIONAL = 30;
 
 export function TextInput({
   value,
@@ -42,7 +44,7 @@ export function TextInput({
   function onLayout(event: LayoutChangeEvent) {
     const height = event.nativeEvent.layout.height;
 
-    setWidth(event.nativeEvent.layout.width);
+    setWidth(event.nativeEvent.layout.width + INPUT_MARGIN_ADDITIONAL);
     setPositionY(event.nativeEvent.layout.y + height * 2 + MARGIN_TOP);
   }
 
@@ -59,8 +61,9 @@ export function TextInput({
   }
 
   return (
-    <Box>
+    <Box flex={1}>
       <Box
+        flexShrink={1}
         borderRadius="s50"
         flexDirection="row"
         alignSelf="center"
@@ -81,24 +84,28 @@ export function TextInput({
           autoCapitalize="none"
           placeholderTextColor={colors.backgroundContrastMedium}
           style={{
+            flex: 1,
+            textAlign: value ? 'center' : 'left',
             fontFamily: $fontFamily.interRegular,
             fontSize: $fontSize.paragraphMedium.fontSize,
             color: colors.backgroundContrast,
-            paddingLeft: spacing.s40,
-            paddingRight: spacing.s20,
+            marginLeft: spacing.s40,
             width: '100%',
-            padding: 0,
+            paddingVertical: Platform.OS === 'android' ? 0 : spacing.s6,
           }}
           {...sRTextInputProps}
         />
 
         <Icon
-          width={12}
+          width={16}
           height={12}
           justifyContent="center"
           name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
           onPress={() => setIsDropDownOpen(prev => !prev)}
-          style={{ marginLeft: spacing.ns30 }}
+          style={{
+            marginLeft: spacing.s10,
+            marginRight: spacing.s12,
+          }}
         />
       </Box>
 

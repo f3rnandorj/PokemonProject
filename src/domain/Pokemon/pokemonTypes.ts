@@ -53,12 +53,12 @@ export interface PokemonDetails {
   };
 }
 
-export interface ListPokemonDataApi {
+export interface PokemonNameDataApi {
   name: string;
   url: string;
 }
 
-export interface ReturnListPokemonDataApi<Data> {
+export interface ListPokemonNameDataApi<Data> {
   count: number;
   next: string;
   previous: string;

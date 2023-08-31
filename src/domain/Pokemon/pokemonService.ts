@@ -4,6 +4,15 @@ import { pokemonAdapter } from './pokemonAdapter';
 import { pokemonApi } from './pokemonApi';
 import { AllPokemonDetails, Pokemon } from './pokemonTypes';
 
+async function getListOfAllPokemonNames(): Promise<Pokemon['name'][]> {
+  const listPokemonNames = await pokemonApi.getPokemonNamesList({
+    page: 0,
+    per_page: 1200,
+  });
+
+  return listPokemonNames.results.map(pokemonName => pokemonName.name);
+}
+
 async function getListOfPokemons(page: number): Promise<Page<Pokemon>> {
   const listPokemonData = await pokemonApi.getPokemonNamesList({
     page: page * 50,
@@ -42,4 +51,5 @@ async function getDetailsOfPokemons(
 export const pokemonService = {
   getListOfPokemons,
   getDetailsOfPokemons,
+  getListOfAllPokemonNames,
 };
