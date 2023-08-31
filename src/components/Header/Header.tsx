@@ -18,8 +18,8 @@ export function Header({ title, subTitle }: Props) {
 
   return (
     <Box {...$wrapper} style={{ marginTop: -top }}>
-      <Box {...$box}>
-        <Box justifyContent="center" mt="s40">
+      <Box {...$container}>
+        <Box flex={1.5} justifyContent="center" mt="s40">
           <Text preset="headerSmall" semiBold color="background">
             {title}
           </Text>
@@ -29,7 +29,7 @@ export function Header({ title, subTitle }: Props) {
           </Text>
         </Box>
 
-        <Box justifyContent="flex-end" mr="ns30">
+        <Box flex={1} justifyContent="flex-end" alignItems="flex-end" mr="ns30">
           <ImageBackground
             source={pokeball}
             resizeMode="contain"
@@ -66,11 +66,11 @@ const $wrapper: BoxProps = {
   borderBottomRightRadius: 's24',
 };
 
-const $box: BoxProps = {
+const $container: BoxProps = {
   flexDirection: 'row',
-  justifyContent: 'space-between',
   marginHorizontal: 's26',
   height: '100%',
+  flexWrap: 'wrap',
 };
 
 const $image: StyleProp<ImageStyle> = {

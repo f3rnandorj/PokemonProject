@@ -71,7 +71,7 @@ const $wrapperComponent: BoxProps = {
   justifyContent: 'space-between',
   flexDirection: 'row',
   marginHorizontal: 's8',
-  mt: 's32',
+  mt: Platform.OS === 'android' ? 's32' : 'ns12',
 };
 
 const $wrapperCard: BoxProps = {
@@ -83,7 +83,7 @@ const $wrapperCard: BoxProps = {
 
 const $textCard: TextProps = {
   preset: 'paragraphCaptionSmall',
-  mt: Platform.OS === 'android' ? 's6' : 's0',
+  mt: 's6',
   textAlign: 'center',
   color: 'backgroundContrastMedium',
 };
