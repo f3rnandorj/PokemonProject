@@ -58,7 +58,6 @@ export function TextInputDropBox({
 const $listItem: BoxProps = {
   pt: 's10',
   pb: 's10',
-  // pl: 's32',
   mb: 's4',
   borderRadius: 's6',
   backgroundColor: 'backgroundContrastLight',

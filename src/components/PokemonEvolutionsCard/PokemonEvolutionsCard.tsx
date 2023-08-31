@@ -10,13 +10,35 @@ import { $shadowProps, ThemeColors } from '@theme';
 import { LastEvolutionButton } from './components/LastEvolutionButton';
 import { NextEvolutionButton } from './components/NextEvolutionButton';
 
-export type PokemonEvolutionProps = Omit<PokemonEvolutions, 'hasEvolution'> &
-  Pick<Pokemon, 'avatarURL'> & {
-    colorOfPokemon: ThemeColors;
-    fetchEvolutionPokemonDetails: (evolutionName: string) => void;
-  };
+export type PokemonEvolutionProps = Omit<PokemonEvolutions, 'hasEvolution'> & {
+  usage: 'searchScreen' | 'detailsScreen';
+  avatarURL?: Pokemon['avatarURL'];
+  colorOfPokemon: ThemeColors;
+  fetchEvolutionPokemonDetails: (evolutionName: string) => void;
+};
 
 export function PokemonEvolutionsCard(pokemon: PokemonEvolutionProps) {
+  const $wrapperButtonMoreStyles: StyleProp<ViewStyle> = {
+    borderRadius: 50,
+    position: 'absolute',
+    top: pokemon.usage === 'searchScreen' ? 55 : -35,
+  };
+
+  const $wrapperButton: BoxProps = {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: pokemon.usage === 'searchScreen' ? 60 : 70,
+    width: pokemon.usage === 'searchScreen' ? 60 : 70,
+    backgroundColor: 'background',
+    borderWidth: 2.5,
+  };
+
+  const $sizeImage: StyleProp<ImageStyle> = {
+    height: pokemon.usage === 'searchScreen' ? 50 : 60,
+    width: pokemon.usage === 'searchScreen' ? 50 : 60,
+    borderRadius: 50,
+  };
+
   const lastEvolutionName = masks.adapterSomeNamesToUrlOfGif(
     pokemon?.lastEvolutionName,
   );
@@ -29,6 +51,7 @@ export function PokemonEvolutionsCard(pokemon: PokemonEvolutionProps) {
     <>
       {pokemon.hasLastEvolution && (
         <LastEvolutionButton
+          usage={pokemon.usage}
           $sizeImage={$sizeImage}
           $wrapperButton={$wrapperButton}
           $wrapperButtonMoreStyles={$wrapperButtonMoreStyles}
@@ -41,6 +64,7 @@ export function PokemonEvolutionsCard(pokemon: PokemonEvolutionProps) {
 
       {pokemon.hasNextEvolution && (
         <NextEvolutionButton
+          usage={pokemon.usage}
           $sizeImage={$sizeImage}
           $wrapperButton={$wrapperButton}
           $wrapperButtonMoreStyles={$wrapperButtonMoreStyles}
@@ -54,24 +78,3 @@ export function PokemonEvolutionsCard(pokemon: PokemonEvolutionProps) {
     </>
   );
 }
-
-const $wrapperButton: BoxProps = {
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: 70,
-  width: 70,
-  backgroundColor: 'background',
-  borderWidth: 2.5,
-};
-
-const $wrapperButtonMoreStyles: StyleProp<ViewStyle> = {
-  borderRadius: 50,
-  position: 'absolute',
-  top: -35,
-};
-
-const $sizeImage: StyleProp<ImageStyle> = {
-  height: 60,
-  width: 60,
-  borderRadius: 50,
-};

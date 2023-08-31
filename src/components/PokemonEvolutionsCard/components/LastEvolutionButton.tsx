@@ -17,6 +17,7 @@ type Props = Pick<
   $sizeImage: StyleProp<ImageStyle>;
   $shadowProps: ViewStyle;
   colorOfPokemon: ThemeColors;
+  usage: 'searchScreen' | 'detailsScreen';
 };
 
 export function LastEvolutionButton(props: Props) {
@@ -31,7 +32,7 @@ export function LastEvolutionButton(props: Props) {
         style={[
           props.$wrapperButtonMoreStyles,
           props.$shadowProps,
-          { left: 24 },
+          { left: props.usage === 'searchScreen' ? 5 : 24 },
         ]}>
         <Image
           source={{

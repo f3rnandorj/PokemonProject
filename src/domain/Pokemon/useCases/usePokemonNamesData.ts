@@ -12,7 +12,7 @@ export function usePokemonNamesData() {
   >(null);
   const [loadingPokemonNameData, setLoadingPokemonNameData] = useState(false);
 
-  async function fetchInitialData() {
+  async function fetchAllPokemonNamesData() {
     try {
       setErrorToFetchPokemonData(null);
 
@@ -29,9 +29,7 @@ export function usePokemonNamesData() {
   }
 
   useEffect(() => {
-    fetchInitialData();
-    console.log(pokemonNamesData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchAllPokemonNamesData();
   }, []);
 
   return {

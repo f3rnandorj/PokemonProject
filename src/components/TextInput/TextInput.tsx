@@ -21,6 +21,7 @@ import { TextInputDropBox } from './components/TextInputDropBox';
 
 export interface InputProps extends SRTextInputProps {
   getPokemonName: (name: Pokemon['name']) => void;
+  onMewTwoButtonPress: () => void;
 }
 
 const MARGIN_TOP = 16;
@@ -29,6 +30,7 @@ const INPUT_MARGIN_ADDITIONAL = 30;
 export function TextInput({
   value,
   getPokemonName,
+  onMewTwoButtonPress,
   ...sRTextInputProps
 }: InputProps) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -51,6 +53,7 @@ export function TextInput({
   function handleInputFocus() {
     setIsFocused(true);
     setIsDropDownOpen(true);
+    getPokemonName('');
   }
 
   function handleInputBlur() {
@@ -61,7 +64,7 @@ export function TextInput({
   }
 
   return (
-    <Box flex={1}>
+    <Box>
       <Box
         flexShrink={1}
         borderRadius="s50"
@@ -119,7 +122,7 @@ export function TextInput({
         />
       )}
 
-      <AnimatedTextInputImages />
+      <AnimatedTextInputImages onPress={onMewTwoButtonPress} />
     </Box>
   );
 }

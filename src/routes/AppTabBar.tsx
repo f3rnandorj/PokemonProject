@@ -1,20 +1,24 @@
-import React from 'react';
-import { Image } from 'react-native';
+import React, { useState } from 'react';
+import { Image, Platform } from 'react-native';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 import { Box, Text, TouchableOpacityBox } from '@components';
-import { useAppTheme } from '@hooks';
+import { useAppTheme, useAppSafeArea } from '@hooks';
 
 import { AppTabBottomParamList } from './AppTabNavigator';
 import { mapScreenToProps } from './mapScreenToProps';
+
+const IMG_POSITION_IOS = 36;
 
 export function AppTabBar({
   state,
   descriptors,
   navigation,
 }: BottomTabBarProps) {
+  const [barHeight, setBarHeight] = useState(0);
   const { colors } = useAppTheme();
+  const { bottom } = useAppSafeArea();
 
   return (
     <Box
@@ -60,6 +64,7 @@ export function AppTabBar({
 
         return (
           <TouchableOpacityBox
+            onLayout={e => setBarHeight(e.nativeEvent.layout.height)}
             key={index}
             flex={1}
             activeOpacity={1}
@@ -71,19 +76,27 @@ export function AppTabBar({
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={
+            style={[
+              { paddingBottom: bottom },
               route.name !== 'HomeScreen'
                 ? { backgroundColor: colors.backgroundHeader }
-                : { flexDirection: 'row' }
-            }>
+                : { flexDirection: 'row' },
+            ]}>
             <Box
               style={[
                 route.name === 'HomeScreen'
                   ? {
                       flex: 1,
                       backgroundColor: colors.backgroundHeader,
-                      height: '100%',
                       borderTopRightRadius: 100,
+                      height:
+                        Platform.OS === 'ios' && bottom > 0
+                          ? barHeight + bottom + 2
+                          : '100%',
+                      marginBottom:
+                        Platform.OS === 'ios' && bottom > 0
+                          ? -bottom - IMG_POSITION_IOS
+                          : 0,
                     }
                   : null,
               ]}
@@ -95,6 +108,14 @@ export function AppTabBar({
                   ? {
                       flex: 1.5,
                       backgroundColor: colors.backgroundHeader,
+                      height:
+                        Platform.OS === 'ios' && bottom > 0
+                          ? barHeight + bottom + 2
+                          : 0,
+                      marginBottom:
+                        Platform.OS === 'ios' && bottom > 0
+                          ? -bottom - IMG_POSITION_IOS
+                          : 0,
                     }
                   : null,
               ]}
@@ -106,8 +127,15 @@ export function AppTabBar({
                   ? {
                       flex: 1,
                       backgroundColor: colors.backgroundHeader,
-                      height: '100%',
                       borderTopLeftRadius: 100,
+                      height:
+                        Platform.OS === 'ios' && bottom > 0
+                          ? barHeight + bottom + 2
+                          : '100%',
+                      marginBottom:
+                        Platform.OS === 'ios' && bottom > 0
+                          ? -bottom - IMG_POSITION_IOS
+                          : 0,
                     }
                   : null,
               ]}
@@ -122,7 +150,7 @@ export function AppTabBar({
                       height: isFocused ? 85 : 65,
                       width: isFocused ? 85 : 65,
                       position: 'absolute',
-                      bottom: 16,
+                      bottom: bottom + 16,
                       zIndex: 1,
                     }
                   : null,

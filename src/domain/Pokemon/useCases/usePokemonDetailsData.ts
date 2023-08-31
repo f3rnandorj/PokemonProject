@@ -38,7 +38,9 @@ export function usePokemonDetailsData(pokemonName: Pokemon['name']) {
   }
 
   useEffect(() => {
-    fetchEvolutionPokemonDetailsData(pokemonName);
+    if (pokemonName !== '') {
+      fetchEvolutionPokemonDetailsData(pokemonName);
+    }
   }, [pokemonName]);
 
   return {

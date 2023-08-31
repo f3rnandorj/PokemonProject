@@ -4,8 +4,13 @@ import { Image } from 'react-native';
 import Animated, { RollInLeft } from 'react-native-reanimated';
 
 import masterBall from '../../../assets/brandPokeballs/masterball.png';
+import { TouchableOpacityBox } from '../../Box/Box';
 
-export function AnimatedTextInputImages() {
+interface Props {
+  onPress: () => void;
+}
+
+export function AnimatedTextInputImages({ onPress }: Props) {
   return (
     <>
       <Animated.View
@@ -18,19 +23,20 @@ export function AnimatedTextInputImages() {
         />
       </Animated.View>
 
-      <Image
-        source={{
-          uri: 'https://projectpokemon.org/images/normal-sprite/mewtwo.gif',
-        }}
-        style={{
-          height: 65,
-          width: 65,
-          position: 'absolute',
-          top: 0,
-          right: 0,
-        }}
-        resizeMode="cover"
-      />
+      <TouchableOpacityBox
+        onPress={onPress}
+        style={{ position: 'absolute', top: 0, right: 0 }}>
+        <Image
+          source={{
+            uri: 'https://projectpokemon.org/images/normal-sprite/mewtwo.gif',
+          }}
+          style={{
+            height: 65,
+            width: 65,
+          }}
+          resizeMode="cover"
+        />
+      </TouchableOpacityBox>
     </>
   );
 }

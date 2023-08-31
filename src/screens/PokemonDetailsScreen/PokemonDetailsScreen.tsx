@@ -75,9 +75,10 @@ export function PokemonDetailsScreen({
             style={{ marginTop: 150 }}>
             <Image
               source={{
-                uri: pokemonBasicDetailsData?.avatarURL
-                  ? `${pokemonBasicDetailsData.avatarURL}`
-                  : 'https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png?fit=512%2C512',
+                uri: pokemonBasicDetailsData?.avatarURL,
+              }}
+              defaultSource={{
+                uri: 'https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png?fit=512%2C512',
               }}
               style={[$imageStyle]}
               resizeMode="contain"
@@ -85,6 +86,7 @@ export function PokemonDetailsScreen({
 
             <PokemonEvolutionsCard
               {...pokemonEvolutionsData}
+              usage="detailsScreen"
               avatarURL={pokemonBasicDetailsData?.avatarURL}
               colorOfPokemon={pokemonColor}
               fetchEvolutionPokemonDetails={fetchEvolutionPokemonDetails}
@@ -114,12 +116,8 @@ export function PokemonDetailsScreen({
 
 const $imageStyle: StyleProp<ImageStyle> = {
   zIndex: 1,
-
   width: 200,
-
   height: 200,
-
   alignSelf: 'center',
-
   marginTop: -150,
 };

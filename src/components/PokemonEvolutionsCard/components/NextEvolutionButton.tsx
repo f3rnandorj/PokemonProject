@@ -27,6 +27,7 @@ type Props = Pick<
   $sizeImage: StyleProp<ImageStyle>;
   $shadowProps: ViewStyle;
   colorOfPokemon: ThemeColors;
+  usage: 'searchScreen' | 'detailsScreen';
 };
 
 const IMG_SIZE = 60;
@@ -85,7 +86,7 @@ export function NextEvolutionButton(props: Props) {
           style={[
             props.$wrapperButtonMoreStyles,
             props.$shadowProps,
-            { right: 24 },
+            { right: props.usage === 'searchScreen' ? 5 : 24 },
           ]}>
           <Image
             source={{
