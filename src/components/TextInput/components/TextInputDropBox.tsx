@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, ListRenderItemInfo } from 'react-native';
+import { FlatList, ListRenderItemInfo, Platform } from 'react-native';
 
 import { Pokemon } from '@domain';
 
@@ -9,7 +9,7 @@ import { useSharedData } from '@hooks';
 interface Props {
   positionY: number;
   width: number;
-  getPokemonName: (name: Pokemon['name']) => void;
+  setPokemonName: (name: Pokemon['name']) => void;
   value: string | undefined;
   closeDropBoxOnChoose: () => void;
 }
@@ -17,7 +17,7 @@ interface Props {
 export function TextInputDropBox({
   positionY,
   width,
-  getPokemonName,
+  setPokemonName,
   value,
   closeDropBoxOnChoose,
 }: Props) {
@@ -33,7 +33,7 @@ export function TextInputDropBox({
     return (
       <TouchableOpacityBox
         onPress={() => {
-          getPokemonName(item);
+          setPokemonName(item);
           closeDropBoxOnChoose();
         }}
         {...$listItem}>
@@ -64,6 +64,7 @@ const $listItem: BoxProps = {
 };
 
 const $listWrapper: BoxProps = {
+  zIndex: Platform.OS === 'ios' ? 0 : 1,
   flex: 1,
   alignSelf: 'center',
   position: 'absolute',

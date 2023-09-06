@@ -60,7 +60,7 @@ export function Header({ title, subTitle }: Props) {
 const $wrapper: BoxProps = {
   zIndex: 1,
   height: 165,
-  bg: 'backgroundHeader',
+  bg: 'primary',
   marginHorizontal: 'ns26',
   borderBottomLeftRadius: 's24',
   borderBottomRightRadius: 's24',

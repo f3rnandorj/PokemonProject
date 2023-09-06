@@ -4,7 +4,7 @@ import { Pokemon } from '@domain';
 
 import { Box, Text } from '@components';
 
-import { MemoPokemonTypes } from './PokemonTypes';
+import { MemoPokemonTypes } from '../../PokemonTypes/PokemonTypes';
 
 type Props = Pick<Pokemon, 'name' | 'types'>;
 

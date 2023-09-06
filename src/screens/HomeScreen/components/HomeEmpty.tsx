@@ -10,7 +10,7 @@ interface Props {
   loading: boolean;
 }
 
-export function HomeEmpty({ error }: Props) {
+export function HomeEmpty({ error, loading }: Props) {
   const tabBarHeight = useBottomTabBarHeight();
 
   if (error) {
@@ -30,7 +30,9 @@ export function HomeEmpty({ error }: Props) {
         </Text>
       </Box>
     );
-  } else {
+  }
+
+  if (loading) {
     return (
       <Box
         flex={1}
@@ -47,4 +49,6 @@ export function HomeEmpty({ error }: Props) {
       </Box>
     );
   }
+
+  return null;
 }

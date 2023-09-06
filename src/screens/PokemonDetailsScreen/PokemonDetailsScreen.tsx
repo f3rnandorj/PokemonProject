@@ -26,13 +26,9 @@ export function PokemonDetailsScreen({
 
   const {
     pokemonBasicDetailsData,
-
     pokemonDetailsData,
-
     pokemonEvolutionsData,
-
     loadingPokemonDetailsData,
-
     fetchEvolutionPokemonDetailsData,
   } = usePokemonDetailsData(pokemonNameParm);
 
@@ -75,10 +71,10 @@ export function PokemonDetailsScreen({
             style={{ marginTop: 150 }}>
             <Image
               source={{
-                uri: pokemonBasicDetailsData?.avatarURL,
-              }}
-              defaultSource={{
-                uri: 'https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png?fit=512%2C512',
+                uri:
+                  pokemonBasicDetailsData && pokemonBasicDetailsData.avatarURL
+                    ? pokemonBasicDetailsData.avatarURL
+                    : 'https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png?fit=512%2C512',
               }}
               style={[$imageStyle]}
               resizeMode="contain"

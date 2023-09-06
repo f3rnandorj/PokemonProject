@@ -18,7 +18,7 @@ export function Pokedex({ children, ...boxProps }: Props) {
 
         <Box flex={2.5} flexDirection="column" bg="background">
           <Box flex={1} bg="background" />
-          <Box flex={1.5} bg="backgroundHeader" ml="ns12" mr="ns12" />
+          <Box flex={1.5} bg="primary" ml="ns12" mr="ns12" />
         </Box>
 
         <Box {...$topLeftAndRight} />
@@ -36,7 +36,7 @@ export function Pokedex({ children, ...boxProps }: Props) {
         <Box {...$bottomLeftAndRight} />
 
         <Box flex={2.5} flexDirection="column" bg="background">
-          <Box flex={1.5} bg="backgroundHeader" ml="ns12" mr="ns12" />
+          <Box flex={1.5} bg="primary" ml="ns12" mr="ns12" />
           <Box flex={1} bg="background" />
         </Box>
 
@@ -48,7 +48,7 @@ export function Pokedex({ children, ...boxProps }: Props) {
 
 const $container: BoxProps = {
   flex: 1,
-  bg: 'backgroundHeader',
+  bg: 'primary',
   mt: 's16',
 };
 
@@ -61,19 +61,19 @@ const $topAndBottomWrapper: BoxProps = {
 const $middleWrapper: BoxProps = {
   flex: 5.5,
   flexDirection: 'row',
-  bg: 'backgroundHeader',
+  bg: 'primary',
 };
 
 const $bottomLeftAndRight: BoxProps = {
   flex: 0.5,
-  bg: 'backgroundHeader',
+  bg: 'primary',
   borderBottomLeftRadius: 's50',
   borderBottomRightRadius: 's50',
 };
 
 const $topLeftAndRight: BoxProps = {
   flex: 0.5,
-  bg: 'backgroundHeader',
+  bg: 'primary',
   borderTopLeftRadius: 's50',
   borderTopRightRadius: 's50',
   mb: 'ns12',

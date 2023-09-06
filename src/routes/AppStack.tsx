@@ -21,7 +21,7 @@ export function AppStack() {
       initialRouteName="AppTabNavigator"
       screenOptions={{
         headerShown: false,
-        animation: 'none',
+        fullScreenGestureEnabled: true,
       }}>
       <Stack.Screen name="AppTabNavigator" component={AppTabNavigator} />
       <Stack.Screen

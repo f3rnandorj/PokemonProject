@@ -11,7 +11,7 @@ import {
   SearchPokemonScreen,
 } from '@screens';
 
-import { AppTabBar } from './AppTabBar';
+import { BottomTabBar } from './BottomTabBar';
 
 export type AppTabBottomParamList = {
   HomeScreen: undefined;
@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator<AppTabBottomParamList>();
 
 export function AppTabNavigator() {
   function renderTabBar(props: BottomTabBarProps) {
-    return <AppTabBar {...props} />;
+    return <BottomTabBar {...props} />;
   }
 
   return (

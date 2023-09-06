@@ -1,11 +1,8 @@
 function adapterDescriptionApiReturn(text: string): string {
-  const adapter = text
-    .replace(/\n/g, ' ')
-    .replace(/(^\w|\.\s*\w)/gm, function (letter) {
-      return letter.toUpperCase();
-    });
+  text = text.replace(/\n/g, ' ');
+  text = text.replace(/\f/g, ' ');
 
-  return adapter;
+  return text;
 }
 
 function adapterMaximumPokemonCharactersName(text: string): string {

@@ -11,7 +11,7 @@ import { mapScreenToProps } from './mapScreenToProps';
 
 const IMG_POSITION_IOS = 36;
 
-export function AppTabBar({
+export function BottomTabBar({
   state,
   descriptors,
   navigation,
@@ -79,7 +79,7 @@ export function AppTabBar({
             style={[
               { paddingBottom: bottom },
               route.name !== 'HomeScreen'
-                ? { backgroundColor: colors.backgroundHeader }
+                ? { backgroundColor: colors.primary }
                 : { flexDirection: 'row' },
             ]}>
             <Box
@@ -87,7 +87,7 @@ export function AppTabBar({
                 route.name === 'HomeScreen'
                   ? {
                       flex: 1,
-                      backgroundColor: colors.backgroundHeader,
+                      backgroundColor: colors.primary,
                       borderTopRightRadius: 100,
                       height:
                         Platform.OS === 'ios' && bottom > 0
@@ -107,7 +107,7 @@ export function AppTabBar({
                 route.name === 'HomeScreen'
                   ? {
                       flex: 1.5,
-                      backgroundColor: colors.backgroundHeader,
+                      backgroundColor: colors.primary,
                       height:
                         Platform.OS === 'ios' && bottom > 0
                           ? barHeight + bottom + 2
@@ -126,7 +126,7 @@ export function AppTabBar({
                 route.name === 'HomeScreen'
                   ? {
                       flex: 1,
-                      backgroundColor: colors.backgroundHeader,
+                      backgroundColor: colors.primary,
                       borderTopLeftRadius: 100,
                       height:
                         Platform.OS === 'ios' && bottom > 0
@@ -162,7 +162,7 @@ export function AppTabBar({
               style={
                 route.name === 'HomeScreen'
                   ? {
-                      backgroundColor: colors.backgroundHeader,
+                      backgroundColor: colors.primary,
                       position: 'absolute',
                       top: 25,
                       paddingTop: 15,
