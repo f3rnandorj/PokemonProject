@@ -53,7 +53,11 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
 
   return (
     <Screen>
-      <StatusBar backgroundColor="transparent" translucent />
+      <StatusBar
+        backgroundColor="transparent"
+        translucent
+        barStyle="light-content"
+      />
       <Header title="Olá, Ash Ketchum" subTitle="Bem Vindo! 😄" />
 
       <Box flex={1}>

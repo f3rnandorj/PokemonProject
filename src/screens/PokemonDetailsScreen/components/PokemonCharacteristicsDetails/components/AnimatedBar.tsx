@@ -100,7 +100,7 @@ export function AnimatedBar({ count, index, isTotalCardDetails }: Props) {
 
   useEffect(() => {
     fillWidth.value = withTiming(count!, {
-      duration: 1500,
+      duration: 2500,
       easing: Easing.in(Easing.poly(3)),
     });
   }, [count, fillWidth]);

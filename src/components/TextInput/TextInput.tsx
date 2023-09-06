@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { PropsWithChildren, useRef, useState } from 'react';
 import {
   Keyboard,
   LayoutChangeEvent,
@@ -20,7 +20,7 @@ import { AnimatedTextInputImages } from './components/AnimatedTextInputImages';
 import { TextInputDropBox } from './components/TextInputDropBox';
 
 export interface InputProps extends SRTextInputProps {
-  getPokemonName: (name: Pokemon['name']) => void;
+  setPokemonName: (name: Pokemon['name']) => void;
   onMewTwoButtonPress: () => void;
 }
 
@@ -29,8 +29,9 @@ const INPUT_MARGIN_ADDITIONAL = 30;
 
 export function TextInput({
   value,
-  getPokemonName,
+  setPokemonName,
   onMewTwoButtonPress,
+  style,
   ...sRTextInputProps
 }: InputProps) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -53,7 +54,8 @@ export function TextInput({
   function handleInputFocus() {
     setIsFocused(true);
     setIsDropDownOpen(true);
-    getPokemonName('');
+    setPokemonName('');
+    inputRef?.current?.focus();
   }
 
   function handleInputBlur() {
@@ -64,65 +66,76 @@ export function TextInput({
   }
 
   return (
-    <Box>
-      <Box
-        flexShrink={1}
-        borderRadius="s50"
-        flexDirection="row"
-        alignSelf="center"
-        width={'70%'}
-        bg="backgroundContrastLight"
-        borderWidth={2}
-        paddingVertical="s6"
-        borderColor={
-          isFocused || isFilled ? 'backgroundHeader' : 'backgroundContrastLight'
-        }
-        style={{ ...$shadowProps, marginTop: MARGIN_TOP }}>
-        <SRTextInput
-          ref={inputRef}
-          onLayout={onLayout}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          value={value}
-          autoCapitalize="none"
-          placeholderTextColor={colors.backgroundContrastMedium}
-          style={{
-            flex: 1,
-            textAlign: value ? 'center' : 'left',
-            fontFamily: $fontFamily.interRegular,
-            fontSize: $fontSize.paragraphMedium.fontSize,
-            color: colors.backgroundContrast,
-            marginLeft: spacing.s40,
-            width: '100%',
-            paddingVertical: Platform.OS === 'android' ? 0 : spacing.s6,
-          }}
-          {...sRTextInputProps}
-        />
+    <ContainerBoxForPlatform>
+      <Box>
+        <Box
+          borderRadius="s50"
+          flexDirection="row"
+          alignSelf="center"
+          width={'70%'}
+          bg="backgroundContrastLight"
+          borderWidth={2}
+          paddingVertical="s6"
+          borderColor={
+            isFocused || isFilled ? 'primary' : 'backgroundContrastLight'
+          }
+          style={{ ...$shadowProps, marginTop: MARGIN_TOP }}>
+          <SRTextInput
+            ref={inputRef}
+            onLayout={onLayout}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            value={value}
+            autoCapitalize="none"
+            placeholderTextColor={colors.secondary}
+            style={[
+              {
+                flex: 1,
+                textAlign: value ? 'center' : 'left',
+                fontFamily: $fontFamily.interRegular,
+                fontSize: $fontSize.paragraphMedium.fontSize,
+                color: colors.backgroundContrast,
+                marginLeft: spacing.s40,
+                width: '100%',
+                paddingVertical: Platform.OS === 'android' ? 0 : spacing.s6,
+              },
+              style,
+            ]}
+            {...sRTextInputProps}
+          />
 
-        <Icon
-          width={16}
-          height={12}
-          justifyContent="center"
-          name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
-          onPress={() => setIsDropDownOpen(prev => !prev)}
-          style={{
-            marginLeft: spacing.s10,
-            marginRight: spacing.s12,
-          }}
-        />
+          <Icon
+            width={16}
+            height={12}
+            justifyContent="center"
+            name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
+            onPress={() => setIsDropDownOpen(prev => !prev)}
+            style={{
+              marginLeft: spacing.s10,
+              marginRight: spacing.s12,
+            }}
+          />
+        </Box>
+
+        {isDropDownOpen && (
+          <TextInputDropBox
+            positionY={positionY}
+            width={width}
+            setPokemonName={setPokemonName}
+            value={value}
+            closeDropBoxOnChoose={handleInputBlur}
+          />
+        )}
+
+        <AnimatedTextInputImages onPress={onMewTwoButtonPress} />
       </Box>
-
-      {isDropDownOpen && (
-        <TextInputDropBox
-          positionY={positionY}
-          width={width}
-          getPokemonName={getPokemonName}
-          value={value}
-          closeDropBoxOnChoose={handleInputBlur}
-        />
-      )}
-
-      <AnimatedTextInputImages onPress={onMewTwoButtonPress} />
-    </Box>
+    </ContainerBoxForPlatform>
   );
+}
+
+function ContainerBoxForPlatform({ children }: PropsWithChildren) {
+  if (Platform.OS === 'ios') {
+    return <Box zIndex={1}>{children}</Box>;
+  }
+  return <>{children}</>;
 }

@@ -54,7 +54,7 @@ function PokemonBodyDetailsCard({
   return (
     <Box {...$wrapperCard} borderRightWidth={!isLast ? spacing.s2 : 0}>
       <Box flexDirection="row" alignItems="center">
-        {iconName && <Icon name={iconName} color="backgroundContrastMedium" />}
+        {iconName && <Icon name={iconName} color="secondary" />}
         <Text preset="paragraphSmall" bold pl={'s8'}>
           {info}
         </Text>
@@ -85,5 +85,5 @@ const $textCard: TextProps = {
   preset: 'paragraphCaptionSmall',
   mt: 's6',
   textAlign: 'center',
-  color: 'backgroundContrastMedium',
+  color: 'secondary',
 };

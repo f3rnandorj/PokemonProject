@@ -77,10 +77,10 @@ const theme = createTheme({
     ...palette,
     background: palette.white,
     backgroundContrast: palette.black,
-    backgroundContrastMedium: palette.blackMedium,
     backgroundContrastLight: palette.blackLight,
 
-    backgroundHeader: palette.gray,
+    primary: palette.gray,
+    secondary: palette.blackMedium,
 
     grayBar: palette.grayLight,
     redBar: palette.redDark,

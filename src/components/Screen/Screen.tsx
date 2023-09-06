@@ -1,4 +1,5 @@
 import React from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -31,24 +32,26 @@ export function Screen({
     : ViewContainer;
 
   return (
-    <ScreenContainer backgroundColor={colors[color]}>
-      {canGoBack && (
-        <Icon
-          onPress={goBack}
-          name="leftArrowIcon"
-          width={35}
-          height={35}
-          color="background"
-          style={{ marginLeft: spacing.s16, marginTop: top }}
-        />
-      )}
-      <Box
-        flex={1}
-        marginHorizontal="s26"
-        style={[{ marginTop: top }, style]}
-        {...boxProps}>
-        {children}
-      </Box>
-    </ScreenContainer>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}>
+      <ScreenContainer backgroundColor={colors[color]}>
+        <Box flex={1} style={{ marginTop: top }}>
+          {canGoBack && (
+            <Icon
+              onPress={goBack}
+              name="leftArrowIcon"
+              width={35}
+              height={35}
+              color="background"
+              style={{ marginLeft: spacing.s16 }}
+            />
+          )}
+          <Box flex={1} marginHorizontal="s26" style={[style]} {...boxProps}>
+            {children}
+          </Box>
+        </Box>
+      </ScreenContainer>
+    </KeyboardAvoidingView>
   );
 }

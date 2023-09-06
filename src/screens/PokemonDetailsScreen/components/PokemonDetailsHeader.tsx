@@ -30,5 +30,5 @@ const $headerTitle: BoxProps = {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  mt: 'ns40',
+  mt: 's8',
 };
