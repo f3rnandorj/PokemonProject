@@ -27,7 +27,13 @@
         "src/api"
       ],
       "@utils": [
-        "src/domain/Pokemon/utils"
+        "src/utils"
+      ],
+      "@infra": [
+        "src/infra"
+      ],
+      "@types": [
+        "src/types"
       ],
     }
   }

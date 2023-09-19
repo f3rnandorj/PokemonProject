@@ -1,4 +1,5 @@
-import { Page, apiAdapter } from '@api';
+import { apiAdapter } from '@api';
+import { Page } from '@types';
 
 import { pokemonAdapter } from './pokemonAdapter';
 import { pokemonApi } from './pokemonApi';

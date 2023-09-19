@@ -58,13 +58,6 @@ export interface PokemonNameDataApi {
   url: string;
 }
 
-export interface ListPokemonNameDataApi<Data> {
-  count: number;
-  next: string;
-  previous: string;
-  results: Data[];
-}
-
 export interface PokemonApi {
   abilities: Ability[];
   base_experience: number;
