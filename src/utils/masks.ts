@@ -5,6 +5,10 @@ function adapterDescriptionApiReturn(text: string): string {
   return text;
 }
 
+function changeDotForHyphen(text: string): string {
+  return text.replace(/[\._]/g, '-');
+}
+
 function adapterMaximumPokemonCharactersName(text: string): string {
   if (text.length <= 16) {
     return text;
@@ -33,6 +37,10 @@ function adapterSomeNamesToUrlOfGif(name: string | null) {
     name = 'mime_jr';
   }
 
+  if (name === 'mr-mime') {
+    name = 'mr.mime';
+  }
+
   if (name === 'mr-rime') {
     name = 'mr.rime';
   }
@@ -44,4 +52,5 @@ export const masks = {
   adapterDescriptionApiReturn,
   adapterMaximumPokemonCharactersName,
   adapterSomeNamesToUrlOfGif,
+  changeDotForHyphen,
 };

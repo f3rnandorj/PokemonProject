@@ -3,9 +3,9 @@ import React, { ReactNode, createContext, useContext } from 'react';
 import { usePokemonNamesData } from '@domain';
 
 interface AuthContextData {
-  pokemonNamesData: string[];
-  errorToFetchPokemonData: boolean | null;
-  loadingPokemonNameData: boolean;
+  pokemonNamesList: string[] | undefined;
+  isError: boolean | null;
+  isLoading: boolean;
 }
 
 interface AppProviderProps {
@@ -15,15 +15,14 @@ interface AppProviderProps {
 const DataContext = createContext<AuthContextData>({} as AuthContextData);
 
 function DataProvider({ children }: AppProviderProps) {
-  const { pokemonNamesData, loadingPokemonNameData, errorToFetchPokemonData } =
-    usePokemonNamesData();
+  const { pokemonNamesList, isError, isLoading } = usePokemonNamesData();
 
   return (
     <DataContext.Provider
       value={{
-        pokemonNamesData,
-        loadingPokemonNameData,
-        errorToFetchPokemonData,
+        pokemonNamesList,
+        isError,
+        isLoading,
       }}>
       {children}
     </DataContext.Provider>

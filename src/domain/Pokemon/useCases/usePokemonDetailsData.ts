@@ -1,54 +1,25 @@
-import { useEffect, useState } from 'react';
+import { QueryKeys } from '@infra';
+import { useQuery } from '@tanstack/react-query';
 
 import { pokemonService } from '../pokemonService';
-import { Pokemon, PokemonDetails, PokemonEvolutions } from '../pokemonTypes';
+import { Pokemon } from '../pokemonTypes';
 
 export function usePokemonDetailsData(pokemonName: Pokemon['name']) {
-  const [pokemonBasicDetailsData, setPokemonBasicDetailsData] =
-    useState<Pokemon>({} as Pokemon);
-  const [pokemonDetailsData, setPokemonDetailsData] = useState<PokemonDetails>(
-    {} as PokemonDetails,
-  );
-  const [pokemonEvolutionsData, setPokemonEvolutionsData] =
-    useState<PokemonEvolutions>({} as PokemonEvolutions);
-  const [errorToFetchPokemonDetailsData, setErrorToFetchPokemonDetailsData] =
-    useState<boolean | null>(null);
-  const [loadingPokemonDetailsData, setLoadingPokemonDetailsData] =
-    useState(false);
-
-  async function fetchEvolutionPokemonDetailsData(name: Pokemon['name']) {
-    try {
-      setLoadingPokemonDetailsData(true);
-      setErrorToFetchPokemonDetailsData(null);
-
-      const {
-        pokemonBasicDetails,
-        pokemonInfoDetails,
-        pokemonEvolutionDetails,
-      } = await pokemonService.getDetailsOfPokemons(name);
-
-      setPokemonBasicDetailsData(pokemonBasicDetails!);
-      setPokemonDetailsData(pokemonInfoDetails);
-      setPokemonEvolutionsData(pokemonEvolutionDetails);
-    } catch (e) {
-      setErrorToFetchPokemonDetailsData(true);
-    } finally {
-      setLoadingPokemonDetailsData(false);
-    }
-  }
-
-  useEffect(() => {
-    if (pokemonName !== '') {
-      fetchEvolutionPokemonDetailsData(pokemonName);
-    }
-  }, [pokemonName]);
-
+  const { data, isError, isLoading, isInitialLoading } = useQuery({
+    enabled: pokemonName.length > 0,
+    queryKey: [QueryKeys.PokemonDetails, pokemonName],
+    queryFn: () => {
+      return pokemonService.getDetailsOfPokemons(pokemonName);
+    },
+    staleTime: 1000 * 60,
+  });
+  console.log(isLoading, isInitialLoading);
   return {
-    errorToFetchPokemonDetailsData,
-    loadingPokemonDetailsData,
-    pokemonBasicDetailsData,
-    pokemonDetailsData,
-    pokemonEvolutionsData,
-    fetchEvolutionPokemonDetailsData,
+    isError,
+    isLoading,
+    isInitialLoading,
+    pokemonBasicDetailsData: data?.pokemonBasicDetails,
+    pokemonDetailsData: data?.pokemonInfoDetails,
+    pokemonEvolutionsData: data?.pokemonEvolutionDetails,
   };
 }

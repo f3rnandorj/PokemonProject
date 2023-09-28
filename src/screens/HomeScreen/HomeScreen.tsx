@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FlatList, ListRenderItemInfo, StatusBar } from 'react-native';
 
-import { Pokemon, usePokemonData } from '@domain';
+import { Pokemon, usePokemonList } from '@domain';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import Orientation from 'react-native-orientation-locker';
 
@@ -19,11 +19,11 @@ import { HomeHeaderList } from './components/HomeHeaderList';
 
 export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
   const {
-    pokemonData,
-    errorToFetchPokemonData,
-    loadingPokemonData,
+    list: pokemonData,
+    isLoading,
+    isError,
     fetchNextPage,
-  } = usePokemonData();
+  } = usePokemonList();
 
   const tabBarHeight = useBottomTabBarHeight();
 
@@ -61,17 +61,17 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
       <Header title="Olá, Ash Ketchum" subTitle="Bem Vindo! 😄" />
 
       <Box flex={1}>
-        {pokemonData.length > 0 && loadingPokemonData && <LoadingDataScreen />}
+        {pokemonData.length > 0 && isLoading && <LoadingDataScreen />}
 
         <FlatList
           data={pokemonData}
           keyExtractor={item => item.id.toString()}
           renderItem={renderItem}
           contentContainerStyle={[
-            pokemonData.length === 0 && loadingPokemonData
+            pokemonData.length === 0 && isLoading
               ? { flex: 1 }
               : { paddingBottom: tabBarHeight },
-            pokemonData.length > 0 && loadingPokemonData && { opacity: 0.5 },
+            pokemonData.length > 0 && isLoading && { opacity: 0.5 },
           ]}
           numColumns={2}
           showsVerticalScrollIndicator={false}
@@ -81,10 +81,7 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
           maxToRenderPerBatch={50}
           ListHeaderComponent={<HomeHeaderList />}
           ListEmptyComponent={
-            <HomeEmpty
-              error={errorToFetchPokemonData!}
-              loading={loadingPokemonData}
-            />
+            <HomeEmpty error={isError!} loading={isLoading} />
           }
         />
       </Box>

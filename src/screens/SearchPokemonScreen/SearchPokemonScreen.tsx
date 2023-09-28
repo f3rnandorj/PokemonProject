@@ -3,38 +3,40 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import { Pokemon, usePokemonDetailsData } from '@domain';
 import { useFocusEffect } from '@react-navigation/native';
+import { masks } from '@utils';
 
 import { Screen, Header, TextInput } from '@components';
-import { useAppTheme } from '@hooks';
+import { useAppTheme, useSharedData } from '@hooks';
 
 import { SearchPokemonShowDetails } from './components/SearchPokemonShowDetails';
 
 export function SearchPokemonScreen() {
   const [textInputKey, setTextInputKey] = useState(0);
+  const [pokemonSuggestionName, setPokemonSuggestionName] = useState('');
   const [pokemon, setPokemon] = useState('');
 
   const {
-    fetchEvolutionPokemonDetailsData,
     pokemonBasicDetailsData,
     pokemonDetailsData,
     pokemonEvolutionsData,
-    loadingPokemonDetailsData,
-    errorToFetchPokemonDetailsData,
-  } = usePokemonDetailsData('');
+    isLoading,
+    isInitialLoading,
+    isError,
+  } = usePokemonDetailsData(pokemon);
 
   const { spacing } = useAppTheme();
+  const { pokemonNamesList } = useSharedData();
 
-  function setPokemonName(name: Pokemon['name']) {
-    setPokemon(name);
+  function setPokemonSuggestion(name: Pokemon['name']) {
+    const pokemonAdapted = masks.changeDotForHyphen(name);
+
+    setPokemonSuggestionName(pokemonAdapted);
   }
 
   function fetchEvolutionPokemonDetails(evolutionName: string) {
-    if (evolutionName === '') {
-      // TODO: use toast after created
-      return;
-    }
+    const pokemonAdapted = masks.changeDotForHyphen(evolutionName);
 
-    fetchEvolutionPokemonDetailsData(evolutionName);
+    setPokemon(pokemonAdapted);
   }
 
   useFocusEffect(
@@ -55,24 +57,29 @@ export function SearchPokemonScreen() {
 
         <TextInput
           key={textInputKey}
-          value={pokemon}
+          value={pokemonSuggestionName}
           onMewTwoButtonPress={() => {
-            fetchEvolutionPokemonDetails(pokemon);
+            if (pokemon === pokemonSuggestionName) {
+              return;
+            }
+            setPokemon(pokemonSuggestionName);
           }}
-          onChangeText={setPokemonName}
+          onChangeText={setPokemonSuggestionName}
           placeholder="Encontre seu pokémon..."
-          setPokemonName={setPokemonName}
+          setPokemonName={setPokemonSuggestion}
+          initialDropBoxValue={pokemonNamesList}
         />
 
         <SearchPokemonShowDetails
-          errorToFetchPokemonDetailsData={errorToFetchPokemonDetailsData}
+          isError={isError}
+          isLoading={isLoading}
+          isInitialLoading={isInitialLoading}
           fetchEvolutionPokemonDetails={fetchEvolutionPokemonDetails}
-          loadingPokemonDetailsData={loadingPokemonDetailsData}
           pokemonBasicDetailsData={pokemonBasicDetailsData}
           pokemonDetailsData={pokemonDetailsData}
           pokemonEvolutionsData={pokemonEvolutionsData}
           pokemon={pokemon}
-          setPokemonName={setPokemonName}
+          setPokemonName={setPokemonSuggestion}
         />
       </Screen>
     </TouchableWithoutFeedback>

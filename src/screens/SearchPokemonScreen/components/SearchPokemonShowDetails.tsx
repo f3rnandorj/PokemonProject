@@ -18,11 +18,12 @@ import { Pokedex } from './Pokedex';
 import { SearchPokemonEmpty } from './SearchPokemonEmpty';
 
 interface Props {
-  loadingPokemonDetailsData: boolean;
-  errorToFetchPokemonDetailsData: boolean | null;
-  pokemonBasicDetailsData: Pokemon;
-  pokemonDetailsData: PokemonDetails;
-  pokemonEvolutionsData: PokemonEvolutions;
+  isLoading: boolean;
+  isInitialLoading: boolean;
+  isError: boolean | null;
+  pokemonBasicDetailsData: Pokemon | undefined;
+  pokemonDetailsData: PokemonDetails | undefined;
+  pokemonEvolutionsData: PokemonEvolutions | undefined;
   fetchEvolutionPokemonDetails: (evolutionName: string) => void;
   pokemon: Pokemon['name'];
   setPokemonName: (name: string) => void;
@@ -38,19 +39,25 @@ export function SearchPokemonShowDetails(props: Props) {
     (props.pokemonBasicDetailsData?.name ?? '').slice(1);
 
   useEffect(() => {
-    props.setPokemonName(pokemon);
+    if (props?.pokemonBasicDetailsData?.name === undefined) {
+      return;
+    } else {
+      props.setPokemonName(props.pokemonBasicDetailsData.name);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemon]);
 
   return (
     <Box flex={1}>
       <Pokedex>
-        {props.loadingPokemonDetailsData ||
-        props.errorToFetchPokemonDetailsData ||
-        pokemon === '' ? (
+        {props.isLoading ||
+        props.isError ||
+        props.pokemonBasicDetailsData === undefined ||
+        props.pokemonDetailsData === undefined ||
+        props.pokemonEvolutionsData === undefined ? (
           <SearchPokemonEmpty
-            error={props.errorToFetchPokemonDetailsData}
-            loading={props.loadingPokemonDetailsData}
+            error={props.isError}
+            loading={props.isInitialLoading && props.isLoading}
           />
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -93,7 +100,7 @@ export function SearchPokemonShowDetails(props: Props) {
               />
 
               <Box flex={1}>
-                <Text marginHorizontal="s6">
+                <Text marginHorizontal="s10">
                   {props.pokemonDetailsData.description}
                 </Text>
               </Box>
@@ -101,7 +108,7 @@ export function SearchPokemonShowDetails(props: Props) {
               <Button
                 onPress={() =>
                   navigation.navigate('PokemonDetailsScreen', {
-                    pokemonName: props.pokemonBasicDetailsData?.name,
+                    pokemonName: props?.pokemonBasicDetailsData?.name!,
                   })
                 }
                 backgroundColor={pokemonColor}

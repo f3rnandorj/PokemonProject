@@ -22,6 +22,7 @@ import { TextInputDropBox } from './components/TextInputDropBox';
 export interface InputProps extends SRTextInputProps {
   setPokemonName: (name: Pokemon['name']) => void;
   onMewTwoButtonPress: () => void;
+  initialDropBoxValue: string[] | undefined;
 }
 
 const MARGIN_TOP = 16;
@@ -31,6 +32,7 @@ export function TextInput({
   value,
   setPokemonName,
   onMewTwoButtonPress,
+  initialDropBoxValue,
   style,
   ...sRTextInputProps
 }: InputProps) {
@@ -124,6 +126,7 @@ export function TextInput({
             setPokemonName={setPokemonName}
             value={value}
             closeDropBoxOnChoose={handleInputBlur}
+            initialDropBoxValue={initialDropBoxValue}
           />
         )}
 

@@ -1,40 +1,19 @@
-import { useEffect, useState } from 'react';
+import { QueryKeys } from '@infra';
+import { useQuery } from '@tanstack/react-query';
 
 import { pokemonService } from '../pokemonService';
-import { Pokemon } from '../pokemonTypes';
 
 export function usePokemonNamesData() {
-  const [pokemonNamesData, setPokemonNamesData] = useState<Pokemon['name'][]>(
-    [],
-  );
-  const [errorToFetchPokemonData, setErrorToFetchPokemonData] = useState<
-    boolean | null
-  >(null);
-  const [loadingPokemonNameData, setLoadingPokemonNameData] = useState(false);
-
-  async function fetchAllPokemonNamesData() {
-    try {
-      setErrorToFetchPokemonData(null);
-
-      setLoadingPokemonNameData(true);
-
-      const data = await pokemonService.getListOfAllPokemonNames();
-
-      setPokemonNamesData(data);
-    } catch (e) {
-      setErrorToFetchPokemonData(true);
-    } finally {
-      setLoadingPokemonNameData(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchAllPokemonNamesData();
-  }, []);
+  const { data, isError, isLoading } = useQuery({
+    queryKey: [QueryKeys.PokemonNamesList],
+    queryFn: () => pokemonService.getListOfAllPokemonNames(),
+    staleTime: 1000 * 60 * 60 * 24 * 30,
+    cacheTime: Infinity,
+  });
 
   return {
-    pokemonNamesData,
-    errorToFetchPokemonData,
-    loadingPokemonNameData,
+    pokemonNamesList: data,
+    isError,
+    isLoading,
   };
 }

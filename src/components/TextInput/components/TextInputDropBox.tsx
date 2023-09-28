@@ -4,7 +4,6 @@ import { FlatList, ListRenderItemInfo, Platform } from 'react-native';
 import { Pokemon } from '@domain';
 
 import { Box, TouchableOpacityBox, Text, BoxProps } from '@components';
-import { useSharedData } from '@hooks';
 
 interface Props {
   positionY: number;
@@ -12,6 +11,7 @@ interface Props {
   setPokemonName: (name: Pokemon['name']) => void;
   value: string | undefined;
   closeDropBoxOnChoose: () => void;
+  initialDropBoxValue: string[] | undefined;
 }
 
 export function TextInputDropBox({
@@ -20,12 +20,11 @@ export function TextInputDropBox({
   setPokemonName,
   value,
   closeDropBoxOnChoose,
+  initialDropBoxValue,
 }: Props) {
-  const { pokemonNamesData } = useSharedData();
-
   const suggestionList =
-    pokemonNamesData &&
-    pokemonNamesData.filter(pokemon =>
+    initialDropBoxValue &&
+    initialDropBoxValue.filter(pokemon =>
       pokemon.toLowerCase().includes(value!.toLowerCase()),
     );
 

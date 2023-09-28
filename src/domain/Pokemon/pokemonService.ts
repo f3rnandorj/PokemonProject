@@ -5,10 +5,12 @@ import { pokemonAdapter } from './pokemonAdapter';
 import { pokemonApi } from './pokemonApi';
 import { AllPokemonDetails, Pokemon } from './pokemonTypes';
 
+const POKEMONS_TESTED_ON_API = 870;
+
 async function getListOfAllPokemonNames(): Promise<Pokemon['name'][]> {
   const listPokemonNames = await pokemonApi.getPokemonNamesList({
     page: 0,
-    per_page: 1200,
+    per_page: POKEMONS_TESTED_ON_API,
   });
 
   return listPokemonNames.results.map(pokemonName => pokemonName.name);
@@ -24,7 +26,7 @@ async function getListOfPokemons(page: number): Promise<Page<Pokemon>> {
 
   return {
     data: pokemonList.map(pokemon => pokemonAdapter.toPokemon(pokemon)),
-    meta: apiAdapter.toMetaDataPage(listPokemonData),
+    meta: apiAdapter.toMetaDataPage(listPokemonData, page),
   };
 }
 

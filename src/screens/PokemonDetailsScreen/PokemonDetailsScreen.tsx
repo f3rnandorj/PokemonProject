@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
 import { usePokemonDetailsData } from '@domain';
@@ -23,14 +23,14 @@ export function PokemonDetailsScreen({
   route,
 }: AppScreenProps<'PokemonDetailsScreen'>) {
   const { pokemonName: pokemonNameParm } = route.params;
+  const [pokemon, setPokemon] = useState(pokemonNameParm);
 
   const {
     pokemonBasicDetailsData,
     pokemonDetailsData,
     pokemonEvolutionsData,
-    loadingPokemonDetailsData,
-    fetchEvolutionPokemonDetailsData,
-  } = usePokemonDetailsData(pokemonNameParm);
+    isLoading,
+  } = usePokemonDetailsData(pokemon);
 
   const pokemonColor = pokemonBasicDetailsData?.types?.[0] as ThemeColors;
 
@@ -39,7 +39,7 @@ export function PokemonDetailsScreen({
     (pokemonBasicDetailsData?.name ?? '').slice(1);
 
   function fetchEvolutionPokemonDetails(evolutionName: string) {
-    fetchEvolutionPokemonDetailsData(evolutionName);
+    setPokemon(evolutionName);
   }
 
   useEffect(() => {
@@ -52,7 +52,10 @@ export function PokemonDetailsScreen({
 
   return (
     <>
-      {loadingPokemonDetailsData ? (
+      {isLoading ||
+      !pokemonBasicDetailsData ||
+      !pokemonDetailsData ||
+      !pokemonEvolutionsData ? (
         <LoadingDetails />
       ) : (
         <Screen scrollable color={pokemonColor} canGoBack>
@@ -81,7 +84,7 @@ export function PokemonDetailsScreen({
             />
 
             <PokemonEvolutionsCard
-              {...pokemonEvolutionsData}
+              {...pokemonEvolutionsData!}
               usage="detailsScreen"
               avatarURL={pokemonBasicDetailsData?.avatarURL}
               colorOfPokemon={pokemonColor}
