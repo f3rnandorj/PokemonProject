@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { FavoritePokemonsService } from './favoritePokemonsTypes';
 import { FavoritePokemonProviderContext } from './Providers/favoritePokemonProvider';
 
-export function useSharedData(): FavoritePokemonsService {
+export function useFavoritePokemonsService(): FavoritePokemonsService {
   const context = useContext(FavoritePokemonProviderContext);
 
   if (!context) {

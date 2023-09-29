@@ -15,7 +15,15 @@ import { Text } from '../Text/Text';
 
 import { AnimatedItem } from './components/AnimatedItem';
 
-export function FavoritePokemonCard() {
+interface Props {
+  saveFavoritePokemon?: () => void;
+  removeFavoritePokemon: () => void;
+}
+
+export function FavoritePokemonCard({
+  saveFavoritePokemon,
+  removeFavoritePokemon,
+}: Props) {
   const { pokemonBasicDetailsData, pokemonDetailsData } =
     usePokemonDetailsData('charmander');
 
@@ -63,7 +71,10 @@ export function FavoritePokemonCard() {
           </Text>
         </Box>
 
-        <FavoriteButton />
+        <FavoriteButton
+          saveFavoritePokemon={saveFavoritePokemon}
+          removeFavoritePokemon={removeFavoritePokemon}
+        />
       </Box>
 
       <Box pt="s10">

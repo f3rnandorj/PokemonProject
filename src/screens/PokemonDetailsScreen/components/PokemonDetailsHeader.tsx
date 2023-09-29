@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pokemon } from '@domain';
+import { Pokemon, PokemonDetails } from '@domain';
 
 import {
   Box,
@@ -12,9 +12,17 @@ import {
 
 type Props = {
   pokemonName: string;
+  pokemonBasicDetailsData: Pokemon;
+  pokemonDetailsData: PokemonDetails;
 } & Pick<Pokemon, 'id' | 'types'>;
 
-export function PokemonDetailsHeader({ pokemonName, id, types }: Props) {
+export function PokemonDetailsHeader({
+  pokemonName,
+  id,
+  types,
+  pokemonBasicDetailsData,
+  pokemonDetailsData,
+}: Props) {
   return (
     <>
       <Box {...$headerTitle}>
@@ -30,7 +38,10 @@ export function PokemonDetailsHeader({ pokemonName, id, types }: Props) {
       <Box {...$headerTypes}>
         <MemoPokemonTypes types={types} isDetailsScreen />
 
-        <FavoriteButton />
+        <FavoriteButton
+          pokemonBasicDetailsData={pokemonBasicDetailsData}
+          pokemonDetailsData={pokemonDetailsData}
+        />
       </Box>
     </>
   );

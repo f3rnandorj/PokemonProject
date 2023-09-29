@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
 import { usePokemonDetailsData } from '@domain';
+import { useFavoritePokemonsService } from '@services';
 import Orientation from 'react-native-orientation-locker';
 
 import {
@@ -31,9 +32,9 @@ export function PokemonDetailsScreen({
     pokemonEvolutionsData,
     isLoading,
   } = usePokemonDetailsData(pokemon);
+  const { getFavoritePokemonById } = useFavoritePokemonsService();
 
   const pokemonColor = pokemonBasicDetailsData?.types?.[0] as ThemeColors;
-
   const pokemonName =
     (pokemonBasicDetailsData?.name ?? '').charAt(0).toUpperCase() +
     (pokemonBasicDetailsData?.name ?? '').slice(1);
@@ -41,6 +42,11 @@ export function PokemonDetailsScreen({
   function fetchEvolutionPokemonDetails(evolutionName: string) {
     setPokemon(evolutionName);
   }
+
+  useEffect(() => {
+    getFavoritePokemonById(pokemonBasicDetailsData?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pokemonBasicDetailsData?.id]);
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -62,6 +68,8 @@ export function PokemonDetailsScreen({
           <PokemonDetailsHeader
             {...pokemonBasicDetailsData}
             pokemonName={pokemonName}
+            pokemonBasicDetailsData={pokemonBasicDetailsData}
+            pokemonDetailsData={pokemonDetailsData}
           />
 
           <Box

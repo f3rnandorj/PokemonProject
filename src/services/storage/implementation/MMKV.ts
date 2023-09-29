@@ -5,6 +5,20 @@ import { Storage } from '../storage';
 const MMKVInstance = new MMKV();
 
 export const MMKVStorage: Storage = {
+  getAllItens: async (): Promise<string[]> => {
+    const allKeys = MMKVInstance.getAllKeys();
+
+    const allPokemons = [];
+
+    for (const key of allKeys) {
+      const pokemon = MMKVInstance.getString(key);
+      if (pokemon) {
+        const parsePokemon = JSON.parse(pokemon);
+        allPokemons.push(parsePokemon);
+      }
+    }
+    return allPokemons;
+  },
   getItem: async key => {
     const item = MMKVInstance.getString(key);
 
