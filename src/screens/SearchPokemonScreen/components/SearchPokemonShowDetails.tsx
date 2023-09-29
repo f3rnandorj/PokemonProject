@@ -3,10 +3,12 @@ import { Image, ImageStyle, ScrollView, StyleProp } from 'react-native';
 
 import { Pokemon, PokemonDetails, PokemonEvolutions } from '@domain';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useFavoritePokemonsService } from '@services';
 
 import {
   Box,
   Button,
+  FavoriteButton,
   MemoPokemonTypes,
   PokemonEvolutionsCard,
   Text,
@@ -30,6 +32,7 @@ interface Props {
 }
 
 export function SearchPokemonShowDetails(props: Props) {
+  const { allFavoritePokemons } = useFavoritePokemonsService();
   const navigation = useNavigation<NavigationProp<AppStackParamList>>();
 
   const pokemonColor = props.pokemonBasicDetailsData?.types?.[0] as ThemeColors;
@@ -37,6 +40,10 @@ export function SearchPokemonShowDetails(props: Props) {
   const pokemon =
     (props.pokemonBasicDetailsData?.name ?? '').charAt(0).toUpperCase() +
     (props.pokemonBasicDetailsData?.name ?? '').slice(1);
+
+  const isFavorite = allFavoritePokemons?.some(
+    poke => poke.id === props?.pokemonBasicDetailsData?.id,
+  );
 
   useEffect(() => {
     if (props?.pokemonBasicDetailsData?.name === undefined) {
@@ -91,6 +98,19 @@ export function SearchPokemonShowDetails(props: Props) {
                 textAlign="center">
                 {pokemon}
               </Text>
+
+              <Box
+                bg="primary"
+                borderRadius="s50"
+                paddingHorizontal="s2"
+                paddingVertical="s2"
+                pb="s4">
+                <FavoriteButton
+                  isFavorite={isFavorite}
+                  pokemonBasicDetailsData={props.pokemonBasicDetailsData}
+                  pokemonDetailsData={props.pokemonDetailsData}
+                />
+              </Box>
 
               <MemoPokemonTypes
                 types={props.pokemonBasicDetailsData?.types}

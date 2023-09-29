@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Pokemon, PokemonDetails } from '@domain';
+import { FavoritePokemon } from '@services';
 
 import {
   Box,
@@ -14,6 +15,7 @@ type Props = {
   pokemonName: string;
   pokemonBasicDetailsData: Pokemon;
   pokemonDetailsData: PokemonDetails;
+  allFavoritePokemons: FavoritePokemon[] | null;
 } & Pick<Pokemon, 'id' | 'types'>;
 
 export function PokemonDetailsHeader({
@@ -22,7 +24,10 @@ export function PokemonDetailsHeader({
   types,
   pokemonBasicDetailsData,
   pokemonDetailsData,
+  allFavoritePokemons,
 }: Props) {
+  const isFavorite = allFavoritePokemons?.some(pokemon => pokemon.id === id);
+
   return (
     <>
       <Box {...$headerTitle}>
@@ -39,6 +44,7 @@ export function PokemonDetailsHeader({
         <MemoPokemonTypes types={types} isDetailsScreen />
 
         <FavoriteButton
+          isFavorite={isFavorite}
           pokemonBasicDetailsData={pokemonBasicDetailsData}
           pokemonDetailsData={pokemonDetailsData}
         />

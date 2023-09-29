@@ -27,6 +27,12 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
 
   const tabBarHeight = useBottomTabBarHeight();
 
+  const $listLoading = pokemonData.length > 0 && isLoading && { opacity: 0.5 };
+  const $emptyList =
+    pokemonData.length === 0 && isLoading
+      ? { flex: 1 }
+      : { paddingBottom: tabBarHeight };
+
   function handleOpenPokemonDetails(item: Pokemon) {
     navigation.navigate('PokemonDetailsScreen', {
       pokemonName: item.name,
@@ -67,12 +73,7 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
           data={pokemonData}
           keyExtractor={item => item.id.toString()}
           renderItem={renderItem}
-          contentContainerStyle={[
-            pokemonData.length === 0 && isLoading
-              ? { flex: 1 }
-              : { paddingBottom: tabBarHeight },
-            pokemonData.length > 0 && isLoading && { opacity: 0.5 },
-          ]}
+          contentContainerStyle={[$emptyList, $listLoading]}
           numColumns={2}
           showsVerticalScrollIndicator={false}
           onEndReached={fetchNextPage}

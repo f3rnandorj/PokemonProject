@@ -32,7 +32,8 @@ export function PokemonDetailsScreen({
     pokemonEvolutionsData,
     isLoading,
   } = usePokemonDetailsData(pokemon);
-  const { getFavoritePokemonById } = useFavoritePokemonsService();
+  const { getFavoritePokemonById, allFavoritePokemons } =
+    useFavoritePokemonsService();
 
   const pokemonColor = pokemonBasicDetailsData?.types?.[0] as ThemeColors;
   const pokemonName =
@@ -70,6 +71,7 @@ export function PokemonDetailsScreen({
             pokemonName={pokemonName}
             pokemonBasicDetailsData={pokemonBasicDetailsData}
             pokemonDetailsData={pokemonDetailsData}
+            allFavoritePokemons={allFavoritePokemons}
           />
 
           <Box

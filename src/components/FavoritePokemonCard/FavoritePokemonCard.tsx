@@ -1,44 +1,43 @@
 import React from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
+import { FavoritePokemon } from '@services';
+
 import { ThemeColors } from '@theme';
 
 import greatball from '../../assets/brandPokeballs/greatball.png';
 import masterball from '../../assets/brandPokeballs/masterball.png';
 import pokeball from '../../assets/brandPokeballs/pokeball.png';
 import ultraball from '../../assets/brandPokeballs/ultraball.png';
-import { usePokemonDetailsData } from '../../domain/Pokemon/useCases/usePokemonDetailsData';
 import { Box, BoxProps, TouchableOpacityBox } from '../Box/Box';
 import { CharacteristicCard } from '../CharacteristicCard/CharacteristicCard';
+// import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { Text } from '../Text/Text';
 
+import { objectPokemonAdapter } from './adapterFavoritePokemon';
 import { AnimatedItem } from './components/AnimatedItem';
 
-interface Props {
-  saveFavoritePokemon?: () => void;
-  removeFavoritePokemon: () => void;
+interface Props extends FavoritePokemon {
+  isFavorite: boolean | undefined;
 }
 
-export function FavoritePokemonCard({
-  saveFavoritePokemon,
-  removeFavoritePokemon,
-}: Props) {
-  const { pokemonBasicDetailsData, pokemonDetailsData } =
-    usePokemonDetailsData('charmander');
-
+export function FavoritePokemonCard(pokemon: Props) {
   const pokemonRarity = getPokemonRarityUsingCaptureRate(
-    pokemonDetailsData?.captureRate ?? 0,
+    pokemon.captureRate ?? 0,
   );
 
-  const pokemonColor = pokemonBasicDetailsData?.types?.[0] as ThemeColors;
+  const pokemonColor = pokemon.types?.[0] as ThemeColors;
   const borderColor = pokemonColor
     ? (`${pokemonColor}Light` as ThemeColors)
     : 'background';
 
-  const pokemon =
-    (pokemonBasicDetailsData?.name ?? '').charAt(0).toUpperCase() +
-    (pokemonBasicDetailsData?.name ?? '').slice(1);
+  const pokemonName =
+    (pokemon.name ?? '').charAt(0).toUpperCase() +
+    (pokemon.name ?? '').slice(1);
+
+  const adaptedPokemonDetailsObject =
+    objectPokemonAdapter.toPokemonDetails(pokemon);
 
   return (
     <TouchableOpacityBox
@@ -47,7 +46,7 @@ export function FavoritePokemonCard({
       {...$button}>
       <Image
         source={{
-          uri: `${pokemonBasicDetailsData?.avatarURL}`,
+          uri: `${pokemon.avatarURL}`,
         }}
         style={$backgroundImage}
         resizeMode="contain"
@@ -60,20 +59,20 @@ export function FavoritePokemonCard({
         <Box flexDirection="row" alignItems="center">
           <Image
             source={{
-              uri: 'https://projectpokemon.org/images/normal-sprite/charmander.gif',
+              uri: `https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`,
             }}
             style={{ height: 55, width: 55 }}
             resizeMode="contain"
           />
           <AnimatedItem pokemonRarity={pokemonRarity} />
           <Text textAlign="left" color="background" preset="headerMedium" bold>
-            {pokemon}
+            {pokemonName}
           </Text>
         </Box>
 
         <FavoriteButton
-          saveFavoritePokemon={saveFavoritePokemon}
-          removeFavoritePokemon={removeFavoritePokemon}
+          isFavorite={pokemon.isFavorite}
+          {...adaptedPokemonDetailsObject}
         />
       </Box>
 
@@ -82,7 +81,7 @@ export function FavoritePokemonCard({
           label="Poder"
           index={0}
           isTotalCardDetails
-          count={pokemonBasicDetailsData?.characteristics.total}
+          count={pokemon.characteristics.total}
           isFavoriteCard
         />
       </Box>

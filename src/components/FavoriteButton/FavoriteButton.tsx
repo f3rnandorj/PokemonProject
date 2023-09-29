@@ -1,64 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Image } from 'react-native';
 
 import { Pokemon, PokemonDetails } from '@domain';
-import { useFavoritePokemonsService } from '@services';
+import { FavoritePokemon, useFavoritePokemonsService } from '@services';
 
 import star from '../../assets/tabBarImages/star.png';
 import starOutline from '../../assets/tabBarImages/starOutline.png';
 import { TouchableOpacityBox } from '../Box/Box';
 
-type Props = {
+interface Props {
   pokemonBasicDetailsData: Pokemon;
   pokemonDetailsData: PokemonDetails;
-};
+  isFavorite: boolean | undefined;
+}
 
 export function FavoriteButton({
   pokemonDetailsData,
   pokemonBasicDetailsData,
+  isFavorite,
 }: Props) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  // const [isFavorite, setIsFavorite] = useState(false);
 
   const {
-    favoritePokemonDetails,
-    favoritePokemons,
-    saveFavoritePokemonBasic,
-    saveFavoritePokemonDetails,
-    removeFavoritePokemonBasic,
-    removeFavoritePokemonDetails,
+    removeFavoritePokemon: remove,
+    saveFavoritePokemon: save,
+    // favoritePokemon,
+    getFavoritePokemonById,
   } = useFavoritePokemonsService();
 
+  const pokemon: FavoritePokemon = {
+    ...pokemonBasicDetailsData,
+    ...pokemonDetailsData,
+  };
+
   function saveFavoritePokemon() {
-    saveFavoritePokemonBasic(pokemonBasicDetailsData!);
-    saveFavoritePokemonDetails(
-      pokemonDetailsData!,
-      pokemonBasicDetailsData?.id!,
-    );
-    setIsFavorite(true);
+    save(pokemon);
+    // setIsFavorite(true);
+    getFavoritePokemonById(pokemon.id);
   }
 
   function removeFavoritePokemon() {
-    removeFavoritePokemonBasic(pokemonBasicDetailsData?.id!);
-    removeFavoritePokemonDetails(pokemonBasicDetailsData?.id!);
-    setIsFavorite(false);
+    remove(pokemon.id);
+    // setIsFavorite(false);
+    getFavoritePokemonById(pokemon.id);
   }
 
   const onPress = isFavorite ? removeFavoritePokemon : saveFavoritePokemon;
 
   const icon = isFavorite ? star : starOutline;
 
-  useEffect(() => {
-    if (favoritePokemonDetails && favoritePokemons) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
-  }, [
-    pokemonDetailsData,
-    pokemonBasicDetailsData,
-    favoritePokemons,
-    favoritePokemonDetails,
-  ]);
+  // useEffect(() => {
+  //   setIsFavorite(false);
+
+  //   if (favoritePokemon) {
+  //     setIsFavorite(true);
+  //   } else {
+  //     setIsFavorite(false);
+  //   }
+  // }, [favoritePokemon]);
 
   return (
     <TouchableOpacityBox onPress={onPress}>
