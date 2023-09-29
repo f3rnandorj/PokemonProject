@@ -15,22 +15,22 @@ export const mapScreenToProps: Record<
   HomeScreen: {
     label: 'Pokédex',
     icon: {
-      focused: require('../assets/brandPokeballs/pokeballOpen1.png'),
-      unFocused: require('../assets/brandPokeballs/pokeballHome.png'),
+      focused: require('../assets/tabBarImages/pokeballOpen1.png'),
+      unFocused: require('../assets/tabBarImages/pokeballHome.png'),
     },
   },
   FavoritePokemonScreen: {
     label: 'Favoritos',
     icon: {
-      focused: require('../assets/brandPokeballs/star.png'),
-      unFocused: require('../assets/brandPokeballs/starOutline.png'),
+      focused: require('../assets/tabBarImages/star.png'),
+      unFocused: require('../assets/tabBarImages/starOutline.png'),
     },
   },
   SearchPokemonScreen: {
     label: 'Localize',
     icon: {
-      focused: require('../assets/brandPokeballs/search.png'),
-      unFocused: require('../assets/brandPokeballs/searchOutline.png'),
+      focused: require('../assets/tabBarImages/search.png'),
+      unFocused: require('../assets/tabBarImages/searchOutline.png'),
     },
   },
 };

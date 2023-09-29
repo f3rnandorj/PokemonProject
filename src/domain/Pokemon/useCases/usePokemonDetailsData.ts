@@ -13,7 +13,7 @@ export function usePokemonDetailsData(pokemonName: Pokemon['name']) {
     },
     staleTime: 1000 * 60,
   });
-  console.log(isLoading, isInitialLoading);
+
   return {
     isError,
     isLoading,

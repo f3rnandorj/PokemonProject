@@ -40,7 +40,7 @@ function PokemonTypes({ types, isDetailsScreen = false, ...boxProps }: Props) {
                     marginBottom: margin,
                   },
             ]}>
-            <Text preset="cardMedium" color="backgroundContrastLight" medium>
+            <Text preset="cardMedium" bold color="backgroundContrastLight">
               {typeName}
             </Text>
           </Box>

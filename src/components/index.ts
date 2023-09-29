@@ -11,3 +11,6 @@ export * from './Header/Header';
 export * from './TextInput/TextInput';
 export * from './PokemonTypes/PokemonTypes';
 export * from './Button/Button';
+export * from './FavoriteButton/FavoriteButton';
+export * from './FavoritePokemonCard/FavoritePokemonCard';
+export * from './CharacteristicCard/CharacteristicCard';

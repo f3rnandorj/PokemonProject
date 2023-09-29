@@ -51,6 +51,7 @@ export interface PokemonDetails {
       fem: number;
     };
   };
+  captureRate: number;
 }
 
 export interface PokemonNameDataApi {

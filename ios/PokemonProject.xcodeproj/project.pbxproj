@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PokemonProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PokemonProjectTests.m */; };
+		09D7ABAD2AC62203009C7AB4 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7ABA72AC62203009C7AB4 /* Inter-Bold.ttf */; };
+		09D7ABAE2AC62203009C7AB4 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7ABA82AC62203009C7AB4 /* Inter-Regular.ttf */; };
+		09D7ABAF2AC62203009C7AB4 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7ABA92AC62203009C7AB4 /* Inter-Medium.ttf */; };
+		09D7ABB02AC62203009C7AB4 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7ABAA2AC62203009C7AB4 /* Inter-SemiBold.ttf */; };
+		09D7ABB12AC62203009C7AB4 /* SF-Pro-Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7ABAB2AC62203009C7AB4 /* SF-Pro-Display-Medium.ttf */; };
+		09D7ABB22AC62203009C7AB4 /* SF-Pro-Display-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7ABAC2AC62203009C7AB4 /* SF-Pro-Display-Regular.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-PokemonProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PokemonProject.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -30,6 +36,12 @@
 		00E356EE1AD99517003FC87E /* PokemonProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* PokemonProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokemonProjectTests.m; sourceTree = "<group>"; };
+		09D7ABA72AC62203009C7AB4 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Inter-Bold.ttf"; path = "../src/assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; };
+		09D7ABA82AC62203009C7AB4 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
+		09D7ABA92AC62203009C7AB4 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Inter-Medium.ttf"; path = "../src/assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
+		09D7ABAA2AC62203009C7AB4 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Inter-SemiBold.ttf"; path = "../src/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		09D7ABAB2AC62203009C7AB4 /* SF-Pro-Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Medium.ttf"; path = "../src/assets/fonts/SF-Pro-Display-Medium.ttf"; sourceTree = "<group>"; };
+		09D7ABAC2AC62203009C7AB4 /* SF-Pro-Display-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Regular.ttf"; path = "../src/assets/fonts/SF-Pro-Display-Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* PokemonProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = PokemonProject/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = PokemonProject/AppDelegate.mm; sourceTree = "<group>"; };
@@ -83,9 +95,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		09D7ABA62AC621BB009C7AB4 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				09D7ABA72AC62203009C7AB4 /* Inter-Bold.ttf */,
+				09D7ABA92AC62203009C7AB4 /* Inter-Medium.ttf */,
+				09D7ABA82AC62203009C7AB4 /* Inter-Regular.ttf */,
+				09D7ABAA2AC62203009C7AB4 /* Inter-SemiBold.ttf */,
+				09D7ABAB2AC62203009C7AB4 /* SF-Pro-Display-Medium.ttf */,
+				09D7ABAC2AC62203009C7AB4 /* SF-Pro-Display-Regular.ttf */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* PokemonProject */ = {
 			isa = PBXGroup;
 			children = (
+				09D7ABA62AC621BB009C7AB4 /* fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -242,8 +268,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D7ABB02AC62203009C7AB4 /* Inter-SemiBold.ttf in Resources */,
+				09D7ABAD2AC62203009C7AB4 /* Inter-Bold.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				09D7ABB12AC62203009C7AB4 /* SF-Pro-Display-Medium.ttf in Resources */,
+				09D7ABAE2AC62203009C7AB4 /* Inter-Regular.ttf in Resources */,
+				09D7ABAF2AC62203009C7AB4 /* Inter-Medium.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				09D7ABB22AC62203009C7AB4 /* SF-Pro-Display-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

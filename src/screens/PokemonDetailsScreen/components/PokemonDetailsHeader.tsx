@@ -2,7 +2,13 @@ import React from 'react';
 
 import { Pokemon } from '@domain';
 
-import { Box, BoxProps, MemoPokemonTypes, Text } from '@components';
+import {
+  Box,
+  BoxProps,
+  MemoPokemonTypes,
+  Text,
+  FavoriteButton,
+} from '@components';
 
 type Props = {
   pokemonName: string;
@@ -21,7 +27,11 @@ export function PokemonDetailsHeader({ pokemonName, id, types }: Props) {
         </Text>
       </Box>
 
-      <MemoPokemonTypes types={types} isDetailsScreen mt="s10" mb="s22" />
+      <Box {...$headerTypes}>
+        <MemoPokemonTypes types={types} isDetailsScreen />
+
+        <FavoriteButton />
+      </Box>
     </>
   );
 }
@@ -31,4 +41,12 @@ const $headerTitle: BoxProps = {
   justifyContent: 'space-between',
   alignItems: 'center',
   mt: 's8',
+};
+
+const $headerTypes: BoxProps = {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  mt: 's10',
+  mb: 's22',
 };

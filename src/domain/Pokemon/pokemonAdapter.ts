@@ -70,6 +70,7 @@ function toPokemonDetails(pokemon: PokemonDetailsApi): PokemonDetails {
   return {
     characteristicsGender,
     description,
+    captureRate: pokemon.capture_rate,
   };
 }
 

@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import { Pokemon, usePokemonDetailsData } from '@domain';
 import { useFocusEffect } from '@react-navigation/native';
 import { masks } from '@utils';
+import Orientation from 'react-native-orientation-locker';
 
 import { Screen, Header, TextInput } from '@components';
 import { useAppTheme, useSharedData } from '@hooks';
@@ -45,15 +46,20 @@ export function SearchPokemonScreen() {
     }, []),
   );
 
+  useEffect(() => {
+    Orientation.lockToPortrait();
+
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
+
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
       style={{ marginHorizontal: spacing.ns16 }}>
       <Screen>
-        <Header
-          title="Localize Pokémons"
-          subTitle="Qual seu pokémon favorito?"
-        />
+        <Header title="Localize 🔍" subTitle="Qual seu pokémon favorito?" />
 
         <TextInput
           key={textInputKey}

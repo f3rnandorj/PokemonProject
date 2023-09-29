@@ -10,14 +10,21 @@ import Animated, {
 
 import { useAppTheme } from '@hooks';
 
-import { CharacteristicCardProps } from './CharacteristicCard';
+import { CharacteristicCardProps } from '../CharacteristicCard';
 
 type Props = Pick<
   CharacteristicCardProps,
   'count' | 'index' | 'isTotalCardDetails'
->;
+> & {
+  isFavoriteCard?: boolean;
+};
 
-export function AnimatedBar({ count, index, isTotalCardDetails }: Props) {
+export function AnimatedBar({
+  count,
+  index,
+  isTotalCardDetails,
+  isFavoriteCard = false,
+}: Props) {
   const { colors, borderRadii } = useAppTheme();
   let fillWidth = useSharedValue(0);
 
@@ -92,7 +99,7 @@ export function AnimatedBar({ count, index, isTotalCardDetails }: Props) {
       backgroundColor,
       width: `${totalCardWidth}%`,
       borderRadius: borderRadii.s24,
-      borderWidth: 2,
+      borderWidth: isFavoriteCard ? 0 : 2,
       borderColor:
         barColor === colors.purpleBar ? colors.yellowBar : colors.background,
     };

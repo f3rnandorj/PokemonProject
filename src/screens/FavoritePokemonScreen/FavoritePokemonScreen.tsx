@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { Screen, Box, Text } from '@components';
+import Orientation from 'react-native-orientation-locker';
+
+import { Screen, Header, FavoritePokemonCard } from '@components';
 
 export function FavoritePokemonScreen() {
+  useEffect(() => {
+    Orientation.lockToPortrait();
+
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
+
   return (
     <Screen>
-      <Box>
-        <Text>FavoritePokemonScreen</Text>
-      </Box>
+      <Header title="Favoritos ⭐" subTitle="Veja sua coleção" />
+
+      <FavoritePokemonCard />
     </Screen>
   );
 }
