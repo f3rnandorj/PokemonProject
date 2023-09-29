@@ -3,11 +3,12 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import { Pokemon, usePokemonDetailsData } from '@domain';
 import { useFocusEffect } from '@react-navigation/native';
+import { usePokemonNamesService } from '@services';
 import { masks } from '@utils';
 import Orientation from 'react-native-orientation-locker';
 
 import { Screen, Header, TextInput } from '@components';
-import { useAppTheme, useSharedData } from '@hooks';
+import { useAppTheme } from '@hooks';
 
 import { SearchPokemonShowDetails } from './components/SearchPokemonShowDetails';
 
@@ -26,7 +27,7 @@ export function SearchPokemonScreen() {
   } = usePokemonDetailsData(pokemon);
 
   const { spacing } = useAppTheme();
-  const { pokemonNamesList } = useSharedData();
+  const { pokemonNamesList } = usePokemonNamesService();
 
   function setPokemonSuggestion(name: Pokemon['name']) {
     const pokemonAdapted = masks.changeDotForHyphen(name);

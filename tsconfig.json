@@ -35,6 +35,9 @@
       "@types": [
         "src/types"
       ],
+      "@services": [
+        "src/services"
+      ],
     }
   }
 }
