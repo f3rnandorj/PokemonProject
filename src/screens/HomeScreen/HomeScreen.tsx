@@ -20,14 +20,16 @@ import { HomeHeaderList } from './components/HomeHeaderList';
 export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
   const {
     list: pokemonData,
-    isLoading,
     isError,
     fetchNextPage,
+    isLoading,
+    isLoadingNextPage,
   } = usePokemonList();
 
   const tabBarHeight = useBottomTabBarHeight();
 
-  const $listLoading = pokemonData.length > 0 && isLoading && { opacity: 0.5 };
+  const $listLoading = pokemonData.length > 0 &&
+    isLoadingNextPage && { opacity: 0.5 };
   const $emptyList =
     pokemonData.length === 0 && isLoading
       ? { flex: 1 }
@@ -67,7 +69,7 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
       <Header title="Olá, Ash Ketchum" subTitle="Bem Vindo! 😄" />
 
       <Box flex={1}>
-        {pokemonData.length > 0 && isLoading && <LoadingDataScreen />}
+        {pokemonData.length > 0 && isLoadingNextPage && <LoadingDataScreen />}
 
         <FlatList
           data={pokemonData}
