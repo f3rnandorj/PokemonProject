@@ -12,29 +12,26 @@ import { useAppTheme } from '@hooks';
 
 import { CharacteristicCardProps } from '../CharacteristicCard';
 
-type Props = Pick<
-  CharacteristicCardProps,
-  'count' | 'index' | 'isTotalCardDetails'
-> & {
+type Props = Pick<CharacteristicCardProps, 'count' | 'isTotalCardDetails'> & {
   isFavoriteCard?: boolean;
 };
 
+const PERCENT = 100;
+const MAXIMUM_TOTAL_BAR = 600;
+
 export function AnimatedBar({
   count,
-  index,
   isTotalCardDetails,
   isFavoriteCard = false,
 }: Props) {
   const { colors, borderRadii } = useAppTheme();
   let fillWidth = useSharedValue(0);
 
-  const percent = 100;
-  const totalBarWidth = index * percent;
-
   const animatedStyle = useAnimatedStyle(() => {
     const isTotalBarUpToMax =
-      fillWidth.value > totalBarWidth && isTotalCardDetails;
-    const isTotalBar = fillWidth.value <= totalBarWidth && isTotalCardDetails;
+      fillWidth.value > MAXIMUM_TOTAL_BAR && isTotalCardDetails;
+    const isTotalBar =
+      fillWidth.value <= MAXIMUM_TOTAL_BAR && isTotalCardDetails;
     const isNormalBarUpToMax = fillWidth.value > 100 && fillWidth.value < 260;
 
     function determinateCardWidth() {
@@ -42,7 +39,7 @@ export function AnimatedBar({
         return Math.min(fillWidth.value, 100);
       }
       if (isTotalBar) {
-        return (fillWidth.value / totalBarWidth) * percent;
+        return (fillWidth.value / MAXIMUM_TOTAL_BAR) * PERCENT;
       }
       if (isNormalBarUpToMax) {
         return Math.min(fillWidth.value, 100);
@@ -94,7 +91,7 @@ export function AnimatedBar({
     );
 
     return {
-      height: 3,
+      height: 5,
       paddingVertical: 2,
       backgroundColor,
       width: `${totalCardWidth}%`,

@@ -11,7 +11,6 @@ import pokeball from '../../assets/brandPokeballs/pokeball.png';
 import ultraball from '../../assets/brandPokeballs/ultraball.png';
 import { Box, BoxProps, TouchableOpacityBox } from '../Box/Box';
 import { CharacteristicCard } from '../CharacteristicCard/CharacteristicCard';
-// import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { Text } from '../Text/Text';
 
@@ -25,6 +24,7 @@ interface Props extends FavoritePokemon {
 export function FavoritePokemonCard(pokemon: Props) {
   const pokemonRarity = getPokemonRarityUsingCaptureRate(
     pokemon.captureRate ?? 0,
+    pokemon.characteristics.total,
   );
 
   const pokemonColor = pokemon.types?.[0] as ThemeColors;
@@ -79,7 +79,6 @@ export function FavoritePokemonCard(pokemon: Props) {
       <Box pt="s10">
         <CharacteristicCard
           label="Poder"
-          index={0}
           isTotalCardDetails
           count={pokemon.characteristics.total}
           isFavoriteCard
@@ -89,15 +88,18 @@ export function FavoritePokemonCard(pokemon: Props) {
   );
 }
 
-function getPokemonRarityUsingCaptureRate(captureRate: number) {
+function getPokemonRarityUsingCaptureRate(
+  captureRate: number,
+  totalPower: number,
+) {
   switch (true) {
     case captureRate <= 5:
       return masterball;
 
-    case captureRate <= 20:
+    case captureRate <= 50 && totalPower >= 450:
       return ultraball;
 
-    case captureRate <= 50:
+    case captureRate <= 120:
       return greatball;
 
     default:

@@ -6,14 +6,12 @@ import { AnimatedBar } from './components/AnimatedBar';
 
 export interface CharacteristicCardProps {
   label: string;
-  index: number;
   count?: number;
   isTotalCardDetails?: boolean;
   isFavoriteCard?: boolean;
 }
 export function CharacteristicCard({
   label,
-  index,
   count,
   isTotalCardDetails,
   isFavoriteCard = false,
@@ -40,7 +38,6 @@ export function CharacteristicCard({
       <Box {...$barStyle} borderRadius="s24" bg="grayBar">
         <AnimatedBar
           count={count}
-          index={index}
           isTotalCardDetails={isTotalCardDetails}
           isFavoriteCard={isFavoriteCard}
         />
