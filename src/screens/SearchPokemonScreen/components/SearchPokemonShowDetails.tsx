@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   FavoriteButton,
+  ImageBackGround,
   MemoPokemonTypes,
   PokemonEvolutionsCard,
   Text,
@@ -56,16 +57,23 @@ export function SearchPokemonShowDetails(props: Props) {
 
   return (
     <Box flex={1}>
-      <Pokedex>
+      <Pokedex overflow="hidden">
         {props.isLoading ||
         props.isError ||
         props.pokemonBasicDetailsData === undefined ||
         props.pokemonDetailsData === undefined ||
         props.pokemonEvolutionsData === undefined ? (
-          <SearchPokemonEmpty
-            error={props.isError}
-            loading={props.isInitialLoading && props.isLoading}
-          />
+          <>
+            <ImageBackGround
+              screen="searchScreen"
+              style={{ left: -45, opacity: 0.5 }}
+            />
+
+            <SearchPokemonEmpty
+              error={props.isError}
+              loading={props.isInitialLoading && props.isLoading}
+            />
+          </>
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
             <Box

@@ -15,3 +15,4 @@ export * from './FavoriteButton/FavoriteButton';
 export * from './FavoritePokemonCard/FavoritePokemonCard';
 export * from './CharacteristicCard/CharacteristicCard';
 export * from './Toast/Toast';
+export * from './ImageBackground/ImageBackground';

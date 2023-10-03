@@ -10,6 +10,7 @@ import {
   MemoPokemonCard,
   LoadingDataScreen,
   Header,
+  ImageBackGround,
 } from '@components';
 import { AppTabScreenProps } from '@routes';
 
@@ -67,6 +68,8 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
         barStyle="light-content"
       />
       <Header title="Olá, Ash Ketchum" subTitle="Bem Vindo! 😄" />
+
+      {!isError && !isLoading && <ImageBackGround screen="homeScreen" />}
 
       <Box flex={1}>
         {pokemonData.length > 0 && isLoadingNextPage && <LoadingDataScreen />}

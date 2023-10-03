@@ -47,7 +47,7 @@ export function Screen({
               style={{ marginLeft: spacing.s16 }}
             />
           )}
-          <Box flex={1} marginHorizontal="s26" style={[style]} {...boxProps}>
+          <Box flex={1} paddingHorizontal="s26" style={[style]} {...boxProps}>
             {children}
           </Box>
         </Box>
