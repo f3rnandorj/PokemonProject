@@ -90,6 +90,9 @@ const theme = createTheme({
     yellowBar: palette.yellow,
     mascIcon: palette.blue,
     femIcon: palette.redLight,
+
+    success: palette.green,
+    error: palette.redDark,
   },
   spacing: {
     ns40: -40,

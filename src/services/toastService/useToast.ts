@@ -9,7 +9,8 @@ const useToastStore = create<ToastService>(set => ({
 }));
 
 export function useToast(): Toast | null {
-  return useToastStore(state => state.toast);
+  const toast = useToastStore(state => state.toast);
+  return toast;
 }
 
 export function useToastService(): Omit<ToastService, 'toast'> {

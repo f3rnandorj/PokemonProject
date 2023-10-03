@@ -4,6 +4,7 @@ import { AppProvider, initializeStorage, MMKVStorage } from '@services';
 import { ThemeProvider } from '@shopify/restyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import { ToastComponent } from '@components';
 import { Routes } from '@routes';
 
 import theme from './src/theme/theme';
@@ -19,6 +20,7 @@ function App(): JSX.Element {
         <AppProvider>
           <ThemeProvider theme={theme}>
             <Routes />
+            <ToastComponent />
           </ThemeProvider>
         </AppProvider>
       </AppProvider>

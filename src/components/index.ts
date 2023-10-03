@@ -14,3 +14,4 @@ export * from './Button/Button';
 export * from './FavoriteButton/FavoriteButton';
 export * from './FavoritePokemonCard/FavoritePokemonCard';
 export * from './CharacteristicCard/CharacteristicCard';
+export * from './ToastComponent/ToastComponent';
