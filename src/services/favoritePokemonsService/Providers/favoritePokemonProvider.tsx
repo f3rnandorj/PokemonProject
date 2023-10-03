@@ -60,12 +60,14 @@ export function FavoritePokemonProvider({ children }: PropsWithChildren) {
       ...pokemon,
       isFavorite: true,
     };
+
     await favoritePokemonStorage.setPokemon(newFavoritePokemon);
     getAllFavoritePokemons();
   }
 
   async function removeFavoritePokemon(pokemonId: FavoritePokemon['id']) {
     await favoritePokemonStorage.removePokemon(pokemonId);
+
     setFavoritePokemon(null);
     getAllFavoritePokemons();
   }

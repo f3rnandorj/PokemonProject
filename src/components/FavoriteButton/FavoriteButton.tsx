@@ -2,7 +2,11 @@ import React from 'react';
 import { Image } from 'react-native';
 
 import { Pokemon, PokemonDetails } from '@domain';
-import { FavoritePokemon, useFavoritePokemonsService } from '@services';
+import {
+  FavoritePokemon,
+  useFavoritePokemonsService,
+  useToastService,
+} from '@services';
 
 import star from '../../assets/tabBarImages/star.png';
 import starOutline from '../../assets/tabBarImages/starOutline.png';
@@ -19,14 +23,13 @@ export function FavoriteButton({
   pokemonBasicDetailsData,
   isFavorite,
 }: Props) {
-  // const [isFavorite, setIsFavorite] = useState(false);
-
   const {
-    removeFavoritePokemon: remove,
-    saveFavoritePokemon: save,
-    // favoritePokemon,
+    removeFavoritePokemon: removePokemon,
+    saveFavoritePokemon: savePokemon,
     getFavoritePokemonById,
   } = useFavoritePokemonsService();
+
+  const { showToast } = useToastService();
 
   const pokemon: FavoritePokemon = {
     ...pokemonBasicDetailsData,
@@ -34,30 +37,26 @@ export function FavoriteButton({
   };
 
   function saveFavoritePokemon() {
-    save(pokemon);
-    // setIsFavorite(true);
+    savePokemon(pokemon);
     getFavoritePokemonById(pokemon.id);
+
+    showToast({
+      message: 'Adicionado aos favoritos com sucesso! ⭐',
+    });
   }
 
   function removeFavoritePokemon() {
-    remove(pokemon.id);
-    // setIsFavorite(false);
+    removePokemon(pokemon.id);
     getFavoritePokemonById(pokemon.id);
+
+    showToast({
+      message: 'Removido dos favoritos com sucesso! 🗑',
+    });
   }
 
   const onPress = isFavorite ? removeFavoritePokemon : saveFavoritePokemon;
 
   const icon = isFavorite ? star : starOutline;
-
-  // useEffect(() => {
-  //   setIsFavorite(false);
-
-  //   if (favoritePokemon) {
-  //     setIsFavorite(true);
-  //   } else {
-  //     setIsFavorite(false);
-  //   }
-  // }, [favoritePokemon]);
 
   return (
     <TouchableOpacityBox onPress={onPress}>
