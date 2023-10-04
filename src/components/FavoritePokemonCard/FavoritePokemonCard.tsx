@@ -17,11 +17,12 @@ import { Text } from '../Text/Text';
 import { objectPokemonAdapter } from './adapterFavoritePokemon';
 import { AnimatedItem } from './components/AnimatedItem';
 
-interface Props extends FavoritePokemon {
+interface FavoritePokemonCardProps extends FavoritePokemon {
   isFavorite: boolean | undefined;
+  onPress: () => void;
 }
 
-export function FavoritePokemonCard(pokemon: Props) {
+export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
   const pokemonRarity = getPokemonRarityUsingCaptureRate(
     pokemon.captureRate ?? 0,
     pokemon.characteristics.total,
@@ -41,6 +42,7 @@ export function FavoritePokemonCard(pokemon: Props) {
 
   return (
     <TouchableOpacityBox
+      onPress={pokemon.onPress}
       backgroundColor={pokemonColor}
       borderColor={borderColor}
       {...$button}>

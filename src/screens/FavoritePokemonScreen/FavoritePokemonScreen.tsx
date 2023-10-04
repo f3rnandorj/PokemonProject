@@ -13,8 +13,11 @@ import {
   ImageBackGround,
 } from '@components';
 import { useAppTheme } from '@hooks';
+import { AppTabScreenProps } from '@routes';
 
-export function FavoritePokemonScreen() {
+export function FavoritePokemonScreen({
+  navigation,
+}: AppTabScreenProps<'FavoritePokemonScreen'>) {
   const { allFavoritePokemons, getAllFavoritePokemons } =
     useFavoritePokemonsService();
   const { spacing } = useAppTheme();
@@ -26,7 +29,17 @@ export function FavoritePokemonScreen() {
       : { paddingBottom: tabBarHeight + spacing.s16 };
 
   function renderItem({ item }: ListRenderItemInfo<FavoritePokemon>) {
-    return <FavoritePokemonCard isFavorite={item?.isFavorite} {...item} />;
+    return (
+      <FavoritePokemonCard
+        onPress={() =>
+          navigation.navigate('PokemonDetailsScreen', {
+            pokemonName: item.name,
+          })
+        }
+        isFavorite={item?.isFavorite}
+        {...item}
+      />
+    );
   }
 
   useEffect(() => {
