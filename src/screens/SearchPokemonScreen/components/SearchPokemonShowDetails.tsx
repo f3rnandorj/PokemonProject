@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ImageStyle, ScrollView, StyleProp } from 'react-native';
+import { ImageStyle, ScrollView, StyleProp } from 'react-native';
 
 import { Pokemon, PokemonDetails, PokemonEvolutions } from '@domain';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ import {
   FavoriteButton,
   ImageBackGround,
   MemoPokemonTypes,
+  PokemonAvatar,
   PokemonEvolutionsCard,
   Text,
 } from '@components';
@@ -70,15 +71,12 @@ export function SearchPokemonShowDetails(props: Props) {
               mt="s16"
               alignItems="center"
               onStartShouldSetResponder={() => true}>
-              <Image
-                source={{
-                  uri: props.pokemonBasicDetailsData?.avatarURL,
-                }}
-                defaultSource={{
-                  uri: 'https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png?fit=512%2C512',
-                }}
-                style={[$imageStyle]}
-                resizeMode="contain"
+              <PokemonAvatar
+                key={props.pokemonBasicDetailsData?.avatarURL}
+                width={0}
+                height={0}
+                avatarURL={props.pokemonBasicDetailsData?.avatarURL}
+                style={$imageStyle}
               />
 
               <PokemonEvolutionsCard

@@ -16,3 +16,4 @@ export * from './FavoritePokemonCard/FavoritePokemonCard';
 export * from './CharacteristicCard/CharacteristicCard';
 export * from './Toast/Toast';
 export * from './ImageBackground/ImageBackground';
+export * from './PokemonAvatar/PokemonAvatar';

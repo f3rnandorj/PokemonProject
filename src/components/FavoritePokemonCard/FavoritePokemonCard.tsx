@@ -13,11 +13,11 @@ import ultraball from '../../assets/brandPokeballs/ultraball.png';
 import { Box, BoxProps, TouchableOpacityBox } from '../Box/Box';
 import { CharacteristicCard } from '../CharacteristicCard/CharacteristicCard';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
+import { PokemonAvatar } from '../PokemonAvatar/PokemonAvatar';
 import { Text } from '../Text/Text';
 
 import { objectPokemonAdapter } from './adapterFavoritePokemon';
 import { AnimatedPokeball } from './components/AnimatedPokeball';
-import { PokemonAvatar } from './components/PokemonAvatar';
 
 interface FavoritePokemonCardProps extends FavoritePokemon {
   isFavorite: boolean | undefined;
@@ -73,7 +73,7 @@ export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
         alignItems="center"
         justifyContent="space-between">
         <Box flexDirection="row" alignItems="center">
-          <PokemonAvatar name={pokemon.name} />
+          <PokemonAvatar name={pokemon.name} height={55} width={55} />
 
           <AnimatedPokeball pokemonRarity={pokemonRarity} />
 

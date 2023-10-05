@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, ImageStyle, StyleProp } from 'react-native';
+import { ImageStyle, StyleProp } from 'react-native';
 
 import { usePokemonDetailsData } from '@domain';
 import { useFavoritePokemonsService } from '@services';
@@ -10,6 +10,7 @@ import {
   Screen,
   LoadingDetails,
   PokemonEvolutionsCard,
+  PokemonAvatar,
 } from '@components';
 import { AppScreenProps } from '@routes';
 import { ThemeColors } from '@theme';
@@ -82,15 +83,12 @@ export function PokemonDetailsScreen({
             borderTopLeftRadius="s24"
             borderTopRightRadius="s24"
             style={{ marginTop: 150 }}>
-            <Image
-              source={{
-                uri:
-                  pokemonBasicDetailsData && pokemonBasicDetailsData.avatarURL
-                    ? pokemonBasicDetailsData.avatarURL
-                    : 'https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Logo-Pokebola-Pok%C3%A9mon-PNG.png?fit=512%2C512',
-              }}
-              style={[$imageStyle]}
-              resizeMode="contain"
+            <PokemonAvatar
+              key={pokemonBasicDetailsData.avatarURL}
+              width={0}
+              height={0}
+              avatarURL={pokemonBasicDetailsData.avatarURL}
+              style={$imageStyle}
             />
 
             <PokemonEvolutionsCard

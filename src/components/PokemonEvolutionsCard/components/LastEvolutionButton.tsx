@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ImageStyle, StyleProp, ViewStyle } from 'react-native';
+import { ImageStyle, StyleProp, ViewStyle } from 'react-native';
 
 import {
   TouchableOpacityBox,
@@ -7,6 +7,8 @@ import {
   BoxProps,
 } from '@components';
 import { ThemeColors } from '@theme';
+
+import { PokemonAvatar } from '../../PokemonAvatar/PokemonAvatar';
 
 type Props = Pick<
   PokemonEvolutionProps,
@@ -34,12 +36,12 @@ export function LastEvolutionButton(props: Props) {
           props.$shadowProps,
           { left: props.usage === 'searchScreen' ? 5 : 24 },
         ]}>
-        <Image
-          source={{
-            uri: `https://projectpokemon.org/images/normal-sprite/${props.lastEvolutionName}.gif`,
-          }}
+        <PokemonAvatar
+          key={props?.lastEvolutionName!}
+          width={0}
+          height={0}
+          name={props.lastEvolutionName!}
           style={props.$sizeImage}
-          resizeMode="contain"
         />
       </TouchableOpacityBox>
     </>

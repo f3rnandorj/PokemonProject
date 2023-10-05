@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   FlatList,
-  Image,
   ImageStyle,
   ListRenderItemInfo,
   StyleProp,
@@ -13,6 +12,7 @@ import {
   PokemonEvolutionProps,
   BoxProps,
   Box,
+  PokemonAvatar,
 } from '@components';
 import { ThemeColors } from '@theme';
 
@@ -44,12 +44,11 @@ export function NextEvolutionButton(props: Props) {
             props?.moreThanOneMidEvolutions?.[index]!,
           );
         }}>
-        <Image
-          source={{
-            uri: `https://projectpokemon.org/images/normal-sprite/${item}.gif`,
-          }}
+        <PokemonAvatar
+          width={0}
+          height={0}
+          name={item}
           style={props.$sizeImage}
-          resizeMode="contain"
         />
       </TouchableOpacityBox>
     );
@@ -88,15 +87,12 @@ export function NextEvolutionButton(props: Props) {
             props.$shadowProps,
             { right: props.usage === 'searchScreen' ? 5 : 24 },
           ]}>
-          <Image
-            source={{
-              uri:
-                props.nextEvolutionName === 'sirfetchd'
-                  ? 'https://projectpokemon.org/images/sprites-models/swsh-normal-sprites/sirfetchd.gif'
-                  : `https://projectpokemon.org/images/normal-sprite/${props.nextEvolutionName}.gif`,
-            }}
+          <PokemonAvatar
+            key={props?.nextEvolutionName!}
+            width={0}
+            height={0}
+            name={props?.nextEvolutionName!}
             style={props.$sizeImage}
-            resizeMode="contain"
           />
         </TouchableOpacityBox>
       )}
