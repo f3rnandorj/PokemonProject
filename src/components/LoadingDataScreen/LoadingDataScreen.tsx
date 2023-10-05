@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ActivityIndicator, ViewStyle } from 'react-native';
 
 import { Box, Text } from '@components';
 import { useAppTheme } from '@hooks';
 
-export function LoadingDataScreen() {
+function Loading() {
   const { colors } = useAppTheme();
 
   return (
@@ -21,6 +21,8 @@ export function LoadingDataScreen() {
     </Box>
   );
 }
+
+export const LoadingDataScreen = memo(Loading);
 
 const $wrapperLoading: ViewStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.1)',

@@ -5,7 +5,6 @@ import { Pokemon, usePokemonDetailsData } from '@domain';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useFocusEffect } from '@react-navigation/native';
 import { usePokemonNamesService } from '@services';
-import { masks } from '@utils';
 import Orientation from 'react-native-orientation-locker';
 
 import { Screen, Header, TextInput } from '@components';
@@ -33,9 +32,8 @@ export function SearchPokemonScreen() {
   const { pokemonNamesList, refetch } = usePokemonNamesService();
 
   function setPokemonAdapted(name: Pokemon['name']) {
-    const pokemonAdapted = masks.changeDotForHyphen(name);
-
-    setPokemon(pokemonAdapted);
+    setPokemonSuggestionName(name);
+    setPokemon(name);
   }
 
   useFocusEffect(
@@ -70,7 +68,7 @@ export function SearchPokemonScreen() {
           value={pokemonSuggestionName}
           onChangeText={setPokemonSuggestionName}
           placeholder="Encontre seu pokémon..."
-          setPokemonName={setPokemon}
+          setPokemonName={setPokemonAdapted}
           initialDropBoxValue={pokemonNamesList}
         />
 

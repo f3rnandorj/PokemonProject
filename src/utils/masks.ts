@@ -50,7 +50,7 @@ function adapterSomeNamesToUrlOfGif(name: string | null) {
 
 export const masks = {
   adapterDescriptionApiReturn,
-  adapterMaximumPokemonCharactersName,
   adapterSomeNamesToUrlOfGif,
+  adapterMaximumPokemonCharactersName,
   changeDotForHyphen,
 };

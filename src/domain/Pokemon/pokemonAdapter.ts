@@ -42,7 +42,7 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
 
   return {
     id: pokemon.id,
-    name: masks.adapterMaximumPokemonCharactersName(pokemon.name),
+    name: masks.changeDotForHyphen(pokemon.name),
     types,
     avatarURL: pokemon.sprites.other['official-artwork'].front_default,
     characteristics,

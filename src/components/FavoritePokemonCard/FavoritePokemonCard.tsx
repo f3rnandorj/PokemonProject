@@ -3,6 +3,7 @@ import { Image, ImageStyle, StyleProp } from 'react-native';
 
 import { useNetInfo } from '@react-native-community/netinfo';
 import { FavoritePokemon, useToastService } from '@services';
+import { masks } from '@utils';
 
 import { ThemeColors } from '@theme';
 
@@ -73,7 +74,11 @@ export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
         alignItems="center"
         justifyContent="space-between">
         <Box flexDirection="row" alignItems="center">
-          <PokemonAvatar name={pokemon.name} height={55} width={55} />
+          <PokemonAvatar
+            name={masks.changeDotForHyphen(pokemon.name)}
+            height={55}
+            width={55}
+          />
 
           <AnimatedPokeball pokemonRarity={pokemonRarity} />
 

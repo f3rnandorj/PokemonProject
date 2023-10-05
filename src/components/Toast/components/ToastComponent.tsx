@@ -31,7 +31,7 @@ export function ToastComponent({ toast }: Props) {
           backgroundColor: colors.secondary,
         },
       ]}>
-      <Icon {...mapIconTypeToToast[type]} width={80} height={80} />
+      <Icon {...mapIconTypeToToast[type]} width={70} height={70} />
       <Text
         style={{ flexShrink: 1 }}
         preset="paragraphLarge"

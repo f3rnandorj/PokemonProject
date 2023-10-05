@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
-import { FlatList, ListRenderItemInfo, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 
-import { Pokemon, usePokemonList } from '@domain';
+import { usePokemonList } from '@domain';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useToastService } from '@services';
 import Orientation from 'react-native-orientation-locker';
 
 import {
   Screen,
-  MemoPokemonCard,
   LoadingDataScreen,
   Header,
   ImageBackGround,
@@ -17,10 +15,9 @@ import {
 import { AppTabScreenProps } from '@routes';
 
 import { Box } from './../../components/Box/Box';
-import { HomeEmpty } from './components/HomeEmpty';
-import { HomeHeaderList } from './components/HomeHeaderList';
+import { HomeList } from './components/HomeList';
 
-export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
+export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   const {
     list: pokemonData,
     isError,
@@ -29,22 +26,8 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
     isLoadingNextPage,
   } = usePokemonList();
 
-  const tabBarHeight = useBottomTabBarHeight();
   const { isConnected } = useNetInfo();
   const { showToast } = useToastService();
-
-  const $listLoading = pokemonData?.length > 0 &&
-    isLoadingNextPage && { opacity: 0.5 };
-  const $emptyList =
-    pokemonData?.length === 0 && (isLoading || isError)
-      ? { flex: 1 }
-      : { paddingBottom: tabBarHeight };
-
-  function handleOpenPokemonDetails(item: Pokemon) {
-    navigation.navigate('PokemonDetailsScreen', {
-      pokemonName: item.name,
-    });
-  }
 
   function handleFetchNextPage() {
     if (isConnected === null) {
@@ -57,16 +40,6 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
           message: 'Sem conexão com a internet!',
           type: 'error',
         });
-  }
-
-  function renderItem({ item, index }: ListRenderItemInfo<Pokemon>) {
-    return (
-      <MemoPokemonCard
-        pokemon={item}
-        index={index}
-        onPress={() => handleOpenPokemonDetails(item)}
-      />
-    );
   }
 
   useEffect(() => {
@@ -98,21 +71,12 @@ export function HomeScreen({ navigation }: AppTabScreenProps<'HomeScreen'>) {
       <Box flex={1}>
         {pokemonData?.length > 0 && isLoadingNextPage && <LoadingDataScreen />}
 
-        <FlatList
-          data={pokemonData}
-          keyExtractor={item => item.id.toString()}
-          renderItem={renderItem}
-          contentContainerStyle={[$emptyList, $listLoading]}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-          onEndReached={handleFetchNextPage}
-          onEndReachedThreshold={0.1}
-          initialNumToRender={50}
-          maxToRenderPerBatch={50}
-          ListHeaderComponent={<HomeHeaderList />}
-          ListEmptyComponent={
-            <HomeEmpty error={isError!} loading={isLoading} />
-          }
+        <HomeList
+          fetchNextPage={fetchNextPage}
+          isError={isError}
+          isLoading={isLoading}
+          isLoadingNextPage={isLoadingNextPage}
+          pokemonData={pokemonData}
         />
       </Box>
     </Screen>

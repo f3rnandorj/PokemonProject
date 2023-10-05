@@ -5,6 +5,7 @@ import { Box, BoxProps, Text } from '@components';
 import { useAppSafeArea } from '@hooks';
 import { useAppTheme } from '@hooks';
 
+import ashAvatar from '../../assets/brand/ashAvatar.png';
 import pokeball from '../../assets/brand/pokeball.png';
 
 interface Props {
@@ -38,9 +39,7 @@ export function Header({ title, subTitle }: Props) {
               width: 150,
             }}>
             <Image
-              source={{
-                uri: 'https://www.vhv.rs/dpng/d/250-2500140_death-clipart-died-ash-ketchum-hd-png-download.png',
-              }}
+              source={ashAvatar}
               style={[
                 $image,
                 {
