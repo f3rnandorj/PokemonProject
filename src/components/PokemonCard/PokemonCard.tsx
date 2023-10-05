@@ -2,6 +2,8 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 
 import { Pokemon } from '@domain';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useToastService } from '@services';
 
 import {
   BoxProps,
@@ -17,10 +19,18 @@ import { MemoPokemonInfos } from './components/PokemonInfos';
 interface Props extends TouchableOpacityBoxProps {
   pokemon: Pokemon;
   index: number;
+  onPress: () => void;
 }
 
-function PokemonCard({ pokemon, index, ...touchableOpacityBoxProps }: Props) {
+function PokemonCard({
+  pokemon,
+  index,
+  onPress,
+  ...touchableOpacityBoxProps
+}: Props) {
   const { colors, spacing } = useAppTheme();
+  const { isConnected } = useNetInfo();
+  const { showToast } = useToastService();
 
   const screenWidth = Dimensions.get('screen').width;
   const numberOfCardsInRow = 2;
@@ -35,6 +45,15 @@ function PokemonCard({ pokemon, index, ...touchableOpacityBoxProps }: Props) {
   const backgroundCardColor =
     colors[pokemon.types[0] as ThemeColors] || colors.normal;
 
+  function handleOnPress() {
+    isConnected
+      ? onPress()
+      : showToast({
+          message: 'Sem conexão com a internet!',
+          type: 'error',
+        });
+  }
+
   return (
     <TouchableOpacityBox
       {...$wrapper}
@@ -44,6 +63,7 @@ function PokemonCard({ pokemon, index, ...touchableOpacityBoxProps }: Props) {
         marginRight: separatorMarginRight,
         backgroundColor: backgroundCardColor,
       }}
+      onPress={handleOnPress}
       {...touchableOpacityBoxProps}>
       <MemoPokemonInfos name={pokemon.name} types={pokemon.types} />
 

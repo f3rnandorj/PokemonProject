@@ -9,7 +9,8 @@ export const PokemonNamesContext = createContext<PokemonNamesService>(
 );
 
 export function PokemonNamesProvider({ children }: PropsWithChildren) {
-  const { pokemonNamesList, isError, isLoading } = usePokemonNamesData();
+  const { pokemonNamesList, isError, isLoading, refetch } =
+    usePokemonNamesData();
 
   return (
     <PokemonNamesContext.Provider
@@ -17,6 +18,7 @@ export function PokemonNamesProvider({ children }: PropsWithChildren) {
         pokemonNamesList,
         isError,
         isLoading,
+        refetch,
       }}>
       {children}
     </PokemonNamesContext.Provider>

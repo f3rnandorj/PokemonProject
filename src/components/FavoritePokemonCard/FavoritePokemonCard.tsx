@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
-import { FavoritePokemon } from '@services';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { FavoritePokemon, useToastService } from '@services';
 
 import { ThemeColors } from '@theme';
 
@@ -15,7 +16,8 @@ import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { Text } from '../Text/Text';
 
 import { objectPokemonAdapter } from './adapterFavoritePokemon';
-import { AnimatedItem } from './components/AnimatedItem';
+import { AnimatedPokeball } from './components/AnimatedPokeball';
+import { PokemonAvatar } from './components/PokemonAvatar';
 
 interface FavoritePokemonCardProps extends FavoritePokemon {
   isFavorite: boolean | undefined;
@@ -25,8 +27,11 @@ interface FavoritePokemonCardProps extends FavoritePokemon {
 export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
   const pokemonRarity = getPokemonRarityUsingCaptureRate(
     pokemon.captureRate ?? 0,
-    pokemon.characteristics.total,
+    pokemon?.characteristics?.total,
   );
+
+  const { isConnected } = useNetInfo();
+  const { showToast } = useToastService();
 
   const pokemonColor = pokemon.types?.[0] as ThemeColors;
   const borderColor = pokemonColor
@@ -40,9 +45,18 @@ export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
   const adaptedPokemonDetailsObject =
     objectPokemonAdapter.toPokemonDetails(pokemon);
 
+  function handleOnPress() {
+    isConnected
+      ? pokemon.onPress()
+      : showToast({
+          message: 'Sem conexão com a internet!',
+          type: 'error',
+        });
+  }
+
   return (
     <TouchableOpacityBox
-      onPress={pokemon.onPress}
+      onPress={handleOnPress}
       backgroundColor={pokemonColor}
       borderColor={borderColor}
       {...$button}>
@@ -59,14 +73,10 @@ export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
         alignItems="center"
         justifyContent="space-between">
         <Box flexDirection="row" alignItems="center">
-          <Image
-            source={{
-              uri: `https://projectpokemon.org/images/normal-sprite/${pokemon.name}.gif`,
-            }}
-            style={{ height: 55, width: 55 }}
-            resizeMode="contain"
-          />
-          <AnimatedItem pokemonRarity={pokemonRarity} />
+          <PokemonAvatar name={pokemon.name} />
+
+          <AnimatedPokeball pokemonRarity={pokemonRarity} />
+
           <Text textAlign="left" color="background" preset="headerMedium" bold>
             {pokemonName}
           </Text>
@@ -82,7 +92,7 @@ export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
         <CharacteristicCard
           label="Poder"
           isTotalCardDetails
-          count={pokemon.characteristics.total}
+          count={pokemon?.characteristics?.total}
           isFavoriteCard
         />
       </Box>

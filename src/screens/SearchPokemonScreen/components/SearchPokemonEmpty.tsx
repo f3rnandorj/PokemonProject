@@ -1,32 +1,29 @@
 import React from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import { Box, LoadingDetails, Text } from '@components';
 
 interface Props {
-  error: boolean | null;
+  // error: boolean | null;
   loading: boolean;
 }
 
-export function SearchPokemonEmpty({ error, loading }: Props) {
+export function SearchPokemonEmpty({ loading }: Props) {
   const tabBarHeight = useBottomTabBarHeight();
+  const { isConnected } = useNetInfo();
 
-  if (error) {
+  if (!isConnected) {
     return (
       <Box
         flex={1}
         justifyContent="center"
         alignItems="center"
-        style={{ marginTop: -tabBarHeight * 2 }}>
-        <Image
-          source={require('../../../assets/brand/pokeError.jpg')}
-          style={{ height: 180, width: '100%' }}
-          resizeMode="contain"
-        />
+        style={{ marginTop: tabBarHeight }}>
         <Text preset="paragraphLarge" bold textAlign="center">
-          Não foi possível carregar o pokemon, verifique sua conexão...
+          Sem conexão com a internet...
         </Text>
       </Box>
     );

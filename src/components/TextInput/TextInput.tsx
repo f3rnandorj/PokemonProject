@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 
 import { Pokemon } from '@domain';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useToastService } from '@services';
 
 import { useAppTheme } from '@hooks';
 import { $shadowProps } from '@theme';
@@ -21,7 +23,6 @@ import { TextInputDropBox } from './components/TextInputDropBox';
 
 export interface InputProps extends SRTextInputProps {
   setPokemonName: (name: Pokemon['name']) => void;
-  onMewTwoButtonPress: () => void;
   initialDropBoxValue: string[] | undefined;
 }
 
@@ -31,7 +32,6 @@ const INPUT_MARGIN_ADDITIONAL = 30;
 export function TextInput({
   value,
   setPokemonName,
-  onMewTwoButtonPress,
   initialDropBoxValue,
   style,
   ...sRTextInputProps
@@ -43,6 +43,8 @@ export function TextInput({
   const [positionY, setPositionY] = useState(0);
 
   const { spacing, colors } = useAppTheme();
+  const { isConnected } = useNetInfo();
+  const { showToast } = useToastService();
 
   const inputRef = useRef<SRTextInput>(null);
 
@@ -56,7 +58,6 @@ export function TextInput({
   function handleInputFocus() {
     setIsFocused(true);
     setIsDropDownOpen(true);
-    setPokemonName('');
     inputRef?.current?.focus();
   }
 
@@ -65,6 +66,15 @@ export function TextInput({
     setIsFocused(false);
     setIsFilled(!!value);
     setIsDropDownOpen(false);
+  }
+
+  function handleOnPress() {
+    isConnected
+      ? setIsDropDownOpen(prev => !prev)
+      : showToast({
+          message: 'Sem conexão com a internet!',
+          type: 'error',
+        });
   }
 
   return (
@@ -84,6 +94,7 @@ export function TextInput({
           style={{ ...$shadowProps, marginTop: MARGIN_TOP }}>
           <SRTextInput
             ref={inputRef}
+            editable={isConnected!}
             onLayout={onLayout}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
@@ -111,7 +122,7 @@ export function TextInput({
             height={12}
             justifyContent="center"
             name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
-            onPress={() => setIsDropDownOpen(prev => !prev)}
+            onPress={handleOnPress}
             style={{
               marginLeft: spacing.s10,
               marginRight: spacing.s12,
@@ -130,7 +141,7 @@ export function TextInput({
           />
         )}
 
-        <AnimatedTextInputImages onPress={onMewTwoButtonPress} />
+        <AnimatedTextInputImages />
       </Box>
     </ContainerBoxForPlatform>
   );

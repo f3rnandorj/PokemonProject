@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { pokemonService } from '../pokemonService';
 
 export function usePokemonNamesData() {
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading, refetch } = useQuery({
     queryKey: [QueryKeys.PokemonNamesList],
     queryFn: () => pokemonService.getListOfAllPokemonNames(),
     staleTime: 1000 * 60 * 60 * 24 * 30,
@@ -15,5 +15,6 @@ export function usePokemonNamesData() {
     pokemonNamesList: data,
     isError,
     isLoading,
+    refetch,
   };
 }

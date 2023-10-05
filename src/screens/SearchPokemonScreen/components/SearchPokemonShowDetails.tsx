@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, ImageStyle, ScrollView, StyleProp } from 'react-native';
 
 import { Pokemon, PokemonDetails, PokemonEvolutions } from '@domain';
@@ -46,15 +46,6 @@ export function SearchPokemonShowDetails(props: Props) {
     poke => poke.id === props?.pokemonBasicDetailsData?.id,
   );
 
-  useEffect(() => {
-    if (props?.pokemonBasicDetailsData?.name === undefined) {
-      return;
-    } else {
-      props.setPokemonName(props.pokemonBasicDetailsData.name);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pokemon]);
-
   return (
     <Box flex={1}>
       <Pokedex overflow="hidden">
@@ -70,7 +61,6 @@ export function SearchPokemonShowDetails(props: Props) {
             />
 
             <SearchPokemonEmpty
-              error={props.isError}
               loading={props.isInitialLoading && props.isLoading}
             />
           </>

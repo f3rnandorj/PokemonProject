@@ -38,10 +38,11 @@ export function usePaginatedList<Data>(
   }, [query.data]);
 
   const isError = netInfo.isConnected === false || query.isError;
+  const listValue = netInfo.isConnected === false ? [] : list;
 
   return {
-    list,
-    isError: isError,
+    list: listValue,
+    isError,
     isLoading: query.isLoading,
     isLoadingNextPage: query.isFetchingNextPage,
     fetchNextPage: query.fetchNextPage,
