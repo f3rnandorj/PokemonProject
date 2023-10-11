@@ -1,8 +1,7 @@
 import React from 'react';
 import { ImageStyle, StyleProp, ViewStyle } from 'react-native';
 
-import { Pokemon, PokemonEvolutions } from '@domain';
-import { masks } from '@utils';
+import { Pokemon, PokemonEvolutions, pokemonUtils } from '@domain';
 
 import { BoxProps } from '@components';
 import { $shadowProps, ThemeColors } from '@theme';
@@ -39,11 +38,11 @@ export function PokemonEvolutionsCard(pokemon: PokemonEvolutionProps) {
     borderRadius: 50,
   };
 
-  const lastEvolutionName = masks.adapterSomeNamesToUrlOfGif(
+  const lastEvolutionName = pokemonUtils.adapterSomeNamesToUrlOfGif(
     pokemon?.lastEvolutionName,
   );
 
-  const nextEvolutionName = masks.adapterSomeNamesToUrlOfGif(
+  const nextEvolutionName = pokemonUtils.adapterSomeNamesToUrlOfGif(
     pokemon?.nextEvolutionName,
   );
 

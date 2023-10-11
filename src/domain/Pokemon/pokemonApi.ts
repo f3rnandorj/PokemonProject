@@ -20,11 +20,11 @@ async function getPokemonNamesList(
 }
 
 async function getPokemonList(
-  pokemonNames: PokemonNameDataApi[],
+  pokemonNames: PokemonNameDataApi['name'][],
 ): Promise<PokemonApi[]> {
   const pokemonDetails = await Promise.all(
     pokemonNames.map(async pokemon => {
-      const response = await api.get<PokemonApi>(`/pokemon/${pokemon.name}`);
+      const response = await api.get<PokemonApi>(`/pokemon/${pokemon}`);
 
       return response.data;
     }),

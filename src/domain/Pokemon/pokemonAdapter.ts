@@ -1,3 +1,5 @@
+import { masks } from '@utils';
+
 import {
   Pokemon,
   PokemonApi,
@@ -7,15 +9,17 @@ import {
   PokemonEvolutionsApi,
 } from './pokemonTypes';
 import {
-  adapterBodyDetails,
-  masks,
   calculateGender,
   getPokemonEffectiveness,
   PokemonTypeEnum,
-  pokemonsEvolutions,
 } from './utils';
+import { pokemonUtils } from './utils/pokemonUtils';
 
 const LAST_ID_WITH_TEXT_ENTRIES_7 = 898;
+
+function toClearPokemonNames(pokemonNames: string[]): string[] {
+  return pokemonUtils.removePokemonsWithoutDetails(pokemonNames);
+}
 
 function toPokemon(pokemon: PokemonApi): Pokemon {
   const types = pokemon.types.map(type => type.type.name) as PokemonTypeEnum[];
@@ -47,8 +51,8 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
     avatarURL: pokemon.sprites.other['official-artwork'].front_default,
     characteristics,
     effectiveness: pokemonEffectiveness[0],
-    height: adapterBodyDetails.transferHeightToMeter(pokemon.height),
-    weight: adapterBodyDetails.transferWeightToKg(pokemon.weight),
+    height: pokemonUtils.transferHeightToMeter(pokemon.height),
+    weight: pokemonUtils.transferWeightToKg(pokemon.weight),
     principalMove: pokemon.abilities[0].ability.name,
   };
 }
@@ -78,10 +82,7 @@ function toPokemonEvolutions(
   pokemon: PokemonEvolutionsApi,
   pokemonName: Pokemon['name'],
 ): PokemonEvolutions {
-  const evolutions = pokemonsEvolutions.getEvolutionsChain(
-    pokemon,
-    pokemonName,
-  );
+  const evolutions = pokemonUtils.getEvolutionsChain(pokemon, pokemonName);
 
   return {
     hasEvolution: evolutions.hasEvolution,
@@ -97,4 +98,5 @@ export const pokemonAdapter = {
   toPokemon,
   toPokemonDetails,
   toPokemonEvolutions,
+  toClearPokemonNames,
 };

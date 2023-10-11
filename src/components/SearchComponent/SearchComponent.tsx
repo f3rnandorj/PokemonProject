@@ -22,19 +22,13 @@ export function SearchComponent({
   value,
   setPokemonName,
   initialDropBoxValue,
-  style,
   ...sRTextInputProps
 }: InputProps) {
   const { spacing } = useAppTheme();
 
   return (
-    <Box
-      height={IMG_SIZE - 10}
-      mt="s10"
-      alignItems="center"
-      flexDirection="row">
+    <Box mt="s10" alignItems="center" flexDirection="row">
       <TextInput
-        style={[style]}
         value={value}
         initialDropBoxValue={initialDropBoxValue}
         setPokemonName={setPokemonName}
@@ -42,7 +36,7 @@ export function SearchComponent({
       />
 
       <Animated.View
-        style={[$imgCommonStyle, { position: 'absolute', zIndex: 1 }]}
+        style={[$imgCommonStyle, { position: 'absolute' }]}
         entering={RollInLeft.duration(1000)}>
         <Image
           source={masterBall}
@@ -61,7 +55,6 @@ export function SearchComponent({
             marginRight: spacing.ns12,
             right: 0,
             position: 'absolute',
-            zIndex: 1,
           },
         ]}
         resizeMode="cover"

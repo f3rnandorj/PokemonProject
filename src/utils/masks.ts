@@ -20,37 +20,8 @@ function adapterMaximumPokemonCharactersName(text: string): string {
   return visibleCharacters + maskedCharacters;
 }
 
-function adapterSomeNamesToUrlOfGif(name: string | null) {
-  if (!name) {
-    return;
-  }
-
-  if (name === 'nidoran-f') {
-    name = 'nidoran_f';
-  }
-
-  if (name === 'nidoran-m') {
-    name = 'nidoran_m';
-  }
-
-  if (name === 'mime-jr') {
-    name = 'mime_jr';
-  }
-
-  if (name === 'mr-mime') {
-    name = 'mr.mime';
-  }
-
-  if (name === 'mr-rime') {
-    name = 'mr.rime';
-  }
-
-  return name;
-}
-
 export const masks = {
   adapterDescriptionApiReturn,
-  adapterSomeNamesToUrlOfGif,
   adapterMaximumPokemonCharactersName,
   changeDotForHyphen,
 };

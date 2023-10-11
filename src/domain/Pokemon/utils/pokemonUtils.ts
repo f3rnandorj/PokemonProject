@@ -1,4 +1,12 @@
-import { Pokemon, PokemonEvolutions, PokemonEvolutionsApi } from '@domain';
+import {
+  Pokemon,
+  PokemonDetails,
+  PokemonEvolutions,
+  PokemonEvolutionsApi,
+} from '@domain';
+
+const GENDER_RATE_CALCULATE = 8;
+const PERCENT = 100;
 
 function areEqualNames(name1: string, name2: string) {
   name1 = name1.toLowerCase();
@@ -91,7 +99,93 @@ function getEvolutionsChain(
   };
 }
 
-export const pokemonsEvolutions = {
+export function calculateGender(
+  genderRate: number,
+): PokemonDetails['characteristicsGender']['gender'] {
+  const fem = (genderRate / GENDER_RATE_CALCULATE) * PERCENT;
+  const masc = PERCENT - fem;
+
+  return {
+    fem: genderRate < 0 ? 0 : fem,
+    masc: genderRate < 0 ? 0 : masc,
+  };
+}
+
+function transferHeightToMeter(height: Pokemon['height']): number {
+  const heightInMeters = height / 10;
+
+  return heightInMeters;
+}
+
+function transferWeightToKg(weight: Pokemon['weight']): number {
+  const weightInKg = weight / 10;
+
+  return weightInKg;
+}
+
+function removePokemonsWithoutDetails(names: string[]): string[] {
+  const errorNames = [
+    'deoxys-normal',
+    'wormadam-plant',
+    'giratina-altered',
+    'shaymin-land',
+    'basculin-red-striped',
+    'darmanitan-standard',
+    'tornadus-incarnate',
+    'thundurus-incarnate',
+    'landorus-incarnate',
+    'keldeo-ordinary',
+    'meloetta-aria',
+    'meowstic-male',
+    'aegislash-shield',
+    'pumpkaboo-average',
+    'gourgeist-average',
+    'zygarde-50',
+    'oricorio-baile',
+    'lycanroc-midday',
+    'wishiwashi-solo',
+    'minior-red-meteor',
+    'mimikyu-disguised',
+    'toxtricity-amped',
+  ];
+
+  return names.filter(name => !errorNames.includes(name));
+}
+
+function adapterSomeNamesToUrlOfGif(name: string | null) {
+  if (!name) {
+    return;
+  }
+
+  if (name === 'nidoran-f') {
+    name = 'nidoran_f';
+  }
+
+  if (name === 'nidoran-m') {
+    name = 'nidoran_m';
+  }
+
+  if (name === 'mime-jr') {
+    name = 'mime_jr';
+  }
+
+  if (name === 'mr-mime') {
+    name = 'mr.mime';
+  }
+
+  if (name === 'mr-rime') {
+    name = 'mr.rime';
+  }
+
+  return name;
+}
+
+export const pokemonUtils = {
   areEqualNames,
   getEvolutionsChain,
+  calculateGender,
+  transferHeightToMeter,
+  transferWeightToKg,
+  removePokemonsWithoutDetails,
+  adapterSomeNamesToUrlOfGif,
 };

@@ -7,8 +7,8 @@ import {
   StyleProp,
 } from 'react-native';
 
+import { pokemonUtils } from '@domain';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { masks } from '@utils';
 
 import { useAppTheme } from '@hooks';
 
@@ -34,7 +34,9 @@ function Avatar({ name, avatarURL, height, width, style }: Props) {
     );
   }
 
-  const adaptedGiftName = name ? masks.adapterSomeNamesToUrlOfGif(name) : '';
+  const adaptedGiftName = name
+    ? pokemonUtils.adapterSomeNamesToUrlOfGif(name)
+    : '';
 
   const differentURLCase =
     name === 'sirfetchd'

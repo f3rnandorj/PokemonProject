@@ -59,15 +59,17 @@ export function TextInput({
   }
 
   function handleInputBlur() {
-    Keyboard.dismiss();
+    setIsDropDownOpen(false);
     setIsFocused(false);
     setIsFilled(!!value);
-    setIsDropDownOpen(false);
+    Keyboard.dismiss();
   }
 
   function handleOnPress() {
     isConnected
-      ? setIsDropDownOpen(prev => !prev)
+      ? isDropDownOpen
+        ? handleInputBlur()
+        : handleInputFocus()
       : showToast({
           message: 'Sem conexão com a internet!',
           type: 'error',
@@ -75,46 +77,47 @@ export function TextInput({
   }
 
   return (
-    <Box
-      zIndex={0}
-      borderColor={
-        isFocused || isFilled ? 'primary' : 'backgroundContrastLight'
-      }
-      {...$wrapperInput}
-      style={{ ...$shadowProps }}>
-      <SRTextInput
-        ref={inputRef}
-        onLayout={onLayout}
-        editable={isConnected!}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        value={value}
-        autoCapitalize="none"
-        placeholderTextColor={colors.secondary}
-        style={[
-          {
-            textAlign: value ? 'center' : 'left',
-            color: colors.backgroundContrast,
-            marginLeft: spacing.s40,
-            paddingVertical: spacing.s12,
-          },
-          $inputStyle,
-          style,
-        ]}
-        {...sRTextInputProps}
-      />
+    <Box flex={1}>
+      <Box
+        borderColor={
+          isFocused || isFilled ? 'primary' : 'backgroundContrastLight'
+        }
+        {...$wrapperInput}
+        style={{ ...$shadowProps }}>
+        <SRTextInput
+          ref={inputRef}
+          onLayout={onLayout}
+          editable={isConnected!}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          value={value}
+          autoCapitalize="none"
+          placeholderTextColor={colors.secondary}
+          style={[
+            {
+              textAlign: value ? 'center' : 'left',
+              color: colors.backgroundContrast,
+              marginLeft: spacing.s40,
+              paddingVertical: spacing.s12,
+            },
+            $inputStyle,
+            style,
+          ]}
+          {...sRTextInputProps}
+        />
 
-      <Icon
-        width={16}
-        height={12}
-        justifyContent="center"
-        name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
-        onPress={handleOnPress}
-        style={{
-          paddingLeft: spacing.s10,
-          paddingRight: spacing.s20,
-        }}
-      />
+        <Icon
+          width={16}
+          height={12}
+          justifyContent="center"
+          name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
+          onPress={handleOnPress}
+          style={{
+            paddingLeft: spacing.s10,
+            paddingRight: spacing.s20,
+          }}
+        />
+      </Box>
 
       {isDropDownOpen && (
         <TextInputDropBox
@@ -131,8 +134,6 @@ export function TextInput({
 }
 
 const $wrapperInput: BoxProps = {
-  flex: 1,
-  height: '100%',
   justifyContent: 'center',
   flexDirection: 'row',
   bg: 'backgroundContrastLight',

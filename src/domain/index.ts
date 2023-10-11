@@ -3,3 +3,5 @@ export * from './Pokemon/pokemonTypes';
 export * from './Pokemon/useCases/usePokemonList';
 export * from './Pokemon/useCases/usePokemonDetailsData';
 export * from './Pokemon/useCases/usePokemonNamesData';
+
+export * from './Pokemon/utils';

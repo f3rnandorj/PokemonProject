@@ -5,7 +5,7 @@ import { pokemonAdapter } from './pokemonAdapter';
 import { pokemonApi } from './pokemonApi';
 import { AllPokemonDetails, Pokemon } from './pokemonTypes';
 
-const POKEMONS_TESTED_ON_API = 870;
+const POKEMONS_TESTED_ON_API = 1000;
 
 async function getListOfAllPokemonNames(): Promise<Pokemon['name'][]> {
   const listPokemonNames = await pokemonApi.getPokemonNamesList({
@@ -13,20 +13,30 @@ async function getListOfAllPokemonNames(): Promise<Pokemon['name'][]> {
     per_page: POKEMONS_TESTED_ON_API,
   });
 
-  return listPokemonNames.results.map(pokemonName => pokemonName.name);
+  const listNames = listPokemonNames.results.map(
+    pokemonName => pokemonName.name,
+  );
+
+  return pokemonAdapter.toClearPokemonNames(listNames);
 }
 
 async function getListOfPokemons(page: number): Promise<Page<Pokemon>> {
-  const listPokemonData = await pokemonApi.getPokemonNamesList({
+  const listPokemonNames = await pokemonApi.getPokemonNamesList({
     page: page * 20,
     per_page: 20,
   });
 
-  const pokemonList = await pokemonApi.getPokemonList(listPokemonData.results);
+  const listNames = listPokemonNames.results.map(
+    pokemonName => pokemonName.name,
+  );
+
+  const adaptedClearListNames = pokemonAdapter.toClearPokemonNames(listNames);
+
+  const pokemonList = await pokemonApi.getPokemonList(adaptedClearListNames);
 
   return {
     data: pokemonList.map(pokemon => pokemonAdapter.toPokemon(pokemon)),
-    meta: apiAdapter.toMetaDataPage(listPokemonData, page),
+    meta: apiAdapter.toMetaDataPage(listPokemonNames, page),
   };
 }
 

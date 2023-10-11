@@ -59,7 +59,7 @@ export function SearchPokemonScreen() {
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
-      style={{ marginHorizontal: spacing.ns16 }}>
+      style={{ marginHorizontal: spacing.ns16, flex: 1 }}>
       <Screen isKeyboardAvoidingViewEnabled={false}>
         <Header title="Localize 🔍" subTitle="Qual seu pokémon favorito?" />
 
