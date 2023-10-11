@@ -1,9 +1,10 @@
 import React from 'react';
-import { FlatList, ListRenderItemInfo, Platform } from 'react-native';
+import { FlatList, ListRenderItemInfo } from 'react-native';
 
 import { Pokemon } from '@domain';
 
 import { Box, TouchableOpacityBox, Text, BoxProps } from '@components';
+import { useAppTheme } from '@hooks';
 
 interface Props {
   positionY: number;
@@ -22,20 +23,23 @@ export function TextInputDropBox({
   closeDropBoxOnChoose,
   initialDropBoxValue,
 }: Props) {
-  const suggestionList =
-    initialDropBoxValue &&
-    initialDropBoxValue.filter(pokemon =>
-      pokemon.toLowerCase().includes(value!.toLowerCase()),
-    );
+  const { spacing } = useAppTheme();
 
-  function renderItem({ item }: ListRenderItemInfo<string>) {
+  const suggestionList = initialDropBoxValue?.filter(pokemon =>
+    pokemon.toLowerCase().includes(value!.toLowerCase()),
+  );
+
+  function renderItem({ item, index }: ListRenderItemInfo<string>) {
+    const lastItem = index === suggestionList?.length! - 1;
     return (
       <TouchableOpacityBox
+        activeOpacity={0.9}
         onPress={() => {
           setPokemonName(item);
           closeDropBoxOnChoose();
         }}
-        {...$listItem}>
+        {...$listItem}
+        style={{ marginBottom: lastItem ? spacing.s6 : 0 }}>
         <Text textAlign="center">{item}</Text>
       </TouchableOpacityBox>
     );
@@ -57,15 +61,17 @@ export function TextInputDropBox({
 const $listItem: BoxProps = {
   pt: 's10',
   pb: 's10',
-  mb: 's4',
+  mt: 's6',
   borderRadius: 's6',
   backgroundColor: 'backgroundContrastLight',
 };
 
 const $listWrapper: BoxProps = {
-  zIndex: Platform.OS === 'ios' ? 0 : 1,
   flex: 1,
   alignSelf: 'center',
   position: 'absolute',
-  height: 350,
+  bg: 'backgroundContrast',
+  paddingHorizontal: 's6',
+  marginVertical: 's6',
+  borderRadius: 's14',
 };

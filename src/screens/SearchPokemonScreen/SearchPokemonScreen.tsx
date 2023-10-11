@@ -7,7 +7,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { usePokemonNamesService } from '@services';
 import Orientation from 'react-native-orientation-locker';
 
-import { Screen, Header, TextInput } from '@components';
+import { Screen, Header, SearchComponent, Box } from '@components';
 import { useAppTheme } from '@hooks';
 
 import { SearchPokemonShowDetails } from './components/SearchPokemonShowDetails';
@@ -63,14 +63,16 @@ export function SearchPokemonScreen() {
       <Screen>
         <Header title="Localize 🔍" subTitle="Qual seu pokémon favorito?" />
 
-        <TextInput
-          key={textInputKey}
-          value={pokemonSuggestionName}
-          onChangeText={setPokemonSuggestionName}
-          placeholder="Encontre seu pokémon..."
-          setPokemonName={setPokemonAdapted}
-          initialDropBoxValue={pokemonNamesList}
-        />
+        <Box zIndex={1}>
+          <SearchComponent
+            key={textInputKey}
+            value={pokemonSuggestionName}
+            onChangeText={setPokemonSuggestionName}
+            placeholder="Encontre seu pokémon..."
+            setPokemonName={setPokemonAdapted}
+            initialDropBoxValue={pokemonNamesList}
+          />
+        </Box>
 
         <SearchPokemonShowDetails
           isError={isError}

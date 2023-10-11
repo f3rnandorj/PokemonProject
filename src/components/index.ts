@@ -8,7 +8,7 @@ export * from './PokemonEvolutionsCard/PokemonEvolutionsCard';
 export * from './LoadingDataScreen/LoadingDataScreen';
 export * from './LoadingDetails/LoadingDetails';
 export * from './Header/Header';
-export * from './TextInput/TextInput';
+export * from './SearchComponent/SearchComponent';
 export * from './PokemonTypes/PokemonTypes';
 export * from './Button/Button';
 export * from './FavoriteButton/FavoriteButton';
