@@ -12,6 +12,7 @@ interface ScreenProps extends BoxProps {
   scrollForm?: 'animated' | 'normal';
   canGoBack?: boolean;
   color?: BoxProps['backgroundColor'];
+  isKeyboardAvoidingViewEnabled?: boolean;
 }
 
 export function Screen({
@@ -21,6 +22,7 @@ export function Screen({
   color = 'background',
   canGoBack = false,
   style,
+  isKeyboardAvoidingViewEnabled = true,
   ...boxProps
 }: ScreenProps) {
   const { colors, spacing } = useAppTheme();
@@ -32,10 +34,11 @@ export function Screen({
     : ViewContainer;
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1 }}>
-      <ScreenContainer backgroundColor={colors[color]}>
+    <ScreenContainer backgroundColor={colors[color]}>
+      <KeyboardAvoidingView
+        enabled={isKeyboardAvoidingViewEnabled}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}>
         <Box flex={1} style={{ marginTop: top }}>
           {canGoBack && (
             <Icon
@@ -51,7 +54,7 @@ export function Screen({
             {children}
           </Box>
         </Box>
-      </ScreenContainer>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </ScreenContainer>
   );
 }

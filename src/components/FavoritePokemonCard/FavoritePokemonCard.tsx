@@ -82,7 +82,13 @@ export function FavoritePokemonCard(pokemon: FavoritePokemonCardProps) {
 
           <AnimatedPokeball pokemonRarity={pokemonRarity} />
 
-          <Text textAlign="left" color="background" preset="headerMedium" bold>
+          <Text
+            numberOfLines={1}
+            textAlign="left"
+            pl="s6"
+            color="background"
+            preset="headerMedium"
+            bold>
             {pokemonName}
           </Text>
         </Box>

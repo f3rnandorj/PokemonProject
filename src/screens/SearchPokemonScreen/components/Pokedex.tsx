@@ -8,7 +8,7 @@ const MARGIN = 26;
 
 interface Props extends BoxProps {}
 
-export function Pokedex({ children, ...boxProps }: Props) {
+export function Pokedex({ children, style, ...boxProps }: Props) {
   const barHeight = useBottomTabBarHeight();
 
   return (
@@ -26,7 +26,12 @@ export function Pokedex({ children, ...boxProps }: Props) {
 
       <Box {...$middleWrapper}>
         <Box flex={0.5} />
-        <Box flex={2.5} bg="background" {...boxProps}>
+        <Box
+          flex={2.5}
+          bg="background"
+          borderRadius="s6"
+          style={[style]}
+          {...boxProps}>
           {children}
         </Box>
         <Box flex={0.5} />
@@ -50,18 +55,21 @@ const $container: BoxProps = {
   flex: 1,
   bg: 'primary',
   mt: 's16',
+  borderRadius: 's14',
 };
 
 const $topAndBottomWrapper: BoxProps = {
   flex: 0.5,
   flexDirection: 'row',
   bg: 'background',
+  borderRadius: 's14',
 };
 
 const $middleWrapper: BoxProps = {
   flex: 5.5,
   flexDirection: 'row',
   bg: 'primary',
+  borderRadius: 's14',
 };
 
 const $bottomLeftAndRight: BoxProps = {
@@ -77,4 +85,5 @@ const $topLeftAndRight: BoxProps = {
   borderTopLeftRadius: 's50',
   borderTopRightRadius: 's50',
   mb: 'ns12',
+  borderRadius: 's50',
 };

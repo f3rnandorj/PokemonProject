@@ -111,8 +111,8 @@ export function TextInput({
         name={isDropDownOpen ? 'ArrowUp' : 'ArrowDown'}
         onPress={handleOnPress}
         style={{
-          marginLeft: spacing.s10,
-          paddingRight: spacing.s16,
+          paddingLeft: spacing.s10,
+          paddingRight: spacing.s20,
         }}
       />
 

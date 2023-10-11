@@ -58,7 +58,7 @@ export function SearchComponent({
         style={[
           $imgCommonStyle,
           {
-            marginRight: spacing.ns16,
+            marginRight: spacing.ns12,
             right: 0,
             position: 'absolute',
             zIndex: 1,
