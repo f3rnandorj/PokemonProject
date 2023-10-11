@@ -7,11 +7,11 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { Box, LoadingDetails, Text } from '@components';
 
 interface Props {
-  // error: boolean | null;
+  error: boolean | null;
   loading: boolean;
 }
 
-export function SearchPokemonEmpty({ loading }: Props) {
+export function SearchPokemonEmpty({ loading, error }: Props) {
   const tabBarHeight = useBottomTabBarHeight();
   const { isConnected } = useNetInfo();
 
@@ -30,7 +30,7 @@ export function SearchPokemonEmpty({ loading }: Props) {
   }
 
   if (loading) {
-    return <LoadingDetails />;
+    return <LoadingDetails isError={error!} />;
   }
 
   return (

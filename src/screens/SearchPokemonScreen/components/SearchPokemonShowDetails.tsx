@@ -63,6 +63,7 @@ export function SearchPokemonShowDetails(props: Props) {
 
             <SearchPokemonEmpty
               loading={props.isInitialLoading && props.isLoading}
+              error={props.isError}
             />
           </>
         ) : (

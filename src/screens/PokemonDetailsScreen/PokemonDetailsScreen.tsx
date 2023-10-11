@@ -32,6 +32,7 @@ export function PokemonDetailsScreen({
     pokemonDetailsData,
     pokemonEvolutionsData,
     isLoading,
+    isError,
   } = usePokemonDetailsData(pokemon);
   const { getFavoritePokemonById, allFavoritePokemons } =
     useFavoritePokemonsService();
@@ -64,7 +65,7 @@ export function PokemonDetailsScreen({
       !pokemonBasicDetailsData ||
       !pokemonDetailsData ||
       !pokemonEvolutionsData ? (
-        <LoadingDetails />
+        <LoadingDetails isError={isError} />
       ) : (
         <Screen scrollable color={pokemonColor} canGoBack>
           <PokemonDetailsHeader

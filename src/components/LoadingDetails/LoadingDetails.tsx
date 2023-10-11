@@ -1,13 +1,32 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { Box, Screen } from '@components';
 import { useAppTheme } from '@hooks';
+import { useToastService } from '@services';
 
 import PokemonLogo from '../../assets/brand/pokemonLogo.svg';
 
-export function LoadingDetails() {
+interface Props {
+  isError: boolean;
+}
+
+export function LoadingDetails({ isError }: Props) {
   const { colors } = useAppTheme();
+  const { showToast } = useToastService();
+  const navigation = useNavigation();
+
+  if (isError) {
+    navigation.goBack();
+    showToast({
+      message: 'Erro ao tentar carregar detalhes do pokemon.',
+      type: 'error',
+    });
+
+    return null;
+  }
 
   return (
     <Screen canGoBack>
