@@ -1,9 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
 
-import { Pokemon } from '@domain';
-
 import { Box, BoxProps, Icon, IconName, Text, TextProps } from '@components';
+import { Pokemon } from '@domain';
 import { useAppTheme } from '@hooks';
 
 type PokemonBodyDetails = Pick<Pokemon, 'height' | 'weight' | 'principalMove'>;

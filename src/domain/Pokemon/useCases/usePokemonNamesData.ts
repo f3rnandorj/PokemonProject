@@ -1,5 +1,6 @@
-import { QueryKeys } from '@infra';
 import { useQuery } from '@tanstack/react-query';
+
+import { QueryKeys } from '@infra';
 
 import { pokemonService } from '../pokemonService';
 

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Pokemon } from '@domain';
-
 import { Box, BoxProps, Text } from '@components';
+import { Pokemon } from '@domain';
 import { useAppTheme } from '@hooks';
 import { ThemeColors } from '@theme';
 

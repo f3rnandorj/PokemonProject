@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Pokemon } from '@domain';
-
 import { Box, Text, PokemonAvatar as Avatar } from '@components';
+import { Pokemon } from '@domain';
 
 type Props = Pick<Pokemon, 'id' | 'avatarURL'>;
 

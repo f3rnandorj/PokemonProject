@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { FavoritePokemon, useFavoritePokemonsService } from '@services';
 import Orientation from 'react-native-orientation-locker';
 
 import {
@@ -14,6 +13,7 @@ import {
 } from '@components';
 import { useAppTheme } from '@hooks';
 import { AppTabScreenProps } from '@routes';
+import { FavoritePokemon, useFavoritePokemonsService } from '@services';
 
 export function FavoritePokemonScreen({
   navigation,

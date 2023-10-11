@@ -1,9 +1,8 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
-import { Pokemon } from '@domain';
-
 import { Box, TouchableOpacityBox, Text, BoxProps } from '@components';
+import { Pokemon } from '@domain';
 import { useAppTheme } from '@hooks';
 
 interface Props {
@@ -23,6 +22,12 @@ export function TextInputDropBox({
   closeDropBoxOnChoose,
   initialDropBoxValue,
 }: Props) {
+  if (!initialDropBoxValue) {
+    throw new Error(
+      'You must use useTextInputDropBox locate on @hooks to pass required parameters!',
+    );
+  }
+
   const { spacing } = useAppTheme();
 
   const suggestionList = initialDropBoxValue?.filter(pokemon =>
@@ -30,7 +35,7 @@ export function TextInputDropBox({
   );
 
   function renderItem({ item, index }: ListRenderItemInfo<string>) {
-    const lastItem = index === suggestionList?.length! - 1;
+    const firstItem = index === 0;
     return (
       <TouchableOpacityBox
         activeOpacity={0.9}
@@ -39,7 +44,7 @@ export function TextInputDropBox({
           closeDropBoxOnChoose();
         }}
         {...$listItem}
-        style={{ marginBottom: lastItem ? spacing.s6 : 0 }}>
+        style={{ marginTop: firstItem ? 0 : spacing.s6 }}>
         <Text textAlign="center">{item}</Text>
       </TouchableOpacityBox>
     );
@@ -67,11 +72,10 @@ const $listItem: BoxProps = {
 };
 
 const $listWrapper: BoxProps = {
-  flex: 1,
+  borderWidth: 6,
   alignSelf: 'center',
-  position: 'absolute',
   bg: 'backgroundContrast',
-  paddingHorizontal: 's6',
+  // paddingHorizontal: 's6',
   marginVertical: 's6',
   borderRadius: 's14',
 };

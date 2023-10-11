@@ -1,16 +1,16 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 
-import { Pokemon } from '@domain';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { useToastService } from '@services';
 
 import {
   BoxProps,
   TouchableOpacityBox,
   TouchableOpacityBoxProps,
 } from '@components';
+import { Pokemon } from '@domain';
 import { useAppTheme } from '@hooks';
+import { useToastService } from '@services';
 import { ThemeColors } from '@theme';
 
 import { MemoPokemonAvatar } from './components/PokemonAvatar';

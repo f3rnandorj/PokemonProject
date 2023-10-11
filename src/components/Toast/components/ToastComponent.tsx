@@ -1,9 +1,8 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 
-import { Toast, ToastPosition, ToastType, useToastService } from '@services';
-
 import { useAppTheme } from '@hooks';
+import { Toast, ToastPosition, ToastType, useToastService } from '@services';
 
 import { Box, BoxProps, TouchableOpacityBox } from '../../Box/Box';
 import { Icon, IconProps } from '../../Icon/Icon';

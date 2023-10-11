@@ -1,5 +1,6 @@
-import { api, PageApi, PageParams } from '@api';
 import axios from 'axios';
+
+import { api, PageApi, PageParams } from '@api';
 
 import {
   PokemonNameDataApi,

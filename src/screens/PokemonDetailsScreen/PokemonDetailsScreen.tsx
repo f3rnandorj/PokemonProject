@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ImageStyle, StyleProp } from 'react-native';
 
-import { usePokemonDetailsData } from '@domain';
-import { useFavoritePokemonsService } from '@services';
 import Orientation from 'react-native-orientation-locker';
 
 import {
@@ -12,7 +10,9 @@ import {
   PokemonEvolutionsCard,
   PokemonAvatar,
 } from '@components';
+import { usePokemonDetailsData } from '@domain';
 import { AppScreenProps } from '@routes';
+import { useFavoritePokemonsService } from '@services';
 import { ThemeColors } from '@theme';
 
 import { PokemonDetailsCharacteristics } from './components/PokemonCharacteristicsDetails/PokemonDetailsCharacteristics';

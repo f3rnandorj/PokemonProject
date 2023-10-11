@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { Page } from '@types';
 
 export interface UsePaginatedListResult<TData> {

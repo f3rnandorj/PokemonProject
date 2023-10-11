@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Pokemon } from '@domain';
-
 import { Box, Text } from '@components';
+import { Pokemon } from '@domain';
 
 import { MemoPokemonTypes } from '../../PokemonTypes/PokemonTypes';
 

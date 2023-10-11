@@ -2,10 +2,10 @@ import React from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 
 import { useNetInfo } from '@react-native-community/netinfo';
-import { FavoritePokemon, useToastService } from '@services';
-import { masks } from '@utils';
 
+import { FavoritePokemon, useToastService } from '@services';
 import { ThemeColors } from '@theme';
+import { masks } from '@utils';
 
 import greatball from '../../assets/brandPokeballs/greatball.png';
 import masterball from '../../assets/brandPokeballs/masterball.png';

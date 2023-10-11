@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 
-import { usePokemonList } from '@domain';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { useToastService } from '@services';
 import Orientation from 'react-native-orientation-locker';
 
 import {
@@ -12,7 +10,9 @@ import {
   Header,
   ImageBackGround,
 } from '@components';
+import { usePokemonList } from '@domain';
 import { AppTabScreenProps } from '@routes';
+import { useToastService } from '@services';
 
 import { Box } from './../../components/Box/Box';
 import { HomeList } from './components/HomeList';

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Pokemon } from '@domain';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { Pokemon } from '@domain';
 import { PokemonDetailsScreen } from '@screens';
 
 import { AppTabBottomParamList, AppTabNavigator } from './AppTabNavigator';

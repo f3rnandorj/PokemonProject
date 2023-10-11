@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Pokemon } from '@domain';
-
 import { Text } from '@components';
+import { Pokemon } from '@domain';
 
 type Props = Pick<Pokemon, 'effectiveness'>;
 

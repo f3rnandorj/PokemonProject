@@ -1,6 +1,7 @@
-import { QueryKeys } from '@infra';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useQuery } from '@tanstack/react-query';
+
+import { QueryKeys } from '@infra';
 
 import { pokemonService } from '../pokemonService';
 import { Pokemon } from '../pokemonTypes';

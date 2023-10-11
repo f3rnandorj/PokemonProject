@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { AppProvider, initializeStorage, MMKVStorage } from '@services';
 import { ThemeProvider } from '@shopify/restyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Toast } from '@components';
 import { Routes } from '@routes';
+import { AppProvider, initializeStorage, MMKVStorage } from '@services';
 
 import theme from './src/theme/theme';
 

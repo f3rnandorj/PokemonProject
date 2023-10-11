@@ -1,13 +1,13 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
-import { Pokemon } from '@domain';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
-import { useToastService } from '@services';
 
 import { MemoPokemonCard } from '@components';
+import { Pokemon } from '@domain';
+import { useToastService } from '@services';
 
 import { HomeEmpty } from './HomeEmpty';
 import { HomeHeaderList } from './HomeHeaderList';

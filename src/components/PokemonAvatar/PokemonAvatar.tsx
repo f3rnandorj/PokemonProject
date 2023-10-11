@@ -7,9 +7,9 @@ import {
   StyleProp,
 } from 'react-native';
 
-import { pokemonUtils } from '@domain';
 import { useNetInfo } from '@react-native-community/netinfo';
 
+import { pokemonUtils } from '@domain';
 import { useAppTheme } from '@hooks';
 
 import PokemonLogo from '../../assets/brand/pokemonLogo.svg';

@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { Pokemon, PokemonDetails } from '@domain';
-import { FavoritePokemon } from '@services';
-
 import {
   Box,
   BoxProps,
@@ -10,6 +7,8 @@ import {
   Text,
   FavoriteButton,
 } from '@components';
+import { Pokemon, PokemonDetails } from '@domain';
+import { FavoritePokemon } from '@services';
 
 type Props = {
   pokemonName: string;

@@ -1,9 +1,7 @@
 import React from 'react';
 import { ImageStyle, ScrollView, StyleProp } from 'react-native';
 
-import { Pokemon, PokemonDetails, PokemonEvolutions } from '@domain';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useFavoritePokemonsService } from '@services';
 
 import {
   Box,
@@ -15,7 +13,9 @@ import {
   PokemonEvolutionsCard,
   Text,
 } from '@components';
+import { Pokemon, PokemonDetails, PokemonEvolutions } from '@domain';
 import { AppStackParamList } from '@routes';
+import { useFavoritePokemonsService } from '@services';
 import { ThemeColors } from '@theme';
 
 import { Pokedex } from './Pokedex';

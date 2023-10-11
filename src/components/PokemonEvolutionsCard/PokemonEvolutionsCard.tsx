@@ -1,9 +1,8 @@
 import React from 'react';
 import { ImageStyle, StyleProp, ViewStyle } from 'react-native';
 
-import { Pokemon, PokemonEvolutions, pokemonUtils } from '@domain';
-
 import { BoxProps } from '@components';
+import { Pokemon, PokemonEvolutions, pokemonUtils } from '@domain';
 import { $shadowProps, ThemeColors } from '@theme';
 
 import { LastEvolutionButton } from './components/LastEvolutionButton';

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
 
-import { PokemonDetails } from '@domain';
-
 import { Text } from '@components';
+import { PokemonDetails } from '@domain';
 import { ThemeColors } from '@theme';
 
 type Props = Pick<PokemonDetails, 'description'> & {

@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Pokemon, PokemonDetails } from '@domain';
-
 import {
   Box,
   Text,
   CharacteristicCard,
   CharacteristicCardProps,
 } from '@components';
+import { Pokemon, PokemonDetails } from '@domain';
 
 import {
   CharacteristicGenderCard,
