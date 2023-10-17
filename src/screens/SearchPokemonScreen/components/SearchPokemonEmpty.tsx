@@ -7,7 +7,6 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { Box, LoadingDetails, Text } from '@components';
 
 interface Props {
-  // error: boolean | null;
   loading: boolean;
 }
 
