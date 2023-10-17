@@ -147,6 +147,10 @@ function removePokemonsWithoutDetails(names: string[]): string[] {
     'minior-red-meteor',
     'mimikyu-disguised',
     'toxtricity-amped',
+    'eiscue-ice',
+    'indeedee-male',
+    'morpeko-full-belly',
+    'urshifu-single-strike',
   ];
 
   return names.filter(name => !errorNames.includes(name));

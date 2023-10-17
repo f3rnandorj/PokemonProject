@@ -1,11 +1,13 @@
 import { apiAdapter } from '@api';
 import { Page } from '@types';
+import { masks } from '@utils';
 
 import { pokemonAdapter } from './pokemonAdapter';
 import { pokemonApi } from './pokemonApi';
 import { AllPokemonDetails, Pokemon } from './pokemonTypes';
 
-const POKEMONS_TESTED_ON_API = 1000;
+export const POKEMONS_TESTED_ON_API = 900;
+export const POKEMONS_PER_PAGE = 20;
 
 async function getListOfAllPokemonNames(): Promise<Pokemon['name'][]> {
   const listPokemonNames = await pokemonApi.getPokemonNamesList({
@@ -22,8 +24,8 @@ async function getListOfAllPokemonNames(): Promise<Pokemon['name'][]> {
 
 async function getListOfPokemons(page: number): Promise<Page<Pokemon>> {
   const listPokemonNames = await pokemonApi.getPokemonNamesList({
-    page: page * 20,
-    per_page: 20,
+    page: page * POKEMONS_PER_PAGE,
+    per_page: POKEMONS_PER_PAGE,
   });
 
   const listNames = listPokemonNames.results.map(
@@ -43,10 +45,12 @@ async function getListOfPokemons(page: number): Promise<Page<Pokemon>> {
 async function getDetailsOfPokemons(
   pokemonName: Pokemon['name'],
 ): Promise<AllPokemonDetails> {
+  const pokemonAdapted = masks.changeDotForHyphen(pokemonName);
+
   const pokemonBasicDetails = await pokemonApi.getBasicPokemonDetails(
-    pokemonName,
+    pokemonAdapted,
   );
-  const pokemonMoreDetails = await pokemonApi.getPokemonDetails(pokemonName);
+  const pokemonMoreDetails = await pokemonApi.getPokemonDetails(pokemonAdapted);
   const pokemonEvolutions = await pokemonApi.getEvolutionsOfPokemon(
     pokemonMoreDetails.evolution_chain.url,
   );
@@ -56,7 +60,7 @@ async function getDetailsOfPokemons(
     pokemonInfoDetails: pokemonAdapter.toPokemonDetails(pokemonMoreDetails),
     pokemonEvolutionDetails: pokemonAdapter.toPokemonEvolutions(
       pokemonEvolutions,
-      pokemonName,
+      pokemonAdapted,
     ),
   };
 }

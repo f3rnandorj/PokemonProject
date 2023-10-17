@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
+import { POKEMONS_PER_PAGE, POKEMONS_TESTED_ON_API } from '@domain';
 import { Page } from '@types';
 
 export interface UsePaginatedListResult<TData> {
@@ -24,7 +25,10 @@ export function usePaginatedList<Data>(
   const query = useInfiniteQuery({
     queryKey,
     queryFn: ({ pageParam = 0 }) => getList(pageParam),
-    getNextPageParam: ({ meta }) => (meta.next ? meta.currentPage + 1 : null),
+    getNextPageParam: ({ meta }) =>
+      meta.currentPage < POKEMONS_TESTED_ON_API / POKEMONS_PER_PAGE
+        ? meta.currentPage + 1
+        : null,
     retry: false,
   });
 

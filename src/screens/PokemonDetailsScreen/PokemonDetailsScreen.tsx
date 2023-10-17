@@ -12,7 +12,7 @@ import {
 } from '@components';
 import { usePokemonDetailsData } from '@domain';
 import { AppScreenProps } from '@routes';
-import { useFavoritePokemonsService } from '@services';
+import { useFavoritePokemonsService, useToastService } from '@services';
 import { ThemeColors } from '@theme';
 
 import { PokemonDetailsCharacteristics } from './components/PokemonCharacteristicsDetails/PokemonDetailsCharacteristics';
@@ -23,15 +23,19 @@ import { PokemonDetailsHeader } from './components/PokemonDetailsHeader';
 
 export function PokemonDetailsScreen({
   route,
+  navigation,
 }: AppScreenProps<'PokemonDetailsScreen'>) {
   const { pokemonName: pokemonNameParm } = route.params;
   const [pokemon, setPokemon] = useState(pokemonNameParm);
+
+  const { showToast } = useToastService();
 
   const {
     pokemonBasicDetailsData,
     pokemonDetailsData,
     pokemonEvolutionsData,
     isLoading,
+    error,
   } = usePokemonDetailsData(pokemon);
   const { getFavoritePokemonById, allFavoritePokemons } =
     useFavoritePokemonsService();
@@ -57,6 +61,15 @@ export function PokemonDetailsScreen({
       Orientation.unlockAllOrientations();
     };
   }, []);
+
+  if (error) {
+    navigation.goBack();
+    showToast({
+      message: 'Erro ao tentar carregar detalhes do pokemon.',
+      type: 'error',
+    });
+    return null;
+  }
 
   return (
     <>

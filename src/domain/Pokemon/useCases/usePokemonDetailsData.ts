@@ -9,7 +9,7 @@ import { Pokemon } from '../pokemonTypes';
 export function usePokemonDetailsData(pokemonName: Pokemon['name']) {
   const { isConnected } = useNetInfo();
 
-  const { data, isError, isLoading, isInitialLoading } = useQuery({
+  const { data, isError, isLoading, isInitialLoading, error } = useQuery({
     enabled: pokemonName.length > 0,
     queryKey: [QueryKeys.PokemonDetails, pokemonName],
     queryFn: () => {
@@ -20,6 +20,7 @@ export function usePokemonDetailsData(pokemonName: Pokemon['name']) {
   });
 
   return {
+    error,
     isError: isError || (!isConnected && !data) || !isConnected,
     isLoading,
     isInitialLoading,

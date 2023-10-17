@@ -15,8 +15,6 @@ import {
 } from './utils';
 import { pokemonUtils } from './utils/pokemonUtils';
 
-const LAST_ID_WITH_TEXT_ENTRIES_7 = 898;
-
 function toClearPokemonNames(pokemonNames: string[]): string[] {
   return pokemonUtils.removePokemonsWithoutDetails(pokemonNames);
 }
@@ -44,6 +42,9 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
 
   const pokemonEffectiveness = getPokemonEffectiveness(types);
 
+  // pokemonUtils.adapterSomeNamesToUrlOfGif(pokemon.name);
+  // masks.changeDotForHyphen(pokemon.name)
+
   return {
     id: pokemon.id,
     name: masks.changeDotForHyphen(pokemon.name),
@@ -65,11 +66,11 @@ function toPokemonDetails(pokemon: PokemonDetailsApi): PokemonDetails {
     },
   };
 
-  const numberOfDescription = pokemon.id > LAST_ID_WITH_TEXT_ENTRIES_7 ? 0 : 7;
+  const pokemonAdapter = pokemon.flavor_text_entries[7]
+    ? pokemon.flavor_text_entries[7].flavor_text
+    : pokemon.flavor_text_entries[0].flavor_text;
 
-  const description = masks.adapterDescriptionApiReturn(
-    pokemon.flavor_text_entries[numberOfDescription].flavor_text,
-  );
+  const description = masks.adapterDescriptionApiReturn(pokemonAdapter);
 
   return {
     characteristicsGender,
