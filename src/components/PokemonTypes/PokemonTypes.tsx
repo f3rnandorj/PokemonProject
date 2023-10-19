@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Box, BoxProps, Text } from '@components';
 import { Pokemon } from '@domain';
 import { useAppTheme } from '@hooks';
@@ -12,6 +14,7 @@ type Props = {
 
 function PokemonTypes({ types, isDetailsScreen = false, ...boxProps }: Props) {
   const { colors, spacing } = useAppTheme();
+  const { t } = useTranslation();
 
   return (
     <Box flexDirection={isDetailsScreen ? 'row' : 'column'} {...boxProps}>
@@ -37,10 +40,16 @@ function PokemonTypes({ types, isDetailsScreen = false, ...boxProps }: Props) {
                   }
                 : {
                     marginBottom: margin,
+                    paddingHorizontal: spacing.s2,
+                    paddingVertical: spacing.s2,
                   },
             ]}>
-            <Text preset="cardMedium" bold color="backgroundContrastLight">
-              {typeName}
+            <Text
+              preset="cardMedium"
+              medium
+              color="backgroundContrastLight"
+              numberOfLines={1}>
+              {t(typeName)}
             </Text>
           </Box>
         );

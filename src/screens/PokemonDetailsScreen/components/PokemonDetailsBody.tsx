@@ -1,6 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
 
+import { useTranslation } from 'react-i18next';
+
 import { Box, BoxProps, Icon, IconName, Text, TextProps } from '@components';
 import { Pokemon } from '@domain';
 import { useAppTheme } from '@hooks';
@@ -49,13 +51,14 @@ function PokemonBodyDetailsCard({
   info,
 }: PokemonBodyDetailsCardProps) {
   const { spacing } = useAppTheme();
+  const { t } = useTranslation();
 
   return (
     <Box {...$wrapperCard} borderRightWidth={!isLast ? spacing.s2 : 0}>
       <Box flexDirection="row" alignItems="center">
         {iconName && <Icon name={iconName} color="secondary" />}
-        <Text preset="paragraphSmall" bold pl={'s8'}>
-          {info}
+        <Text preset="paragraphSmall" bold pl={'s8'} textAlign="center">
+          {t(info)}
         </Text>
       </Box>
 

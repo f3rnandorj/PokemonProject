@@ -2,6 +2,7 @@ import React from 'react';
 import { ImageStyle, ScrollView, StyleProp } from 'react-native';
 
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import {
   Box,
@@ -36,6 +37,7 @@ interface Props {
 export function SearchPokemonShowDetails(props: Props) {
   const { allFavoritePokemons } = useFavoritePokemonsService();
   const navigation = useNavigation<NavigationProp<AppStackParamList>>();
+  const { t } = useTranslation();
 
   const pokemonColor = props.pokemonBasicDetailsData?.types?.[0] as ThemeColors;
 
@@ -117,7 +119,7 @@ export function SearchPokemonShowDetails(props: Props) {
 
               <Box flex={1}>
                 <Text marginHorizontal="s10">
-                  {props.pokemonDetailsData.description}
+                  {t(props.pokemonDetailsData.description)}
                 </Text>
               </Box>
 

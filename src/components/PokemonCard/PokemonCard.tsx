@@ -73,6 +73,7 @@ function PokemonCard({
 }
 
 const $wrapper: BoxProps = {
+  height: 130,
   flexDirection: 'row',
   justifyContent: 'space-between',
   paddingHorizontal: 's16',

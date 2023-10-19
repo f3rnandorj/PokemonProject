@@ -15,6 +15,8 @@ import {
 } from './utils';
 import { pokemonUtils } from './utils/pokemonUtils';
 
+const MEW_ID = 151;
+
 function toClearPokemonNames(pokemonNames: string[]): string[] {
   return pokemonUtils.removePokemonsWithoutDetails(pokemonNames);
 }
@@ -42,8 +44,9 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
 
   const pokemonEffectiveness = getPokemonEffectiveness(types);
 
-  // pokemonUtils.adapterSomeNamesToUrlOfGif(pokemon.name);
-  // masks.changeDotForHyphen(pokemon.name)
+  const index =
+    pokemon?.moves[17] && pokemon.id <= MEW_ID ? 17 : pokemon.moves.length - 1;
+  const principalMove = pokemon.moves[index].move.name;
 
   return {
     id: pokemon.id,
@@ -51,10 +54,10 @@ function toPokemon(pokemon: PokemonApi): Pokemon {
     types,
     avatarURL: pokemon.sprites.other['official-artwork'].front_default,
     characteristics,
-    effectiveness: pokemonEffectiveness[0],
+    effectiveness: pokemonEffectiveness,
     height: pokemonUtils.transferHeightToMeter(pokemon.height),
     weight: pokemonUtils.transferWeightToKg(pokemon.weight),
-    principalMove: pokemon.abilities[0].ability.name,
+    principalMove,
   };
 }
 

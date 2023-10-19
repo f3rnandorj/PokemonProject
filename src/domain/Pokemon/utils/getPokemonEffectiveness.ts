@@ -28,121 +28,166 @@ type TypeData = {
 const pokemonEffectiveness: Record<PokemonTypeEnum, TypeData> = {
   [PokemonTypeEnum.Normal]: {
     advantages: [],
-    weaknesses: ['Fighting'],
-    immunities: ['Ghost'],
+    weaknesses: ['fighting'],
+    immunities: ['ghost'],
   },
   [PokemonTypeEnum.Grass]: {
-    advantages: ['Ground', 'Rock', 'Water'],
-    weaknesses: ['Bug', 'Fire', 'Flying', 'Ice', 'Poison'],
+    advantages: ['ground', 'rock', 'water'],
+    weaknesses: ['bug', 'fire', 'flying', 'ice', 'Poison'],
     immunities: [],
   },
   [PokemonTypeEnum.Fire]: {
-    advantages: ['Bug', 'Grass', 'Ice', 'Steel'],
-    weaknesses: ['Rock', 'Ground', 'Water'],
+    advantages: ['bug', 'grass', 'ice', 'steel'],
+    weaknesses: ['rock', 'ground', 'water'],
     immunities: [],
   },
   [PokemonTypeEnum.Water]: {
-    advantages: ['Fire', 'Ground', 'Rock'],
-    weaknesses: ['Electric', 'Grass'],
+    advantages: ['fire', 'ground', 'rock'],
+    weaknesses: ['electric', 'grass'],
     immunities: [],
   },
   [PokemonTypeEnum.Electric]: {
-    advantages: ['Water', 'Flying'],
-    weaknesses: ['Ground'],
+    advantages: ['water', 'flying'],
+    weaknesses: ['ground'],
     immunities: [],
   },
   [PokemonTypeEnum.Flying]: {
-    advantages: ['Bug', 'Fighting', 'Grass'],
-    weaknesses: ['Electric', 'Ice', 'Rock'],
-    immunities: ['Ground'],
+    advantages: ['bug', 'fighting', 'grass'],
+    weaknesses: ['electric', 'ice', 'rock'],
+    immunities: ['ground'],
   },
   [PokemonTypeEnum.Ice]: {
-    advantages: ['Dragon', 'Flying', 'Grass', 'Ground'],
-    weaknesses: ['Fighting', 'Fire', 'Rock', 'Steel'],
+    advantages: ['dragon', 'flying', 'grass', 'ground'],
+    weaknesses: ['fighting', 'fire', 'rock', 'steel'],
     immunities: [],
   },
   [PokemonTypeEnum.Rock]: {
-    advantages: ['Bug', 'Fire', 'Flying', 'Ice'],
-    weaknesses: ['Fighting', 'Grass', 'Ground', 'Steel', 'Water'],
+    advantages: ['bug', 'fire', 'flying', 'ice'],
+    weaknesses: ['fighting', 'grass', 'ground', 'steel', 'water'],
     immunities: [],
   },
   [PokemonTypeEnum.Ground]: {
-    advantages: ['Electric', 'Fire', 'Poison', 'Rock', 'Steel'],
-    weaknesses: ['Ice', 'Grass', 'Water'],
-    immunities: ['Electric'],
+    advantages: ['electric', 'fire', 'poison', 'Rock', 'Steel'],
+    weaknesses: ['ice', 'Grass', 'Water'],
+    immunities: ['electric'],
   },
   [PokemonTypeEnum.Steel]: {
-    advantages: ['Fairy', 'Ice', 'Rock'],
-    weaknesses: ['Fighting', 'Fire', 'Ground'],
-    immunities: ['Poison'],
+    advantages: ['fairy', 'ice', 'rock'],
+    weaknesses: ['fighting', 'fire', 'ground'],
+    immunities: ['poison'],
   },
   [PokemonTypeEnum.Fighting]: {
-    advantages: ['Dark', 'Ice', 'Normal', 'Rock', 'Steel'],
-    weaknesses: ['Fairy', 'Flying', 'Psychic'],
+    advantages: ['dark', 'ice', 'normal', 'rock', 'steel'],
+    weaknesses: ['fairy', 'flying', 'psychic'],
     immunities: [],
   },
   [PokemonTypeEnum.Dark]: {
-    advantages: ['Ghost', 'Psychic'],
-    weaknesses: ['Bug', 'Fairy', 'Fighting'],
-    immunities: ['Psychic'],
+    advantages: ['ghost', 'psychic'],
+    weaknesses: ['bug', 'fairy', 'fighting'],
+    immunities: ['psychic'],
   },
   [PokemonTypeEnum.Psychic]: {
-    advantages: ['Fighting', 'Poison'],
-    weaknesses: ['Bug', 'Dark', 'Ghost'],
+    advantages: ['fighting', 'poison'],
+    weaknesses: ['bug', 'dark', 'ghost'],
     immunities: [],
   },
   [PokemonTypeEnum.Poison]: {
-    advantages: ['Fairy', 'Grass'],
-    weaknesses: ['Ground', 'Psychic'],
+    advantages: ['fairy', 'grass'],
+    weaknesses: ['ground', 'psychic'],
     immunities: [],
   },
   [PokemonTypeEnum.Bug]: {
-    advantages: ['Dark', 'Grass', 'Psychic'],
-    weaknesses: ['Fire', 'Flying', 'Rock'],
+    advantages: ['dark', 'grass', 'psychic'],
+    weaknesses: ['fire', 'flying', 'rock'],
     immunities: [],
   },
   [PokemonTypeEnum.Fairy]: {
-    advantages: ['Dark', 'Dragon', 'Fighting'],
-    weaknesses: ['Poison', 'Steel'],
-    immunities: ['Dragon'],
+    advantages: ['dark', 'dragon', 'fighting'],
+    weaknesses: ['poison', 'steel'],
+    immunities: ['dragon'],
   },
   [PokemonTypeEnum.Ghost]: {
-    advantages: ['Ghost', 'Psychic'],
-    weaknesses: ['Dark', 'Ghost'],
-    immunities: ['Normal', 'Fighting'],
+    advantages: ['ghost', 'psychic'],
+    weaknesses: ['dark', 'ghost'],
+    immunities: ['normal', 'fighting'],
   },
   [PokemonTypeEnum.Dragon]: {
-    advantages: ['Dragon'],
-    weaknesses: ['Dragon', 'Fairy', 'Ice'],
+    advantages: ['dragon'],
+    weaknesses: ['dragon', 'fairy', 'ice'],
     immunities: [],
   },
 };
 
-export function getPokemonEffectiveness(
-  typesName: PokemonTypeEnum[],
-): string[] {
+export function getPokemonEffectiveness(typesName: PokemonTypeEnum[]): string {
   const pokemonEffectivenessTypes = typesName.map(typeName => {
     return pokemonEffectiveness[typeName];
   });
 
-  const effectiveness = pokemonEffectivenessTypes.map(infos => {
+  const adaptedEffectiveness: string[] = [];
+
+  pokemonEffectivenessTypes.map((infos, index) => {
+    const type = getTranslationType(typesName[index]);
+    const advantages = infos.advantages.map(adv => getTranslationType(adv));
+    const weaknesses = infos.weaknesses.map(wek => getTranslationType(wek));
+
     const advantagesText =
       infos?.advantages && infos?.advantages?.length > 0
-        ? `are strong against pokémon of type ${infos.advantages.join(', ')}`
-        : 'do not have advantages against any type of Pokémon';
+        ? `são fortes contra pokémons do tipo ${advantages.join(', ')}`
+        : 'não tem vantagens contra nenhum tipo de Pokémon';
 
     const weaknessesText =
       infos?.weaknesses && infos?.weaknesses?.length > 0
-        ? `are weak against pokémon of type ${infos.weaknesses.join(', ')}`
-        : 'do not have weaknesses against any type of pokémon';
+        ? `são fracos contra pokémons do tipo ${weaknesses.join(', ')}`
+        : 'não tem desvantagens contra nenhum tipo de Pokémon';
 
-    const secondTypeEffectiveness =
-      typesName.length > 1
-        ? `Pokémon of type ${typesName[1]} ${advantagesText} and ${weaknessesText}`
-        : '';
-
-    return `Pokémon of type ${typesName[0]} ${advantagesText} and ${weaknessesText}. ${secondTypeEffectiveness}`;
+    adaptedEffectiveness.push(
+      `Pokémons do tipo ${type} ${advantagesText} e ${weaknessesText}.`,
+    );
   });
 
+  const effectiveness = adaptedEffectiveness.join(' ');
+
   return effectiveness;
+}
+
+function getTranslationType(typeName: string): string {
+  switch (true) {
+    case typeName === 'grass':
+      return 'planta';
+    case typeName === 'fire':
+      return 'fogo';
+    case typeName === 'water':
+      return 'água';
+    case typeName === 'electric':
+      return 'elétrico';
+    case typeName === 'flying':
+      return 'voador';
+    case typeName === 'rock':
+      return 'pedra';
+    case typeName === 'ground':
+      return 'terrestre';
+    case typeName === 'steel':
+      return 'aço';
+    case typeName === 'fighting':
+      return 'lutador';
+    case typeName === 'dark':
+      return 'sombrio';
+    case typeName === 'psychic':
+      return 'psíquico';
+    case typeName === 'poison':
+      return 'venenoso';
+    case typeName === 'bug':
+      return 'inseto';
+    case typeName === 'fairy':
+      return 'fada';
+    case typeName === 'ghost':
+      return 'fantasma';
+    case typeName === 'dragon':
+      return 'dragão';
+    case typeName === 'ice':
+      return 'gelo';
+
+    default:
+      return 'normal';
+  }
 }
