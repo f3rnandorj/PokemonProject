@@ -72,7 +72,7 @@ export const palette = {
   white: '#FFFFFF',
 };
 
-const theme = createTheme({
+export const theme = createTheme({
   colors: {
     ...palette,
     background: palette.white,
@@ -137,4 +137,3 @@ export const $shadowProps: ViewStyle = {
 
 export type Theme = typeof theme;
 export type ThemeColors = keyof Theme['colors'];
-export default theme;

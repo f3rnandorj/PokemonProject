@@ -8,7 +8,7 @@ import { $shadowProps, ThemeColors } from '@theme';
 import { LastEvolutionButton } from './components/LastEvolutionButton';
 import { NextEvolutionButton } from './components/NextEvolutionButton';
 
-export type PokemonEvolutionProps = Omit<PokemonEvolutions, 'hasEvolution'> & {
+export type PokemonEvolutionProps = PokemonEvolutions & {
   usage: 'searchScreen' | 'detailsScreen';
   avatarURL?: Pokemon['avatarURL'];
   colorOfPokemon: ThemeColors;

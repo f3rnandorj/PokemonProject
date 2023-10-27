@@ -8,6 +8,35 @@ import {
 const GENDER_RATE_CALCULATE = 8;
 const PERCENT = 100;
 
+const errorNames = [
+  'deoxys-normal',
+  'wormadam-plant',
+  'giratina-altered',
+  'shaymin-land',
+  'basculin-red-striped',
+  'darmanitan-standard',
+  'tornadus-incarnate',
+  'thundurus-incarnate',
+  'landorus-incarnate',
+  'keldeo-ordinary',
+  'meloetta-aria',
+  'meowstic-male',
+  'aegislash-shield',
+  'pumpkaboo-average',
+  'gourgeist-average',
+  'zygarde-50',
+  'oricorio-baile',
+  'lycanroc-midday',
+  'wishiwashi-solo',
+  'minior-red-meteor',
+  'mimikyu-disguised',
+  'toxtricity-amped',
+  'eiscue-ice',
+  'indeedee-male',
+  'morpeko-full-belly',
+  'urshifu-single-strike',
+];
+
 function areEqualNames(name1: string, name2: string) {
   name1 = name1.toLowerCase();
   name2 = name2.toLowerCase();
@@ -19,6 +48,7 @@ function getEvolutionsChain(
   pokemon: PokemonEvolutionsApi,
   pokemonName: Pokemon['name'],
 ): PokemonEvolutions {
+  console.log('ok');
   let hasEvolution = false;
   let hasLastEvolution = false;
   let hasNextEvolution = false;
@@ -124,35 +154,6 @@ function transferWeightToKg(weight: Pokemon['weight']): number {
 }
 
 function removePokemonsWithoutDetails(names: string[]): string[] {
-  const errorNames = [
-    'deoxys-normal',
-    'wormadam-plant',
-    'giratina-altered',
-    'shaymin-land',
-    'basculin-red-striped',
-    'darmanitan-standard',
-    'tornadus-incarnate',
-    'thundurus-incarnate',
-    'landorus-incarnate',
-    'keldeo-ordinary',
-    'meloetta-aria',
-    'meowstic-male',
-    'aegislash-shield',
-    'pumpkaboo-average',
-    'gourgeist-average',
-    'zygarde-50',
-    'oricorio-baile',
-    'lycanroc-midday',
-    'wishiwashi-solo',
-    'minior-red-meteor',
-    'mimikyu-disguised',
-    'toxtricity-amped',
-    'eiscue-ice',
-    'indeedee-male',
-    'morpeko-full-belly',
-    'urshifu-single-strike',
-  ];
-
   return names.filter(name => !errorNames.includes(name));
 }
 
@@ -192,4 +193,5 @@ export const pokemonUtils = {
   transferWeightToKg,
   removePokemonsWithoutDetails,
   adapterSomeNamesToUrlOfGif,
+  errorNames,
 };

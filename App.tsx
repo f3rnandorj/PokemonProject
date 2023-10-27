@@ -7,7 +7,7 @@ import { Toast } from '@components';
 import { Routes } from '@routes';
 import { AppProvider, initializeStorage, MMKVStorage } from '@services';
 
-import theme from './src/theme/theme';
+import { theme } from './src/theme/theme';
 import './src/translate/i18nConfig';
 
 const queryClient = new QueryClient();

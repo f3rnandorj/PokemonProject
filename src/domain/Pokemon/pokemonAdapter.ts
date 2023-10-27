@@ -12,8 +12,8 @@ import {
   calculateGender,
   getPokemonEffectiveness,
   PokemonTypeEnum,
+  pokemonUtils,
 } from './utils';
-import { pokemonUtils } from './utils/pokemonUtils';
 
 const MEW_ID = 151;
 

@@ -54,6 +54,7 @@ async function getDetailsOfPokemons(
   const pokemonEvolutions = await pokemonApi.getEvolutionsOfPokemon(
     pokemonMoreDetails.evolution_chain.url,
   );
+  console.log(pokemonMoreDetails.evolution_chain.url);
 
   return {
     pokemonBasicDetails: pokemonAdapter.toPokemon(pokemonBasicDetails),
