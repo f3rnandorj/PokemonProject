@@ -1,5 +1,6 @@
-import { pokemonUtilsMocks } from '../../../../test/mocks/pokemonUtilsMocks';
 import { pokemonUtils } from '../pokemonUtils';
+
+import { pokemonUtilsMocks } from './mockedData/pokemonUtilsMocks';
 
 describe('pokemonUtils', () => {
   describe('areEqualNames', () => {

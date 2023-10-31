@@ -18,12 +18,10 @@ function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <AppProvider>
-        <AppProvider>
-          <ThemeProvider theme={theme}>
-            <Routes />
-            <Toast />
-          </ThemeProvider>
-        </AppProvider>
+        <ThemeProvider theme={theme}>
+          <Routes />
+          <Toast />
+        </ThemeProvider>
       </AppProvider>
     </QueryClientProvider>
   );

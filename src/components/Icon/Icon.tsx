@@ -37,6 +37,7 @@ export function Icon({
   if (onPress) {
     return (
       <TouchableOpacityBox
+        testID={name}
         hitSlop={10}
         onPress={onPress}
         {...touchableOpacityBoxProps}>
@@ -51,6 +52,7 @@ export function Icon({
 
   return (
     <SvgIcon
+      testID={name}
       width={width}
       height={height}
       style={{ color: colors[color] } as StyleProp<ViewStyle>}
@@ -64,8 +66,8 @@ const iconName = {
   ruleIcon: Rule,
   weightIcon: Weight,
   leftArrowIcon: LeftArrow,
-  ArrowUp,
-  ArrowDown,
+  ArrowUp: ArrowUp,
+  ArrowDown: ArrowDown,
   successIcon: CheckRound,
   errorIcon: ErrorRound,
 };

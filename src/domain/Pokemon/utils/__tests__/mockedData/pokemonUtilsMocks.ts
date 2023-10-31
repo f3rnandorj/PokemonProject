@@ -1,4 +1,4 @@
-import { pokemonUtils } from '../../domain/Pokemon/utils/pokemonUtils';
+import { pokemonUtils } from '../../pokemonUtils';
 
 const pokemonEvolutionMockTyrogue = {
   baby_trigger_item: null,

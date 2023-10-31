@@ -48,7 +48,6 @@ function getEvolutionsChain(
   pokemon: PokemonEvolutionsApi,
   pokemonName: Pokemon['name'],
 ): PokemonEvolutions {
-  console.log('ok');
   let hasEvolution = false;
   let hasLastEvolution = false;
   let hasNextEvolution = false;

@@ -86,7 +86,6 @@ export function SearchPokemonScreen() {
     <TouchableWithoutFeedback
       disabled={!isDropDownOpen || !!pokemonSuggestionName}
       onPressOut={() => {
-        console.log('jkkkk');
         handleInputBlur();
       }}>
       <Screen isKeyboardAvoidingViewEnabled={false}>
