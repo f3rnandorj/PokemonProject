@@ -24,7 +24,7 @@ async function getListOfAllPokemonNames(): Promise<Pokemon['name'][]> {
 
 async function getListOfPokemons(page: number): Promise<Page<Pokemon>> {
   const listPokemonNames = await pokemonApi.getPokemonNamesList({
-    page: page * POKEMONS_PER_PAGE,
+    page: page === 1 ? 0 : page * POKEMONS_PER_PAGE,
     per_page: POKEMONS_PER_PAGE,
   });
 

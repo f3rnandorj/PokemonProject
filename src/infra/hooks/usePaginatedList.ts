@@ -24,11 +24,11 @@ export function usePaginatedList<Data>(
 
   const query = useInfiniteQuery({
     queryKey,
-    queryFn: ({ pageParam = 0 }) => getList(pageParam),
+    queryFn: ({ pageParam = 1 }) => getList(pageParam),
     getNextPageParam: ({ meta }) =>
       meta.currentPage < POKEMONS_TESTED_ON_API / POKEMONS_PER_PAGE
         ? meta.currentPage + 1
-        : null,
+        : undefined,
     retry: false,
   });
 
@@ -42,8 +42,8 @@ export function usePaginatedList<Data>(
     }
   }, [query.data]);
 
-  const isError = netInfo.isConnected === false || query.isError;
-  const listValue = netInfo.isConnected === false ? [] : list;
+  const isError = netInfo?.isConnected === false || query.isError;
+  const listValue = netInfo?.isConnected === false ? [] : list;
 
   return {
     list: listValue,
