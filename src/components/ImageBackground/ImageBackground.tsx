@@ -18,6 +18,7 @@ export function ImageBackGround({
 }: Props) {
   return (
     <Box
+      testID="image-background"
       height={'100%'}
       opacity={0.6}
       position="absolute"

@@ -2,7 +2,7 @@ export interface MetaDataPage {
   count: number;
   next: string;
   currentPage: number;
-  previous: string;
+  previous: string | null;
 }
 
 export interface Page<Data> {

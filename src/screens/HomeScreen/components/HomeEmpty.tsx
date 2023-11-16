@@ -16,6 +16,7 @@ export function HomeEmpty({ error, loading }: Props) {
   if (error) {
     return (
       <Box
+        testID="home-empty-is-error"
         flex={1}
         justifyContent="center"
         alignItems="center"
@@ -35,6 +36,7 @@ export function HomeEmpty({ error, loading }: Props) {
   if (loading) {
     return (
       <Box
+        testID="home-empty-is-loading"
         flex={1}
         justifyContent="center"
         alignItems="center"

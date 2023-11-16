@@ -13,12 +13,11 @@ const config: Config = {
   },
   modulePathIgnorePatterns: ['.*/mockedData/.*'],
   collectCoverageFrom: [
-    'src/domain/Pokemon/utils/**/*.{js,jsx,ts,tsx}',
-    'src/{components,utils}/**/*.{js,jsx,ts,tsx}',
+    'src/{components,domain/Pokemon/utils,screens}/**/*.{js,jsx,ts,tsx}',
   ],
   coveragePathIgnorePatterns: ['/node_modules/', 'index'],
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-reanimated?|react-native-safe-area-context)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-reanimated?|react-native-safe-area-context?|react-native-orientation-locker?|@react-navigation)/)',
   ],
 };
 

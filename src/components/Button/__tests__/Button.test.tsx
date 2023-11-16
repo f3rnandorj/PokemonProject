@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from 'test-utils';
+import { act, fireEvent, render, screen } from 'test-utils';
 
 import { Button, ButtonProps } from '../Button';
 
@@ -25,7 +25,9 @@ describe('<Button />', () => {
       onPress: mockedOnPress,
     });
 
-    fireEvent.press(titleElement!);
+    act(() => {
+      fireEvent.press(titleElement!);
+    });
 
     expect(mockedOnPress).toHaveBeenCalled();
     expect(loadingElement).toBeFalsy();
@@ -37,7 +39,9 @@ describe('<Button />', () => {
       disabled: true,
     });
 
-    fireEvent.press(titleElement!);
+    act(() => {
+      fireEvent.press(titleElement!);
+    });
 
     expect(mockedOnPress).not.toHaveBeenCalled();
   });
@@ -56,7 +60,9 @@ describe('<Button />', () => {
       const mockedOnPress = jest.fn();
       const { buttonElement } = renderComponent({ loading: true });
 
-      fireEvent.press(buttonElement);
+      act(() => {
+        fireEvent.press(buttonElement!);
+      });
 
       expect(mockedOnPress).not.toHaveBeenCalled();
     });

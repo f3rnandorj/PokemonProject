@@ -9,6 +9,7 @@ function Loading() {
 
   return (
     <Box
+      testID="loading-data"
       flex={1}
       mt="ns40"
       justifyContent="center"

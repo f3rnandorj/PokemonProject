@@ -61,6 +61,7 @@ export function HomeList({
   function renderItem({ item, index }: ListRenderItemInfo<Pokemon>) {
     return (
       <MemoPokemonCard
+        testID="memo-pokemon-card"
         pokemon={item}
         index={index}
         onPress={() => handleOpenPokemonDetails(item)}

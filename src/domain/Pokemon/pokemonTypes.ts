@@ -72,6 +72,7 @@ export interface PokemonApi {
   moves: Mfe[];
   name: string;
   order: number;
+  past_abilities: any[];
   past_types: any[];
   species: Species;
   sprites: Sprites;
