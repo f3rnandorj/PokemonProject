@@ -25,12 +25,14 @@ export function useTextInput({
   const { isConnected } = useNetInfo();
 
   function handleInputFocus() {
+    console.log('focus');
     setIsFocused(true);
     setIsDropDownOpen(true);
     inputRef?.current?.focus();
   }
 
   function handleInputBlur() {
+    console.log('blur');
     setIsDropDownOpen(false);
     setIsFocused(false);
     setIsFilled(!!value);

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  TouchableWithoutFeedback,
   TextInput as RNTextInput,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 import { useNetInfo } from '@react-native-community/netinfo';
@@ -85,56 +85,50 @@ export function SearchPokemonScreen() {
   return (
     <TouchableWithoutFeedback
       disabled={!isDropDownOpen}
-      onPressOut={() => handleInputBlur()}>
+      onPress={handleInputBlur}>
       <Screen isKeyboardAvoidingViewEnabled={false}>
         <Header title="Localize 🔍" subTitle="Qual seu pokémon favorito?" />
 
         <Box flex={1}>
-          <TextInput
-            key={textInputKey}
-            ref={inputRef}
-            onLayout={onLayoutInput}
-            value={pokemonSuggestionName}
-            onChangeText={setPokemonSuggestionName}
-            placeholder="Encontre seu pokémon..."
-            isDropDownOpen={isDropDownOpen}
-            handleInputBlur={handleInputBlur}
-            handleInputFocus={handleInputFocus}
-            handleOnPressIcon={handleOnPressIcon}
-            isFilled={isFilled}
-            isFocused={isFocused}
-          />
+          <Box flex={1} style={{ marginTop: positionY + 10 }}>
+            <SearchPokemonShowDetails
+              isError={isError}
+              isLoading={isLoading}
+              isInitialLoading={isInitialLoading}
+              fetchEvolutionPokemonDetails={handleSetPokemon}
+              pokemonBasicDetailsData={pokemonBasicDetailsData}
+              pokemonDetailsData={pokemonDetailsData}
+              pokemonEvolutionsData={pokemonEvolutionsData}
+              pokemon={pokemon}
+              setPokemonName={handleSetPokemon}
+            />
+          </Box>
 
-          <TouchableWithoutFeedback
-            disabled={!isDropDownOpen}
-            onPressOut={() => handleInputBlur()}>
-            <Box flex={1}>
-              <SearchPokemonShowDetails
-                isError={isError}
-                isLoading={isLoading}
-                isInitialLoading={isInitialLoading}
-                fetchEvolutionPokemonDetails={handleSetPokemon}
-                pokemonBasicDetailsData={pokemonBasicDetailsData}
-                pokemonDetailsData={pokemonDetailsData}
-                pokemonEvolutionsData={pokemonEvolutionsData}
-                pokemon={pokemon}
+          <Box {...$textInputDropBox}>
+            <TextInput
+              key={textInputKey}
+              ref={inputRef}
+              onLayout={onLayoutInput}
+              value={pokemonSuggestionName}
+              onChangeText={setPokemonSuggestionName}
+              placeholder="Encontre seu pokémon..."
+              isDropDownOpen={isDropDownOpen}
+              handleInputBlur={handleInputBlur}
+              handleInputFocus={handleInputFocus}
+              handleOnPressIcon={handleOnPressIcon}
+              isFilled={isFilled}
+              isFocused={isFocused}
+            />
+            {isDropDownOpen && (
+              <TextInputDropBox
+                initialDropBoxValue={pokemonNamesList}
+                value={pokemonSuggestionName}
                 setPokemonName={handleSetPokemon}
+                width={width}
+                closeDropBoxOnChoose={handleInputBlur}
               />
-
-              {isDropDownOpen && (
-                <Box {...$textInputDropBox}>
-                  <TextInputDropBox
-                    initialDropBoxValue={pokemonNamesList}
-                    value={pokemonSuggestionName}
-                    setPokemonName={handleSetPokemon}
-                    positionY={positionY}
-                    width={width}
-                    closeDropBoxOnChoose={handleInputBlur}
-                  />
-                </Box>
-              )}
-            </Box>
-          </TouchableWithoutFeedback>
+            )}
+          </Box>
         </Box>
       </Screen>
     </TouchableWithoutFeedback>
@@ -145,7 +139,7 @@ const $textInputDropBox: BoxProps = {
   height: '100%',
   zIndex: 1,
   position: 'absolute',
-  top: -60,
+  top: 0,
   right: 0,
   left: 0,
 };

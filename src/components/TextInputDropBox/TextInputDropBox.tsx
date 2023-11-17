@@ -6,7 +6,6 @@ import { Pokemon } from '@domain';
 import { useAppTheme } from '@hooks';
 
 interface Props {
-  positionY: number;
   width: number;
   setPokemonName: (name: Pokemon['name']) => void;
   value: string | undefined;
@@ -15,7 +14,6 @@ interface Props {
 }
 
 export function TextInputDropBox({
-  positionY,
   width,
   setPokemonName,
   value,
@@ -51,7 +49,7 @@ export function TextInputDropBox({
   }
 
   return (
-    <Box {...$listWrapper} top={positionY} width={width}>
+    <Box {...$listWrapper} width={width}>
       <FlatList
         data={suggestionList}
         keyExtractor={item => item}
