@@ -84,10 +84,8 @@ export function SearchPokemonScreen() {
 
   return (
     <TouchableWithoutFeedback
-      disabled={!isDropDownOpen || !!pokemonSuggestionName}
-      onPressOut={() => {
-        handleInputBlur();
-      }}>
+      disabled={!isDropDownOpen}
+      onPressOut={() => handleInputBlur()}>
       <Screen isKeyboardAvoidingViewEnabled={false}>
         <Header title="Localize 🔍" subTitle="Qual seu pokémon favorito?" />
 
@@ -107,30 +105,36 @@ export function SearchPokemonScreen() {
             isFocused={isFocused}
           />
 
-          <SearchPokemonShowDetails
-            isError={isError}
-            isLoading={isLoading}
-            isInitialLoading={isInitialLoading}
-            fetchEvolutionPokemonDetails={handleSetPokemon}
-            pokemonBasicDetailsData={pokemonBasicDetailsData}
-            pokemonDetailsData={pokemonDetailsData}
-            pokemonEvolutionsData={pokemonEvolutionsData}
-            pokemon={pokemon}
-            setPokemonName={handleSetPokemon}
-          />
-
-          {isDropDownOpen && (
-            <Box {...$textInputDropBox}>
-              <TextInputDropBox
-                initialDropBoxValue={pokemonNamesList}
-                value={pokemonSuggestionName}
+          <TouchableWithoutFeedback
+            disabled={!isDropDownOpen}
+            onPressOut={() => handleInputBlur()}>
+            <Box flex={1}>
+              <SearchPokemonShowDetails
+                isError={isError}
+                isLoading={isLoading}
+                isInitialLoading={isInitialLoading}
+                fetchEvolutionPokemonDetails={handleSetPokemon}
+                pokemonBasicDetailsData={pokemonBasicDetailsData}
+                pokemonDetailsData={pokemonDetailsData}
+                pokemonEvolutionsData={pokemonEvolutionsData}
+                pokemon={pokemon}
                 setPokemonName={handleSetPokemon}
-                positionY={positionY}
-                width={width}
-                closeDropBoxOnChoose={handleInputBlur}
               />
+
+              {isDropDownOpen && (
+                <Box {...$textInputDropBox}>
+                  <TextInputDropBox
+                    initialDropBoxValue={pokemonNamesList}
+                    value={pokemonSuggestionName}
+                    setPokemonName={handleSetPokemon}
+                    positionY={positionY}
+                    width={width}
+                    closeDropBoxOnChoose={handleInputBlur}
+                  />
+                </Box>
+              )}
             </Box>
-          )}
+          </TouchableWithoutFeedback>
         </Box>
       </Screen>
     </TouchableWithoutFeedback>
@@ -141,7 +145,7 @@ const $textInputDropBox: BoxProps = {
   height: '100%',
   zIndex: 1,
   position: 'absolute',
-  top: 10,
+  top: -60,
   right: 0,
   left: 0,
 };

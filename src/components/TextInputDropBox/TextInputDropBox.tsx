@@ -24,7 +24,7 @@ export function TextInputDropBox({
 }: Props) {
   if (!initialDropBoxValue) {
     throw new Error(
-      'You must use useTextInputDropBox locate on @hooks to pass required parameters!',
+      'You must use useTextInputDropBox located on @hooks to pass required parameters!',
     );
   }
 

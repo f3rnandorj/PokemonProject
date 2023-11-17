@@ -46,7 +46,7 @@ function Input(
 ) {
   if (!handleInputBlur || !handleInputBlur || !handleInputFocus) {
     throw new Error(
-      'You must use useTextInput locate on @hooks to pass required parameters!',
+      'You must use useTextInput located on @hooks to pass required parameters!',
     );
   }
 
