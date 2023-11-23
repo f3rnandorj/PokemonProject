@@ -104,7 +104,7 @@ export function SearchPokemonScreen() {
             />
           </Box>
 
-          <Box {...$textInputDropBox}>
+          <Box {...$textInput}>
             <TextInput
               key={textInputKey}
               ref={inputRef}
@@ -119,7 +119,10 @@ export function SearchPokemonScreen() {
               isFilled={isFilled}
               isFocused={isFocused}
             />
-            {isDropDownOpen && (
+          </Box>
+
+          {isDropDownOpen && (
+            <Box {...$textInputDropBox}>
               <TextInputDropBox
                 initialDropBoxValue={pokemonNamesList}
                 value={pokemonSuggestionName}
@@ -127,19 +130,28 @@ export function SearchPokemonScreen() {
                 width={width}
                 closeDropBoxOnChoose={handleInputBlur}
               />
-            )}
-          </Box>
+            </Box>
+          )}
         </Box>
       </Screen>
     </TouchableWithoutFeedback>
   );
 }
 
+const $textInput: BoxProps = {
+  height: 95,
+  zIndex: 1,
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  left: 0,
+};
+
 const $textInputDropBox: BoxProps = {
   height: '100%',
   zIndex: 1,
   position: 'absolute',
-  top: 0,
+  top: 70,
   right: 0,
   left: 0,
 };
