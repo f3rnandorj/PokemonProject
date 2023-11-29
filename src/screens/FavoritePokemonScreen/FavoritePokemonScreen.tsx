@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import Orientation from 'react-native-orientation-locker';
 
 import {
   Screen,
@@ -46,14 +45,6 @@ export function FavoritePokemonScreen({
     getAllFavoritePokemons();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFavoritePokemons?.length]);
-
-  useEffect(() => {
-    Orientation.lockToPortrait();
-
-    return () => {
-      Orientation.unlockAllOrientations();
-    };
-  }, []);
 
   return (
     <Screen>

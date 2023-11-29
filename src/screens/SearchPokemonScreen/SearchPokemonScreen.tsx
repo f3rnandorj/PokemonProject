@@ -6,7 +6,6 @@ import {
 
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useFocusEffect } from '@react-navigation/native';
-import Orientation from 'react-native-orientation-locker';
 
 import {
   Screen,
@@ -73,14 +72,6 @@ export function SearchPokemonScreen() {
     setTextInputKey(prev => prev + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
-
-  useEffect(() => {
-    Orientation.lockToPortrait();
-
-    return () => {
-      Orientation.unlockAllOrientations();
-    };
-  }, []);
 
   return (
     <TouchableWithoutFeedback

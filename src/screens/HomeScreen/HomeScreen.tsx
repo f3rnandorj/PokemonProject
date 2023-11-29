@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 
 import { useNetInfo } from '@react-native-community/netinfo';
-import Orientation from 'react-native-orientation-locker';
 
 import {
   Screen,
@@ -41,14 +40,6 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
           type: 'error',
         });
   }
-
-  useEffect(() => {
-    Orientation.lockToPortrait();
-
-    return () => {
-      Orientation.unlockAllOrientations();
-    };
-  }, []);
 
   useEffect(() => {
     handleFetchNextPage();

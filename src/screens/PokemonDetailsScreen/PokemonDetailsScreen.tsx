@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ImageStyle, StyleProp } from 'react-native';
 
-import Orientation from 'react-native-orientation-locker';
-
 import {
   Box,
   Screen,
@@ -53,14 +51,6 @@ export function PokemonDetailsScreen({
     getFavoritePokemonById(pokemonBasicDetailsData?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemonBasicDetailsData?.id]);
-
-  useEffect(() => {
-    Orientation.lockToPortrait();
-
-    return () => {
-      Orientation.unlockAllOrientations();
-    };
-  }, []);
 
   if (error) {
     navigation.goBack();
