@@ -20,6 +20,7 @@ export function PokemonNamesProvider({ children }: PropsWithChildren) {
     isLoading,
     refetch,
   } = usePokemonNamesData();
+
   const [pokemonNamesList, setPokemonNamesList] = useState<string[]>([]);
 
   function getClearPokemonNames() {
